@@ -2,19 +2,13 @@
 
 [![npm version](https://img.shields.io/npm/v/@smogon/calc.svg)](https://www.npmjs.com/package/@smogon/calc)&nbsp;
 
-Damage calculator for Pokemon Sweltering Sun, a ROM Hack by [Dooz](https://www.youtube.com/@doozsromhacks)
+Damage calculator for Pokemon Sweltering Sun Remix, a ROM Hack by [Dooz](https://www.youtube.com/@doozromhacks)
 
 To use this calculator:
-* Online: go to [this link](https://darkshinygiratina.github.io/Sweltering-Sun-Damage-Calc/dist/index.html?gen=7)
+* Online: go to [this link](https://darkshinygiratina.github.io/Sweltering-Sun-Damage-Calc/dist/index.html?gen=7) (Dooz change this later)
 * Offline: download the repository as a zip (or clone it), and open the `index.html` file in the `dist` directory.
     * **NOTE: To ensure everything is properly set up, make sure to click the S/M button before doing any calculations.**
 
-
-
-
-## Credits
-- Everything except the moves in Sweltering Sun were done by DSG
-- The moves were done by Hyde
 
 ## Crediting the Original Creators
 The original Showdown damage calc project was created by Honko and is primarily maintained by Austin.
