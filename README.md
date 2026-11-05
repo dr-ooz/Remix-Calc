@@ -4,7 +4,7 @@
 
 Damage calculator for Pokemon Sweltering Sun Remix, a ROM Hack by [Dooz](https://www.youtube.com/@doozromhacks)
 
-Based on DSG's [original Sweltering Sun calc](https://github.com/DarkShinyGiratina/Sweltering-Sun-Damage-Calc).
+Based on DSG's original Sweltering Sun calc.
 
 To use this calculator:
 * Online: go to [this link](https://dr-ooz.github.io/Sweltering-Sun-Remix-Calc/dist/index.html?gen=7)
