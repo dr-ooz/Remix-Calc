@@ -402,15 +402,16 @@ const XY: TypeChart = extend(true, {}, GSC, {
   },
 });
 
+// Sweltering Sun Remix type chart changes (attacking type: {defending type: multiplier})
 const SM = extend(true, {}, XY, {
   Bug: {
     Fairy: 1,
     Ghost: 1,
-    Fighting: 1
+    Fighting: 1,
+    Rock: 0.5, // Rock resists Bug
   },
-  Ground: {Ice: 0.5},
-  Flying: {Ice: 0.5},
-  Dragon: {Ice: 0.5}
+  Poison: {Water: 2}, // Poison is super effective on Water
+  Ice: {Ice: 0}, // Ice is immune to Ice (its only defensive change)
 });
 
 const SS = SM;

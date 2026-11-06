@@ -447,11 +447,11 @@ var SM = (0, util_1.extend)(true, {}, XY, {
     Bug: {
         Fairy: 1,
         Ghost: 1,
-        Fighting: 1
+        Fighting: 1,
+        Rock: 0.5
     },
-    Ground: { Ice: 0.5 },
-    Flying: { Ice: 0.5 },
-    Dragon: { Ice: 0.5 }
+    Poison: { Water: 2 },
+    Ice: { Ice: 0 }
 });
 var SS = SM;
 var SV = SS;

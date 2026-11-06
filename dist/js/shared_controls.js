@@ -684,13 +684,16 @@ function selectMovesFromRandomOptions(moves) {
 function showFormes(formeObj, pokemonName, pokemon, baseFormeName) {
 	var formes = pokemon.otherFormes.slice();
 	formes.unshift(baseFormeName);
+	if (typeof remixIsHidden === "function") {
+		formes = formes.filter(function (f) { return f === pokemonName || !remixIsHidden(f); });
+	}
 
 	var defaultForme = formes.indexOf(pokemonName);
 	if (defaultForme < 0) defaultForme = 0;
 
 	var formeOptions = getSelectOptions(formes, false, defaultForme);
 	formeObj.children("select").find("option").remove().end().append(formeOptions).change();
-	formeObj.show();
+	if (formes.length > 1) formeObj.show(); else formeObj.hide();
 }
 
 function setSelectValueIfValid(select, value, fallback) {
@@ -1105,7 +1108,8 @@ $(".gen").change(function () {
 	loadDefaultLists();
 	$(".gen-specific.g" + gen).show();
 	$(".gen-specific").not(".g" + gen).hide();
-	var typeOptions = getSelectOptions(Object.keys(typeChart));
+	// Remix: no "???" type in the dropdowns.
+	var typeOptions = getSelectOptions(Object.keys(typeChart).filter(function (t) { return t !== "???"; }));
 	$("select.type1, select.move-type").find("option").remove().end().append(typeOptions);
 	$("select.teraType").find("option").remove().end().append(getSelectOptions(Object.keys(typeChart).slice(1)));
 	$("select.type2").find("option").remove().end().append("<option value=\"\">(none)</option>" + typeOptions);
@@ -1184,6 +1188,7 @@ function getSetOptions(sets) {
 	var setOptions = [];
 	for (var i = 0; i < pokeNames.length; i++) {
 		var pokeName = pokeNames[i];
+		if (typeof remixIsHidden === "function" && remixIsHidden(pokeName)) continue;
 		setOptions.push({
 			pokemon: pokeName,
 			text: pokeName

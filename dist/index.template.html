@@ -25,11 +25,27 @@
 </head>
 
 <body>
+<script>
+// Theme: dark by default; remembers the viewer's choice.
+(function () {
+    var light = false;
+    try { light = localStorage.getItem('remixTheme') === 'light'; } catch (e) {}
+    if (!light) document.body.classList.add('dark');
+})();
+function toggleTheme() {
+    var dark = document.body.classList.toggle('dark');
+    try { localStorage.setItem('remixTheme', dark ? 'dark' : 'light'); } catch (e) {}
+    document.getElementById('theme-toggle').innerHTML = dark ? '&#128161; Light mode' : '&#127769; Dark mode';
+}
+</script>
 
 <nav><div class="header"><div class="header-inner">
     <ul class="nav">
-        <li><a class="button nav-first" href="https://docs.google.com/spreadsheets/d/1cAU5pCfvg5OmhpT8oY2k280Z3qkf-DQ6WBi_XDq-wnc/edit?gid=127996286#gid=127996286"><img src="./img/RemixLogo.png" height="44px" alt="Sweltering Sun Remix" style="left: -240px; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);" /><img src="./img/Dooz.png" height="44px" alt="Dooz" style="filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);" /> The DoozDex</a></li>
-        <li><a class="button nav-last" href="https://discord.com/invite/Wz9UYFFZhn">Discord Server</a></li>
+        <li class="header-logo"><img src="./img/RemixLogo.png" height="36px" alt="Sweltering Sun Remix" style="right: 10px; top: -4px; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);" /></li>
+        <li><a class="button nav-first" href="https://docs.google.com/spreadsheets/d/1cAU5pCfvg5OmhpT8oY2k280Z3qkf-DQ6WBi_XDq-wnc/edit?gid=127996286#gid=127996286">The DoozDex</a></li>
+        <li><a class="button" href="https://discord.com/invite/Wz9UYFFZhn">Discord Server</a></li>
+        <li><a class="button nav-last" href="https://scrambled.darkshinygira.com/">Scrambled Scarlet Damage Calc</a></li>
+        <li class="header-logo"><img src="./img/Dooz.png" height="44px" alt="Dooz" style="left: 10px; top: -8px; filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);" /></li>
     </ul>
     <div style="clear:both"></div>
 </div></div></nav>
@@ -38,7 +54,7 @@
     
     <div aria-label="Settings" role="region">
         <span class="title-text main-title-text">Pok&eacute;mon Sweltering Sun Remix Damage Calculator</span>
-        <span class="genSelection" aria-labelledby="selectGenInstruction" role="radiogroup" title="Select the generation." style="margin-right: 15em;">
+        <span class="genSelection" aria-labelledby="selectGenInstruction" role="radiogroup" title="Select the generation." style="display: none;">
             <span class="visually-hidden" id="selectGenInstruction">Select the generation.</span>
             <input class="gen visually-hidden" type="radio" name="gen" value="1" id="gen1" />
             <input class="gen visually-hidden" type="radio" name="gen" value="2" id="gen2" />
@@ -50,12 +66,22 @@
 			   <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" />
             <input class="gen visually-hidden" type="radio" name="gen" value="9" id="gen9" />
         </span>
-        <span class="notationSelection" aria-labelledby="selectNotationInstruction" role="radiogroup" title="Select the output notation.">
-            <span class="visually-hidden" id="selectNotationInstruction">Select the output notation.</span>
-            <input class="notation visually-hidden" type="radio" name="notation" id="pixels" value="px" /><label class="btn btn-small btn-left" for="pixels">48th</label>
-            <input class="notation visually-hidden" type="radio" name="notation" id="percentage" value="%" /><label class="btn btn-small btn-right" for="percentage">100%</label>
+        <span class="settings-row">
+        <span class="setting-group">
+            <span class="setting-label" id="selectNotationInstruction">Damage display</span>
+            <span class="notationSelection" aria-labelledby="selectNotationInstruction" role="radiogroup" title="Damage as HP-bar pixels (out of 48) or as a percentage.">
+                <input class="notation visually-hidden" type="radio" name="notation" id="pixels" value="px" /><label class="btn btn-left" for="pixels">Pixels</label>
+                <input class="notation visually-hidden" type="radio" name="notation" id="percentage" value="%" /><label class="btn btn-right" for="percentage">Percentage</label>
+            </span>
         </span>
-        <span class="modeSelection" aria-labelledby="selectModeInstruction" role="radiogroup" title="Select the calculator's mode of function.">
+        <span class="ui-toggles">
+        <button type="button" class="btn" id="theme-toggle" onclick="toggleTheme()">&#128161; Light mode</button>
+        <button type="button" class="btn" id="move-colors-toggle" onclick="remixToggleResultColors()">&#127912; Move colors: On</button>
+        <button type="button" class="btn" id="ko-text-toggle" onclick="remixToggleKOText()" title="Show or hide the KO chance text (e.g. &quot;guaranteed 2HKO&quot;) at the end of the result">&#127919; KO text: Shown</button>
+        </span>
+        </span>
+        <script>if (!document.body.classList.contains('dark')) document.getElementById('theme-toggle').innerHTML = '&#127769; Dark mode';</script>
+        <span class="modeSelection" style="display:none" aria-labelledby="selectModeInstruction" role="radiogroup" title="Select the calculator's mode of function.">
             <span class="visually-hidden" id="selectModeInstruction">Select the calculator's mode of function.</span>
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" checked="checked" /><label class="btn btn-left" for="one-vs-one">One vs One</label>
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-all" /><label class="btn btn-mid gen-specific g3 g4 g5 g6 g7 g8 g9" for="one-vs-all">One vs All</label>
@@ -128,10 +154,10 @@
             <legend align="center">Pok&eacute;mon 1</legend>
             <input type="text" class="set-selector calc-trigger" />
             <span id="importedSetsOptions" style="width:auto; display:none">
-                <input type="checkbox" id="importedSets" /> Only show imported sets <br />
-                <div style="display: flex !important;">
-                    <button class="pranks-buttons" id="clearThisSet">Delete this Set</button>
-                    <button class="pranks-buttons" id="clearSets" style="margin-left: auto;">Delete ALL Sets</button>
+                <div class="imported-sets-row">
+                    <span style="width: auto;"><input type="checkbox" id="importedSets" /> Only show imported sets</span>
+                    <button class="pranks-buttons" id="clearThisSet" style="margin-left: auto;">Delete this Set</button>
+                    <button class="pranks-buttons" id="clearSets">Delete ALL Sets</button>
                 </div>
             </span>
             <div class="info-group top">
@@ -139,7 +165,7 @@
                     <label>Type</label>
                     <select aria-label="type1" class="type1 terrain-trigger calc-trigger"></select>
                     <select aria-label="type2" class="type2 terrain-trigger calc-trigger"></select>
-                    <small class="right">(<a class="analysis" target="_blank" href="">Smogon&nbsp;analysis</a>)</small>
+                    <img class="remix-mini" alt="" src="" onerror="this.style.visibility='hidden'" />
                 </div>
                 <div class="gen-specific g9">
                     <label>Tera Type</label>
@@ -150,7 +176,37 @@
                     <label>Forme</label>
                     <select class="forme calc-trigger"></select>
                 </div>
-                <div class="hide">
+                <div class="gen-specific g3 g4 g5 g6 g7 g8 g9 nature-row">
+                    <label for="natureL1">Nature</label>
+                    <select class="nature calc-trigger" id="natureL1">
+                        <option value="Adamant">Adamant (+Atk, -SpA)</option>
+                        <option value="Bashful">Bashful</option>
+                        <option value="Bold">Bold (+Def, -Atk)</option>
+                        <option value="Brave">Brave (+Atk, -Spe)</option>
+                        <option value="Calm">Calm (+SpD, -Atk)</option>
+                        <option value="Careful">Careful (+SpD, -SpA)</option>
+                        <option value="Docile">Docile</option>
+                        <option value="Gentle">Gentle (+SpD, -Def)</option>
+                        <option value="Hardy" selected="selected">Hardy</option>
+                        <option value="Hasty">Hasty (+Spe, -Def)</option>
+                        <option value="Impish">Impish (+Def, -SpA)</option>
+                        <option value="Jolly">Jolly (+Spe, -SpA)</option>
+                        <option value="Lax">Lax (+Def, -SpD)</option>
+                        <option value="Lonely">Lonely (+Atk, -Def)</option>
+                        <option value="Mild">Mild (+SpA, -Def)</option>
+                        <option value="Modest">Modest (+SpA, -Atk)</option>
+                        <option value="Naive">Naive (+Spe, -SpD)</option>
+                        <option value="Naughty">Naughty (+Atk, -SpD)</option>
+                        <option value="Quiet">Quiet (+SpA, -Spe)</option>
+                        <option value="Quirky">Quirky</option>
+                        <option value="Rash">Rash (+SpA, -SpD)</option>
+                        <option value="Relaxed">Relaxed (+Def, -Spe)</option>
+                        <option value="Sassy">Sassy (+SpD, -Spe)</option>
+                        <option value="Serious">Serious</option>
+                        <option value="Timid">Timid (+Spe, -Atk)</option>
+                    </select>
+                </div>
+                <div class="hide gender-row">
                     <label>Gender</label>
                     <select class="gender calc-trigger"><option></option><option selected="selected">Male</option><option>Female</option></select>
                 </div>
@@ -424,36 +480,6 @@
             </div>
             <div class="info-group info-selectors">
                 <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
-                    <label for="natureL1">Nature</label>
-                    <select class="nature calc-trigger" id="natureL1">
-                        <option value="Adamant">Adamant (+Atk, -SpA)</option>
-                        <option value="Bashful">Bashful</option>
-                        <option value="Bold">Bold (+Def, -Atk)</option>
-                        <option value="Brave">Brave (+Atk, -Spe)</option>
-                        <option value="Calm">Calm (+SpD, -Atk)</option>
-                        <option value="Careful">Careful (+SpD, -SpA)</option>
-                        <option value="Docile">Docile</option>
-                        <option value="Gentle">Gentle (+SpD, -Def)</option>
-                        <option value="Hardy" selected="selected">Hardy</option>
-                        <option value="Hasty">Hasty (+Spe, -Def)</option>
-                        <option value="Impish">Impish (+Def, -SpA)</option>
-                        <option value="Jolly">Jolly (+Spe, -SpA)</option>
-                        <option value="Lax">Lax (+Def, -SpD)</option>
-                        <option value="Lonely">Lonely (+Atk, -Def)</option>
-                        <option value="Mild">Mild (+SpA, -Def)</option>
-                        <option value="Modest">Modest (+SpA, -Atk)</option>
-                        <option value="Naive">Naive (+Spe, -SpD)</option>
-                        <option value="Naughty">Naughty (+Atk, -SpD)</option>
-                        <option value="Quiet">Quiet (+SpA, -Spe)</option>
-                        <option value="Quirky">Quirky</option>
-                        <option value="Rash">Rash (+SpA, -SpD)</option>
-                        <option value="Relaxed">Relaxed (+Def, -Spe)</option>
-                        <option value="Sassy">Sassy (+SpD, -Spe)</option>
-                        <option value="Serious">Serious</option>
-                        <option value="Timid">Timid (+Spe, -Atk)</option>
-                    </select>
-                </div>
-                <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
                     <label for="abilityL1">Ability</label>
                     <select class="ability terrain-trigger calc-trigger" id="abilityL1"></select>
                     <input hidden type="checkbox" title= "Is this ability active?" class="abilityToggle calc-trigger">
@@ -673,10 +699,10 @@
                 </div>
                 <div aria-labelledby="selectTerrainInstruction" class="gen-specific g6 g7 g8 g9" role="group" title="Select the current terrain.">
                     <span class="visually-hidden" id="selectTerrainInstruction">Select the current terrain.</span>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Electric" id="electric" /><label class="btn btn-xxxwide btn-left" for="electric">Electric Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Grassy" id="grassy" /><label class="btn btn-xxxwide btn-mid" for="grassy">Grassy Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-xxxwide btn-right" for="misty">Misty Terrain</label>
-                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-mid" for="psychic">Psychic Terrain</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Electric" id="electric" /><label class="btn btn-xxxwide btn-tl" for="electric">Electric Terrain</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Grassy" id="grassy" /><label class="btn btn-xxxwide btn-tr" for="grassy">Grassy Terrain</label><br />
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Misty" id="misty" /><label class="btn btn-xxxwide btn-bl" for="misty">Misty Terrain</label>
+                    <input class="visually-hidden terrain-trigger calc-trigger" type="checkbox" name="terrain" value="Psychic" id="psychic" /><label class="btn btn-xxxwide btn-br" for="psychic">Psychic Terrain</label>
                 </div>
 					 <div aria-labelledby="selectRuinInstruction" class="gen-specific g9 format-specific doubles" role="group" style="margin: 5px auto auto;" title="Select the ruin abilities from other Pok&eacute;mon on the field.">
                     <span class="visually-hidden" id="selectRuinInstruction">Select the active Ruin abilities from other Poke&eacute;mon on the field.</span>
@@ -692,7 +718,7 @@
                 <hr class="gen-specific g6 g7 g8 g9" />
                 <div aria-labelledby="selectWeatherInstruction" role="radiogroup">
                     <span class="visually-hidden" id="selectWeatherInstruction">Select the current weather condition.</span>
-                    <div class="gen-specific g3 g4 g5 g6 g7 g8 hide" style="width: 22.2em; margin: 5px auto;" title="Select the current weather condition.">
+                    <div class="gen-specific g3 g4 g5 g6 g7 g8 hide" style="margin: 5px auto;" title="Select the current weather condition.">
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="" id="clear" checked="checked" />
                         <label class="btn btn-small btn-left" for="clear">None</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Sun" id="sun" />
@@ -720,9 +746,7 @@
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Harsh Sunshine" id="harsh-sunshine" />
                         <label class="btn btn-xxxwide btn-left" for="harsh-sunshine">Harsh Sunshine</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Heavy Rain" id="heavy-rain" />
-                        <label class="btn btn-xxxwide btn-mid" for="heavy-rain">Heavy Rain</label>
-                        <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Strong Winds" id="strong-winds" />
-                        <label class="btn btn-xxxwide btn-right" for="strong-winds">Strong Winds</label>
+                        <label class="btn btn-xxxwide btn-right" for="heavy-rain">Heavy Rain</label>
                     </div>
                   </div>
                 <div aria-labelledby="selectGscWeatherInstruction" class="gen-specific g2 hide" role="radiogroup" style="width: 17.8em; margin: 0 auto 5px;" title="Select the current weather condition.">
@@ -736,7 +760,7 @@
                     <input class="visually-hidden calc-trigger" type="radio" name="gscWeather" value="Sand" id="gscSand" />
                     <label class="btn btn-small btn-right" for="gscSand">Sand</label>
                 </div>
-                <div class="gen-specific g5 g6 g7 g8 g9" style="width: 22.2em; margin: 5px auto; display: inline-block;">
+                <div class="gen-specific g5 g6 g7 g8 g9" style="margin: 5px auto;">
                     <span hidden id="magicRoomInstruction">Is Magic Room in effect?</span>
                     <span hidden id="wonderRoomInstruction">Is Wonder Room in effect?</span>
                     <input aria-describedby="magicRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="magicroom" />
@@ -744,10 +768,15 @@
                     <input aria-describedby="wonderRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="wonderroom" />
                     <label class="btn btn-xxxwide btn-right" for="wonderroom">Wonder Room</label>
                 </div>
-                <div class="gen-specific g4 g5 g6 g7 g8 g9" style="width: 5.3em; margin: 5px auto;" title="Is gravity in effect?">
+                <div class="gen-specific g4 g5 g6 g7 g8 g9" style="margin: 5px auto;">
+                    <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Strong Winds" id="strong-winds" />
+                    <label class="btn btn-third btn-left" for="strong-winds" title="Strong Winds">Strong Winds</label>
                     <span hidden id="gravityInstruction">Is gravity in effect?</span>
                     <input aria-describedby="gravityInstruction" class="visually-hidden calc-trigger" type="checkbox" id="gravity" />
-                    <label class="btn" for="gravity">Gravity</label>
+                    <label class="btn btn-third btn-mid" for="gravity" title="Is gravity in effect?">Gravity</label>
+                    <!-- Lunar Aura: placeholder, not wired into the damage calc yet -->
+                    <input class="visually-hidden" type="checkbox" id="lunar-aura" />
+                    <label class="btn btn-third btn-right" for="lunar-aura" title="Is Lunar Aura in effect?">Lunar Aura</label>
                 </div>
                 <hr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9" />
                 <table class="field">
@@ -820,11 +849,11 @@
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="2" id="spikesL2" />
                                 <label class="btn btn-xsmall btn-mid" for="spikesL2">2</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="3" id="spikesL3" />
-                                <label class="btn btn-wide btn-right" for="spikesL3">3 Spikes</label>
+                                <label class="btn btn-spikes btn-right" for="spikesL3">3 Spikes</label>
                             </div></td>
                             <td><div aria-labelledby="selectSpikeInstruction" class="right" role="radiogroup" title="Are there Spikes on this side of the field?">
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="3" id="spikesR3" />
-                                <label class="btn btn-wide btn-left" for="spikesR3">3 Spikes</label>
+                                <label class="btn btn-spikes btn-left" for="spikesR3">3 Spikes</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="2" id="spikesR2" />
                                 <label class="btn btn-xsmall btn-mid" for="spikesR2">2</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="1" id="spikesR1" />
@@ -847,15 +876,15 @@
                             <td><div class="left" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
                                 <div hidden id="selectScreenInstruction">Is this Pok&eacute;mon protected by Reflect and/or Light Screen?</div>
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectL" />
-                                <label class="btn btn-left" for="reflectL">Reflect</label>
+                                <label class="btn btn-xwide btn-top" for="reflectL">Reflect</label><br />
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenL" />
-                                <label class="btn btn-xwide btn-right" for="lightScreenL">Light Screen</label>
+                                <label class="btn btn-xwide btn-bottom" for="lightScreenL">Light Screen</label>
                             </div></td>
                             <td><div class="right" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
-                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenR" />
-                                <label class="btn btn-xwide btn-left" for="lightScreenR">Light Screen</label>
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectR" />
-                                <label class="btn btn-right" for="reflectR">Reflect</label>
+                                <label class="btn btn-xwide btn-top" for="reflectR">Reflect</label><br />
+                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenR" />
+                                <label class="btn btn-xwide btn-bottom" for="lightScreenR">Light Screen</label>
                             </div></td>
                         </tr>
                         <tr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
@@ -1038,7 +1067,7 @@
                     <label>Type</label>
                     <select aria-label="Type 1" class="type1 terrain-trigger calc-trigger"></select>
                     <select aria-label="Type 2" class="type2 terrain-trigger calc-trigger"></select>
-                    <small class="right">(<a class="analysis" target="_blank" href="">Smogon&nbsp;analysis</a>)</small>
+                    <img class="remix-mini" alt="" src="" onerror="this.style.visibility='hidden'" />
                 </div>
                 <div class="gen-specific g9">
                     <label>Tera Type</label>
@@ -1049,7 +1078,37 @@
                     <label>Forme</label>
                     <select class="forme calc-trigger"></select>
                 </div>
-                <div class="hide">
+                <div class="gen-specific g3 g4 g5 g6 g7 g8 g9 nature-row">
+                    <label for="natureR1">Nature</label>
+                    <select class="nature calc-trigger" id="natureR1">
+                        <option value="Adamant">Adamant (+Atk, -SpA)</option>
+                        <option value="Bashful">Bashful</option>
+                        <option value="Bold">Bold (+Def, -Atk)</option>
+                        <option value="Brave">Brave (+Atk, -Spe)</option>
+                        <option value="Calm">Calm (+SpD, -Atk)</option>
+                        <option value="Careful">Careful (+SpD, -SpA)</option>
+                        <option value="Docile">Docile</option>
+                        <option value="Gentle">Gentle (+SpD, -Def)</option>
+                        <option value="Hardy" selected="selected">Hardy</option>
+                        <option value="Hasty">Hasty (+Spe, -Def)</option>
+                        <option value="Impish">Impish (+Def, -SpA)</option>
+                        <option value="Jolly">Jolly (+Spe, -SpA)</option>
+                        <option value="Lax">Lax (+Def, -SpD)</option>
+                        <option value="Lonely">Lonely (+Atk, -Def)</option>
+                        <option value="Mild">Mild (+SpA, -Def)</option>
+                        <option value="Modest">Modest (+SpA, -Atk)</option>
+                        <option value="Naive">Naive (+Spe, -SpD)</option>
+                        <option value="Naughty">Naughty (+Atk, -SpD)</option>
+                        <option value="Quiet">Quiet (+SpA, -Spe)</option>
+                        <option value="Quirky">Quirky</option>
+                        <option value="Rash">Rash (+SpA, -SpD)</option>
+                        <option value="Relaxed">Relaxed (+Def, -Spe)</option>
+                        <option value="Sassy">Sassy (+SpD, -Spe)</option>
+                        <option value="Serious">Serious</option>
+                        <option value="Timid">Timid (+Spe, -Atk)</option>
+                    </select>
+                </div>
+                <div class="hide gender-row">
                     <label>Gender</label>
                     <select class="gender calc-trigger"><option></option><option selected="selected">Male</option><option>Female</option></select>
                 </div>
@@ -1323,36 +1382,6 @@
             </div>
             <div class="info-group info-selectors">
                 <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
-                    <label for="natureR1">Nature</label>
-                    <select class="nature calc-trigger" id="natureR1">
-                        <option value="Adamant">Adamant (+Atk, -SpA)</option>
-                        <option value="Bashful">Bashful</option>
-                        <option value="Bold">Bold (+Def, -Atk)</option>
-                        <option value="Brave">Brave (+Atk, -Spe)</option>
-                        <option value="Calm">Calm (+SpD, -Atk)</option>
-                        <option value="Careful">Careful (+SpD, -SpA)</option>
-                        <option value="Docile">Docile</option>
-                        <option value="Gentle">Gentle (+SpD, -Def)</option>
-                        <option value="Hardy" selected="selected">Hardy</option>
-                        <option value="Hasty">Hasty (+Spe, -Def)</option>
-                        <option value="Impish">Impish (+Def, -SpA)</option>
-                        <option value="Jolly">Jolly (+Spe, -SpA)</option>
-                        <option value="Lax">Lax (+Def, -SpD)</option>
-                        <option value="Lonely">Lonely (+Atk, -Def)</option>
-                        <option value="Mild">Mild (+SpA, -Def)</option>
-                        <option value="Modest">Modest (+SpA, -Atk)</option>
-                        <option value="Naive">Naive (+Spe, -SpD)</option>
-                        <option value="Naughty">Naughty (+Atk, -SpD)</option>
-                        <option value="Quiet">Quiet (+SpA, -Spe)</option>
-                        <option value="Quirky">Quirky</option>
-                        <option value="Rash">Rash (+SpA, -SpD)</option>
-                        <option value="Relaxed">Relaxed (+Def, -Spe)</option>
-                        <option value="Sassy">Sassy (+SpD, -Spe)</option>
-                        <option value="Serious">Serious</option>
-                        <option value="Timid">Timid (+Spe, -Atk)</option>
-                    </select>
-                </div>
-                <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
                     <label for="abilityR1">Ability</label>
                     <select class="ability terrain-trigger calc-trigger" id="abilityR1"></select>
                     <input hidden type="checkbox" title= "Is this ability active?" class="abilityToggle calc-trigger">
@@ -1602,10 +1631,19 @@
     <script type="text/javascript" src="./calc/result.js?"></script>
     <script type="text/javascript" src="./calc/adaptable.js?"></script>
     <script type="text/javascript" src="./calc/index.js?"></script>
+    <script type="text/javascript" src="./js/remix_hidden.js?"></script>
     <script type="text/javascript" src="./js/shared_controls.js?"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?"></script>
     <script type="text/javascript" src="./js/moveset_import.js?"></script>
     <script type="text/javascript" src="./js/showdown_hooks.js?"></script>
+    <script type="text/javascript" src="./js/sprite_version.js?"></script>
+    <script type="text/javascript" src="./js/sprite_colors.js?"></script>
+    <script type="text/javascript" src="./js/remix_minisprite.js?"></script>
+    <script type="text/javascript" src="./js/remix_forms.js?"></script>
+    <script type="text/javascript" src="./js/remix_teamzoom.js?"></script>
+    <script type="text/javascript" src="./js/remix_typecolors.js?"></script>
+    <script type="text/javascript" src="./js/remix_layout.js?"></script>
+    <script type="text/javascript" src="./js/remix_kotext.js?"></script>
 </div>
 
 <div class="credits">Original Calc created by Honko and maintained by Austin and Kris. Sweltering Sun Remix Calc by Dooz, based on DSG's original Sweltering Sun calc.

@@ -103,6 +103,8 @@ $(".result-move").change(function () {
 		if (result) {
 			var desc = result.fullDesc(notation, false);
 			if (desc.indexOf('--') === -1) desc += ' -- possibly the worst move ever';
+			// Remix: optional toggle hides the " -- guaranteed 2HKO"-style ending.
+			if (typeof remixKOTextHidden === "function" && remixKOTextHidden()) desc = desc.split(' -- ')[0];
 			$("#mainResult").text(desc);
 			$("#damageValues").text("Possible damage amounts: (" + displayDamageHits(result.damage) + ")");
 		}
