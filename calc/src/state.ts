@@ -42,6 +42,7 @@ export namespace State {
     isMagicRoom?: boolean;
     isWonderRoom?: boolean;
     isGravity?: boolean;
+    isLunarAura?: boolean;
     isAuraBreak?: boolean;
     isFairyAura?: boolean;
     isDarkAura?: boolean;

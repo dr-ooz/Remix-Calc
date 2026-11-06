@@ -102,6 +102,7 @@ var Move = (function () {
                 (gen.num === 1 &&
                     ["crabhammer", "razorleaf", "slash", "karate chop"].includes(data.id));
         this.drain = data.drain;
+        this.remix = data.remix;
         this.flags = data.flags;
         this.priority = data.priority || 0;
         this.ignoreDefensive = !!data.ignoreDefensive;
@@ -123,6 +124,8 @@ var Move = (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             names[_i] = arguments[_i];
         }
+        if (this.remix && this.remix.noVanilla)
+            return false;
         return names.includes(this.name);
     };
     Move.prototype.hasType = function () {

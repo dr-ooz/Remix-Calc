@@ -1,0 +1,365 @@
+{
+  "Papercut": {
+    "remix": {
+      "superEffectiveVs": [
+        "Grass",
+        "Steel"
+      ]
+    }
+  },
+  "Ice Breaker": {
+    "remix": {
+      "superEffectiveVs": [
+        "Ice"
+      ]
+    }
+  },
+  "Magnet Bomb": {
+    "remix": {
+      "superEffectiveVs": [
+        "Electric",
+        "Steel"
+      ]
+    }
+  },
+  "Scorching Slam": {
+    "remix": {
+      "superEffectiveVs": [
+        "Ground"
+      ]
+    }
+  },
+  "Steamroller": {
+    "remix": {
+      "superEffectiveVs": [
+        "Ground",
+        "Rock",
+        "Steel"
+      ]
+    }
+  },
+  "Short Circuit": {
+    "remix": {
+      "superEffectiveVs": [
+        "Electric"
+      ]
+    }
+  },
+  "Fairy Lock": {
+    "remix": {
+      "superEffectiveVs": [
+        "Steel"
+      ],
+      "useHigherStat": true
+    }
+  },
+  "Thousand Arrows": {
+    "remix": {
+      "superEffectiveVs": [
+        "Flying"
+      ]
+    }
+  },
+  "Catastropika": {
+    "remix": {
+      "superEffectiveVs": [
+        "Ground"
+      ],
+      "useHigherStat": true
+    }
+  },
+  "Photon Geyser": {
+    "remix": {
+      "superEffectiveVs": [
+        "Dark"
+      ],
+      "useHigherStat": true
+    }
+  },
+  "Searing Sunraze Smash": {
+    "remix": {
+      "superEffectiveVs": [
+        "Fire"
+      ]
+    }
+  },
+  "Hyper Drill": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Rage": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Egg Cannon": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Skull Bash": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Snore": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Flashbang": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Synthetic Slash": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Royal Flush": {
+    "remix": {
+      "matchUserType": true,
+      "useHigherStat": true
+    }
+  },
+  "Revelation Dance": {
+    "remix": {
+      "matchUserType": true,
+      "useHigherStat": true
+    }
+  },
+  "Gold Rush": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Explosion": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Natural Gift": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Guardian of Alola": {
+    "remix": {
+      "useHigherStat": true,
+      "terrainBoost": {
+        "any": 1.5
+      },
+      "noVanilla": true
+    }
+  },
+  "Overload": {
+    "remix": {
+      "statusBoost": {
+        "par": 2
+      }
+    }
+  },
+  "Afterburner": {
+    "remix": {
+      "statusBoost": {
+        "brn": 2
+      }
+    }
+  },
+  "Cheap Shot": {
+    "remix": {
+      "statusBoost": {
+        "any": 2
+      }
+    }
+  },
+  "Brainwave": {
+    "remix": {
+      "statusBoost": {
+        "slp": 1.5
+      }
+    }
+  },
+  "Uproar": {
+    "remix": {
+      "statusBoost": {
+        "slp": 1.5
+      }
+    }
+  },
+  "Shroom Smack": {
+    "remix": {
+      "statusBoost": {
+        "slp": 1.5
+      }
+    }
+  },
+  "Sand Sling": {
+    "remix": {
+      "weatherBoost": {
+        "Sand": 1.5
+      }
+    }
+  },
+  "Scorching Sands": {
+    "remix": {
+      "weatherBoost": {
+        "Sand": 1.5
+      }
+    }
+  },
+  "Sand Vortex": {
+    "remix": {
+      "weatherBoost": {
+        "Sand": 1.5
+      }
+    }
+  },
+  "Scald": {
+    "remix": {
+      "weatherBoost": {
+        "Sun": 1.5
+      }
+    }
+  },
+  "Steam Eruption": {
+    "remix": {
+      "weatherBoost": {
+        "Sun": 1.5
+      }
+    }
+  },
+  "Twister": {
+    "remix": {
+      "weatherBoost": {
+        "Rain": 1.5
+      }
+    }
+  },
+  "Avalanche": {
+    "remix": {
+      "weatherBoost": {
+        "Hail": 1.25
+      }
+    }
+  },
+  "Grassy Glide": {
+    "remix": {
+      "terrainBoost": {
+        "Grassy": 1.5
+      }
+    }
+  },
+  "Draco Meteor": {
+    "remix": {
+      "gravityBoost": 1.5,
+      "lunarAuraBoost": 1.5
+    }
+  },
+  "Surf": {
+    "remix": {
+      "lunarAuraBoost": 1.5
+    }
+  },
+  "Thief": {
+    "remix": {
+      "stealBoost": true
+    }
+  },
+  "Covet": {
+    "remix": {
+      "stealBoost": true
+    }
+  },
+  "Pluck": {
+    "remix": {
+      "berryBoost": true
+    }
+  },
+  "Bug Biting": {
+    "remix": {
+      "berryBoost": true
+    }
+  },
+  "Rapid Spin": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Special Delivery": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Gyro Ball": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Heavy Slam": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Payback": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Lash Out": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Sonic Boom": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Triple Axel": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Twilight Cannon": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Grass Knot": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Light That Burns the Sky": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Menacing Moonraze Maelstrom": {
+    "remix": {
+      "superEffectiveVs": [
+        "Fairy"
+      ]
+    }
+  },
+  "Fling": {
+    "remix": {
+      "flingPower": {
+        "Iron Ball": 100,
+        "Flame Orb": 60,
+        "Toxic Orb": 60,
+        "Light Ball": 60
+      }
+    }
+  },
+  "Triple Kick": {
+    "bp": 30,
+    "multihit": 3,
+    "remix": {
+      "noVanilla": true
+    }
+  }
+}

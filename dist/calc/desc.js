@@ -467,7 +467,8 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         damage -= Math.floor(defender.maxHP() / 8);
         texts.push('Bad Dreams');
     }
-    if (!defender.hasAbility('Magic Guard') && TRAPPING.includes(move.name)) {
+    var isTrapping = gen.num === 7 ? !!(move.remix && move.remix.trap) : TRAPPING.includes(move.name);
+    if (!defender.hasAbility('Magic Guard') && isTrapping) {
         if (attacker.hasItem('Binding Band')) {
             damage -= gen.num > 5 ? Math.floor(defender.maxHP() / 6) : Math.floor(defender.maxHP() / 8);
             texts.push('trapping damage');

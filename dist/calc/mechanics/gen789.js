@@ -121,7 +121,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         desc.terrain = field.terrain;
         desc.moveType = type;
     }
-    else if (move.named("Revelation Dance")) {
+    else if (move.named("Revelation Dance") || (move.remix && move.remix.matchUserType)) {
         type = attacker.types[0];
     }
     else if (move.named("Aura Wheel")) {
@@ -151,7 +151,8 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     var isLiquidVoice = false;
     var isNormalize = false;
     var noTypeChange = move.named("Revelation Dance", "Ancient Force", "Nature Power", "Techno Blast", "Multi Attack", "Natural Gift", "Weather Ball", "Terrain Pulse") ||
-        (move.named("Tera Blast") && attacker.teraType);
+        (move.named("Tera Blast") && attacker.teraType) ||
+        (move.remix && move.remix.matchUserType);
     if (!move.isZ && !noTypeChange) {
         var normal = move.hasType("Normal");
         if ((isAerilate = attacker.hasAbility("Aerilate") && normal)) {
@@ -501,7 +502,7 @@ function calculateBasePowerSMSSSV(gen, attacker, defender, move, field, hasAteAb
     var _a;
     var turnOrder = attacker.stats.spe > defender.stats.spe ? "first" : "last";
     var basePower;
-    switch (move.name) {
+    switch (move.remix && move.remix.noVanilla ? "" : move.name) {
         case "Payback":
             basePower = move.bp * (turnOrder === "last" ? 2 : 1);
             desc.moveBP = basePower;
@@ -624,7 +625,8 @@ function calculateBasePowerSMSSSV(gen, attacker, defender, move, field, hasAteAb
             }
             break;
         case "Fling":
-            basePower = (0, items_1.getFlingPower)(attacker.item);
+            basePower = (move.remix && move.remix.flingPower && attacker.item && move.remix.flingPower[attacker.item]) ||
+                (0, items_1.getFlingPower)(attacker.item);
             desc.moveBP = basePower;
             desc.attackerItem = attacker.item;
             break;
@@ -801,6 +803,30 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
             desc.moveBP = basePower * (5461 / 4096);
         }
     }
+    var rx = move.remix;
+    if (rx) {
+        var mult = 1;
+        var weather = field.weather === "Harsh Sunshine" ? "Sun" : field.weather === "Heavy Rain" ? "Rain" : field.weather;
+        if (rx.statusBoost && defender.status) {
+            mult *= rx.statusBoost[defender.status === "tox" ? "psn" : defender.status] || rx.statusBoost.any || 1;
+        }
+        if (rx.weatherBoost && weather && rx.weatherBoost[weather])
+            mult *= rx.weatherBoost[weather];
+        if (rx.terrainBoost && field.terrain)
+            mult *= rx.terrainBoost[field.terrain] || rx.terrainBoost.any || 1;
+        if (rx.gravityBoost && field.isGravity)
+            mult *= rx.gravityBoost;
+        if (rx.lunarAuraBoost && field.isLunarAura)
+            mult *= rx.lunarAuraBoost;
+        if (rx.stealBoost && defender.item && !attacker.item)
+            mult *= 1.5;
+        if (rx.berryBoost && defender.item && defender.item.endsWith("Berry"))
+            mult *= 1.5;
+        if (mult !== 1) {
+            bpMods.push(Math.round(4096 * mult));
+            desc.moveBP = basePower * mult;
+        }
+    }
     if (field.attackerSide.isHelpingHand) {
         bpMods.push(6144);
         desc.isHelpingHand = true;
@@ -972,7 +998,8 @@ function calculateAttackSMSSSV(gen, attacker, defender, move, field, desc, isCri
     var attack;
     var attackSource = move.named("Foul Play") ? defender : attacker;
     if (move.named("Photon Geyser", "Light That Burns The Sky", "Twilight Cannon") ||
-        (move.named("Tera Blast") && attackSource.teraType)) {
+        (move.named("Tera Blast") && attackSource.teraType) ||
+        (move.remix && move.remix.useHigherStat)) {
         move.category =
             attackSource.stats.atk > attackSource.stats.spa ? "Physical" : "Special";
     }

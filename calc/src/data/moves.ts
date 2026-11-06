@@ -1,5 +1,6 @@
 import * as I from "../data/interface";
 import { toID, DeepPartial, assignWithout, extend } from "../util";
+import { REMIX_MOVES } from "./remix_moves";
 
 export interface MoveData {
   readonly name?: string;
@@ -3008,7 +3009,9 @@ const SM_PATCH: { [name: string]: DeepPartial<MoveData> } = {
   },
 };
 
-const SM: { [name: string]: MoveData } = extend(true, {}, XY, SM_PATCH);
+const SM_BASE: { [name: string]: MoveData } = extend(true, {}, XY, SM_PATCH);
+// Sweltering Sun Remix: Gen 7 uses the generated Remix move table (tools/import_moves.py).
+const SM: { [name: string]: MoveData } = REMIX_MOVES;
 
 const SS_PATCH: { [name: string]: DeepPartial<MoveData> } = {
   "Apple Acid": {
@@ -4299,7 +4302,7 @@ const SS_PATCH: { [name: string]: DeepPartial<MoveData> } = {
   "Zing Zap": { maxPower: 130 },
 };
 
-const SS: { [name: string]: MoveData } = extend(true, {}, SM, SS_PATCH);
+const SS: { [name: string]: MoveData } = extend(true, {}, SM_BASE, SS_PATCH);
 
 const LGPE_MOVES = [
   "Baddy Bad",

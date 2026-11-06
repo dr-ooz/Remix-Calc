@@ -888,3 +888,34 @@ body:not(.dark) .tc-val { background: rgba(0,0,0,0.06); }
 .tc-val { min-height: 13px; line-height: 13px; }
 /* A little extra width so larger sprites don't crowd the type chart */
 fieldset.poke-info { padding-right: 30px; }
+/* Header link text in the Dooz logo's Master Ball pink */
+.header .nav .button, body.dark .header .nav .button { color: #ef1c7b; font-weight: bold; }
+/* Harsh weather row: three cells, text fills most of each */
+.field-info .btn-third { padding-left: 0; padding-right: 0; }
+.field-info .veil-btn { white-space: nowrap; font-size: 0.76em; width: 104px; padding-left: 0; padding-right: 0; }
+/* Slight color tint on weather + terrain text (unselected) */
+body.dark .visually-hidden:not(:checked) + label[for=sun] { color: #ffcf8f; }
+body.dark .visually-hidden:not(:checked) + label[for=rain] { color: #9fcbff; }
+body.dark .visually-hidden:not(:checked) + label[for=sand] { color: #e6d3a3; }
+body.dark .visually-hidden:not(:checked) + label[for=hail] { color: #c3efff; }
+body.dark .visually-hidden:not(:checked) + label[for=harsh-sunshine] { color: #ffab85; }
+body.dark .visually-hidden:not(:checked) + label[for=heavy-rain] { color: #82b4ff; }
+body.dark .visually-hidden:not(:checked) + label[for=electric] { color: #f6e27e; }
+body.dark .visually-hidden:not(:checked) + label[for=grassy] { color: #a8e597; }
+body.dark .visually-hidden:not(:checked) + label[for=misty] { color: #f4b6e9; }
+body.dark .visually-hidden:not(:checked) + label[for=psychic] { color: #ee9cc4; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=sun] { color: #b86a00; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=rain] { color: #1f63b5; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=sand] { color: #8c6d2e; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=hail] { color: #2b8fb0; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=harsh-sunshine] { color: #c2410c; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=heavy-rain] { color: #1e40af; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=electric] { color: #a07800; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=grassy] { color: #3d7f22; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=misty] { color: #b0479c; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=psychic] { color: #b8326f; }
+.field .battery-row { display: none !important; }
+.field-info .btn-third { width: 7.94em; white-space: nowrap; }
+body.dark .visually-hidden:not(:checked) + label[for=strong-winds] { color: #aab9f3; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=strong-winds] { color: #4256b8; }
+.field .foresight-row { display: none !important; }

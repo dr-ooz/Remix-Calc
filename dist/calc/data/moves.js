@@ -41,6 +41,7 @@ var e_1, _a, e_2, _b;
 exports.__esModule = true;
 
 var util_1 = require("../util");
+var remix_moves_1 = require("./remix_moves");
 var RBY = {
     "(No Move)": { bp: 0, category: "Status", type: "Normal" },
     Siphon: { bp: 50, type: "Bug", drain: [1, 1] },
@@ -2994,7 +2995,8 @@ var SM_PATCH = {
         zp: 170
     }
 };
-var SM = (0, util_1.extend)(true, {}, XY, SM_PATCH);
+var SM_BASE = (0, util_1.extend)(true, {}, XY, SM_PATCH);
+var SM = remix_moves_1.REMIX_MOVES;
 var SS_PATCH = {
     "Apple Acid": {
         bp: 80,
@@ -4283,7 +4285,7 @@ var SS_PATCH = {
     "Zen Headbutt": { maxPower: 130 },
     "Zing Zap": { maxPower: 130 }
 };
-var SS = (0, util_1.extend)(true, {}, SM, SS_PATCH);
+var SS = (0, util_1.extend)(true, {}, SM_BASE, SS_PATCH);
 var LGPE_MOVES = [
     "Baddy Bad",
     "Bouncy Bubble",

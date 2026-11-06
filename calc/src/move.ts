@@ -40,6 +40,8 @@ export class Move implements State.Move {
   struggleRecoil: boolean;
   isCrit: boolean;
   drain?: [number, number];
+  // Sweltering Sun Remix: data-driven special effects (from remix-data/move_effects.json)
+  remix?: any;
   priority: number;
   dropsStats?: number;
   ignoreDefensive: boolean;
@@ -175,6 +177,7 @@ export class Move implements State.Move {
       (gen.num === 1 &&
         ["crabhammer", "razorleaf", "slash", "karate chop"].includes(data.id));
     this.drain = data.drain;
+    this.remix = (data as any).remix;
     this.flags = data.flags;
     // The calc doesn't currently care about negative priority moves so we simply default to 0
     this.priority = data.priority || 0;
@@ -199,6 +202,8 @@ export class Move implements State.Move {
   }
 
   named(...names: string[]) {
+    // Remix: moves flagged noVanilla skip all of the engine's name-based vanilla behavior
+    if (this.remix && this.remix.noVanilla) return false;
     return names.includes(this.name);
   }
 

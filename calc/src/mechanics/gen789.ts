@@ -210,7 +210,7 @@ export function calculateSMSSSV(
       : "Normal";
     desc.terrain = field.terrain;
     desc.moveType = type;
-  } else if (move.named("Revelation Dance")) {
+  } else if (move.named("Revelation Dance") || (move.remix && move.remix.matchUserType)) {
     type = attacker.types[0];
   } else if (move.named("Aura Wheel")) {
     if (attacker.named("Morpeko")) {
@@ -246,7 +246,8 @@ export function calculateSMSSSV(
       "Weather Ball",
       "Terrain Pulse"
     ) ||
-    (move.named("Tera Blast") && attacker.teraType);
+    (move.named("Tera Blast") && attacker.teraType) ||
+    (move.remix && move.remix.matchUserType);
 
   if (!move.isZ && !noTypeChange) {
     const normal = move.hasType("Normal");
@@ -789,7 +790,8 @@ export function calculateBasePowerSMSSSV(
 
   let basePower: number;
 
-  switch (move.name) {
+  // Remix: noVanilla moves skip the vanilla per-move base power rules below
+  switch (move.remix && move.remix.noVanilla ? "" : move.name) {
     case "Payback":
       basePower = move.bp * (turnOrder === "last" ? 2 : 1);
       desc.moveBP = basePower;
@@ -918,7 +920,9 @@ export function calculateBasePowerSMSSSV(
       }
       break;
     case "Fling":
-      basePower = getFlingPower(attacker.item);
+      // Remix: custom Fling powers per item (remix-data/move_effects.json -> remix.flingPower)
+      basePower = (move.remix && move.remix.flingPower && attacker.item && move.remix.flingPower[attacker.item]) ||
+        getFlingPower(attacker.item);
       desc.moveBP = basePower;
       desc.attackerItem = attacker.item;
       break;
@@ -1175,6 +1179,26 @@ export function calculateBPModsSMSSSV(
     }
   }
 
+  // Sweltering Sun Remix: data-driven power boosts (remix-data/move_effects.json -> move.remix)
+  const rx = move.remix;
+  if (rx) {
+    let mult = 1;
+    const weather = field.weather === "Harsh Sunshine" ? "Sun" : field.weather === "Heavy Rain" ? "Rain" : field.weather;
+    if (rx.statusBoost && defender.status) {
+      mult *= rx.statusBoost[defender.status === "tox" ? "psn" : defender.status] || rx.statusBoost.any || 1;
+    }
+    if (rx.weatherBoost && weather && rx.weatherBoost[weather]) mult *= rx.weatherBoost[weather];
+    if (rx.terrainBoost && field.terrain) mult *= rx.terrainBoost[field.terrain] || rx.terrainBoost.any || 1;
+    if (rx.gravityBoost && field.isGravity) mult *= rx.gravityBoost;
+    if (rx.lunarAuraBoost && field.isLunarAura) mult *= rx.lunarAuraBoost;
+    if (rx.stealBoost && defender.item && !attacker.item) mult *= 1.5;
+    if (rx.berryBoost && defender.item && defender.item.endsWith("Berry")) mult *= 1.5;
+    if (mult !== 1) {
+      bpMods.push(Math.round(4096 * mult));
+      desc.moveBP = basePower * mult;
+    }
+  }
+
   if (field.attackerSide.isHelpingHand) {
     bpMods.push(6144);
     desc.isHelpingHand = true;
@@ -1392,7 +1416,8 @@ export function calculateAttackSMSSSV(
       "Light That Burns The Sky",
       "Twilight Cannon"
     ) ||
-    (move.named("Tera Blast") && attackSource.teraType)
+    (move.named("Tera Blast") && attackSource.teraType) ||
+    (move.remix && move.remix.useHigherStat)
   ) {
     move.category =
       attackSource.stats.atk > attackSource.stats.spa ? "Physical" : "Special";
