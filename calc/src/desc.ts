@@ -571,7 +571,8 @@ function getEndOfTurn(
 
   if (field.hasTerrain('Grassy')) {
     if (isGrounded(defender, field)) {
-      damage += Math.floor(defender.maxHP() / 16);
+      // Remix: Grassy Terrain heals 10% per turn
+      damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 10 : 16));
       texts.push('Grassy Terrain recovery');
     }
   }

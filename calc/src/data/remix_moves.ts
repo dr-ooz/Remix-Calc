@@ -160,7 +160,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 140,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Hydro Fang": {
   "bp": 90,
@@ -651,7 +652,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Grass",
   "category": "Special",
   "zp": 160,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "String Shot": {
   "bp": 0,
@@ -729,7 +733,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 120,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Toxic": {
   "bp": 0,
@@ -819,7 +824,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "multihit": [
    2,
    5
-  ]
+  ],
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Recover": {
   "bp": 0,
@@ -907,7 +915,11 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Special",
   "zp": 250,
   "target": "allAdjacent",
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true,
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Egg Cannon": {
   "bp": 35,
@@ -951,7 +963,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 100,
   "priority": 4,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "groundsTarget": true
+  }
  },
  "Fire Blast": {
   "bp": 125,
@@ -1183,6 +1198,7 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "zp": 250,
   "willCrit": true,
   "target": "allAdjacent",
+  "breaksProtect": true,
   "remix": {
    "useHigherStat": true
   }
@@ -1204,7 +1220,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 150,
   "multihit": 2,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "groundsTarget": true
+  }
  },
  "Rest": {
   "bp": 0,
@@ -1321,7 +1340,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Special",
   "zp": 100,
   "priority": 4,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "matchUserType": true
+  }
  },
  "Flame Wheel": {
   "bp": 60,
@@ -1451,7 +1473,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Ground",
   "category": "Special",
   "zp": 90,
-  "priority": 1
+  "priority": 1,
+  "remix": {
+   "mudslideBoost": 1.3
+  }
  },
  "Scum Shot": {
   "bp": 50,
@@ -1515,7 +1540,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Ground",
   "category": "Physical",
   "zp": 90,
-  "priority": 1
+  "priority": 1,
+  "remix": {
+   "groundsTarget": true
+  }
  },
  "Take-Aim": {
   "bp": 0,
@@ -2167,7 +2195,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 120,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Force Palm": {
   "bp": 60,
@@ -2417,7 +2446,12 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Fighting",
   "category": "Physical",
   "zp": 150,
-  "makesContact": true
+  "makesContact": true,
+  "remix": {
+   "superEffectiveVs": [
+    "Flying"
+   ]
+  }
  },
  "Sand Vortex": {
   "bp": 80,
@@ -2444,7 +2478,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Ground",
   "category": "Special",
   "zp": 170,
-  "target": "allAdjacentFoes"
+  "target": "allAdjacentFoes",
+  "remix": {
+   "mudslideBoost": 1.3
+  }
  },
  "Bullet Seed": {
   "bp": 25,
@@ -2515,14 +2552,18 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 120,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Mud Barrage": {
   "bp": 25,
   "type": "Ground",
   "category": "Special",
   "zp": 110,
-  "multihit": 3
+  "multihit": 3,
+  "remix": {
+   "mudslideBoost": 1.3
+  }
  },
  "Poison Tail": {
   "bp": 95,
@@ -2639,7 +2680,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Special",
   "zp": 100,
   "priority": 4,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "matchUserType": true
+  }
  },
  "Shroom Smack": {
   "bp": 60,
@@ -2700,7 +2744,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 90,
   "priority": 1,
-  "makesContact": true
+  "makesContact": true,
+  "breaksProtect": true
  },
  "Pluck": {
   "bp": 60,
@@ -3169,7 +3214,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Ground",
   "category": "Special",
   "zp": 140,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "mudslideBoost": 1.3
+  }
  },
  "Psycho Cut": {
   "bp": 80,
@@ -3524,7 +3572,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
    30,
    100
   ],
-  "makesContact": true
+  "makesContact": true,
+  "breaksProtect": true
  },
  "Sharpen": {
   "bp": 0,
@@ -3559,7 +3608,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "bp": 90,
   "type": "Psychic",
   "category": "Special",
-  "zp": 140
+  "zp": 140,
+  "overrideDefensiveStat": "def"
  },
  "Venoshock": {
   "bp": 70,
@@ -3655,7 +3705,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Fighting",
   "category": "Physical",
   "zp": 130,
-  "makesContact": true
+  "makesContact": true,
+  "overrideOffensiveStat": "def"
  },
  "Soak": {
   "bp": 0,
@@ -3696,7 +3747,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Dark",
   "category": "Physical",
   "zp": 150,
-  "makesContact": true
+  "makesContact": true,
+  "overrideOffensivePokemon": "target"
  },
  "Simple Beam": {
   "bp": 0,
@@ -3998,7 +4050,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Fighting",
   "category": "Physical",
   "zp": 150,
-  "makesContact": true
+  "makesContact": true,
+  "ignoreDefensive": true
  },
  "Aqua Cutter": {
   "bp": 80,
@@ -4131,7 +4184,11 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Fairy",
   "category": "Special",
   "zp": 160,
-  "willCrit": true
+  "willCrit": true,
+  "overrideDefensiveStat": "def",
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Absolute Zero": {
   "bp": 130,
@@ -4153,7 +4210,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "remix": {
    "superEffectiveVs": [
     "Electric"
-   ]
+   ],
+   "ignoresAbsorb": true
   }
  },
  "Dragon's Fury": {
@@ -4168,7 +4226,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Fire",
   "category": "Special",
   "zp": 160,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Focus Punch": {
   "bp": 120,
@@ -4273,7 +4334,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 150,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Trick-or-Treat": {
   "bp": 0,
@@ -4624,7 +4686,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "remix": {
    "superEffectiveVs": [
     "Flying"
-   ]
+   ],
+   "groundsTarget": true
   }
  },
  "Core Drain": {
@@ -4686,7 +4749,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 190,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "breaksProtect": true
  },
  "Breakneck Blitz": {
   "bp": 1,
@@ -4807,7 +4871,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
    "superEffectiveVs": [
     "Ground"
    ],
-   "useHigherStat": true
+   "useHigherStat": true,
+   "ignoresAbilities": true
   }
  },
  "Sedimend": {
@@ -4821,7 +4886,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Physical",
   "zp": 140,
   "priority": 4,
-  "makesContact": true
+  "makesContact": true,
+  "breaksProtect": true
  },
  "Baneful Bunker": {
   "bp": 0,
@@ -4847,7 +4913,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
    100
   ],
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "ignoreDefensive": true
  },
  "Bubble Ballad": {
   "bp": 80,
@@ -4986,7 +5053,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "priority": 4,
   "willCrit": true,
   "makesContact": true,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Lash Out": {
   "bp": 55,
@@ -5073,7 +5143,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "category": "Special",
   "zp": 200,
   "willCrit": true,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "useHigherStat": true
+  }
  },
  "Drakonic Wave": {
   "bp": 125,
@@ -5138,7 +5211,8 @@ export const REMIX_MOVES: {[name: string]: any} = {
    "terrainBoost": {
     "any": 1.5
    },
-   "noVanilla": true
+   "noVanilla": true,
+   "ignoresAbilities": true
   }
  },
  "Soul-Stealing 7-Star Strike": {
@@ -5227,7 +5301,13 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "drain": [
    50,
    100
-  ]
+  ],
+  "remix": {
+   "ignoresAbilities": true,
+   "neutralVs": [
+    "Normal"
+   ]
+  }
  },
  "Accelerock": {
   "bp": 45,
@@ -5276,7 +5356,10 @@ export const REMIX_MOVES: {[name: string]: any} = {
   "type": "Ghost",
   "category": "Special",
   "zp": 180,
-  "secondaries": true
+  "secondaries": true,
+  "remix": {
+   "ignoresAbilities": true
+  }
  },
  "Tearful Look": {
   "bp": 0,

@@ -41,6 +41,7 @@ for (const m of moves) {
 	if (damaging && TARGETS[x.target]) d.target = TARGETS[x.target];
 	if (x.contact) d.makesContact = true;
 	if (damaging && x.secondary) d.secondaries = true;
+	if (damaging && x.protect === false && !isZ(m.num)) d.breaksProtect = true; // Z-moves keep the 1/4-through-Protect rule
 	if (isZ(m.num)) d.isZ = true;
 	if (damaging && x.trap) d.remix = {trap: true};
 	const fx = effects[m.name] || {};

@@ -42,7 +42,8 @@
     "remix": {
       "superEffectiveVs": [
         "Electric"
-      ]
+      ],
+      "ignoresAbsorb": true
     }
   },
   "Fairy Lock": {
@@ -57,7 +58,8 @@
     "remix": {
       "superEffectiveVs": [
         "Flying"
-      ]
+      ],
+      "groundsTarget": true
     }
   },
   "Catastropika": {
@@ -65,7 +67,8 @@
       "superEffectiveVs": [
         "Ground"
       ],
-      "useHigherStat": true
+      "useHigherStat": true,
+      "ignoresAbilities": true
     }
   },
   "Photon Geyser": {
@@ -151,7 +154,8 @@
       "terrainBoost": {
         "any": 1.5
       },
-      "noVanilla": true
+      "noVanilla": true,
+      "ignoresAbilities": true
     }
   },
   "Overload": {
@@ -360,6 +364,122 @@
     "multihit": 3,
     "remix": {
       "noVanilla": true
+    }
+  },
+  "Bone Club": {
+    "remix": {
+      "groundsTarget": true
+    }
+  },
+  "Bonemerang": {
+    "remix": {
+      "groundsTarget": true
+    }
+  },
+  "Bone Rush": {
+    "remix": {
+      "groundsTarget": true
+    }
+  },
+  "Sky Uppercut": {
+    "remix": {
+      "superEffectiveVs": [
+        "Flying"
+      ]
+    }
+  },
+  "Spectral Beam": {
+    "remix": {
+      "ignoresAbilities": true
+    }
+  },
+  "Shadow Bone": {
+    "remix": {
+      "ignoresAbilities": true,
+      "neutralVs": [
+        "Normal"
+      ]
+    }
+  },
+  "Psyshock": {
+    "overrideDefensiveStat": "def"
+  },
+  "Radiant Edge": {
+    "overrideDefensiveStat": "def",
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Body Press": {
+    "overrideOffensiveStat": "def"
+  },
+  "Foul Play": {
+    "overrideOffensivePokemon": "target"
+  },
+  "Sacred Sword": {
+    "ignoreDefensive": true
+  },
+  "Brutal Swing": {
+    "ignoreDefensive": true
+  },
+  "Fiery Dance": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Petal Dance": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Beak Blast": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Water Shuriken": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Fire Lash": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Detonate": {
+    "remix": {
+      "useHigherStat": true
+    }
+  },
+  "Piercing Gaze": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Night Terror": {
+    "remix": {
+      "matchUserType": true
+    }
+  },
+  "Mud Shot": {
+    "remix": {
+      "mudslideBoost": 1.3
+    }
+  },
+  "Mud Barrage": {
+    "remix": {
+      "mudslideBoost": 1.3
+    }
+  },
+  "Mud Shower": {
+    "remix": {
+      "mudslideBoost": 1.3
+    }
+  },
+  "Mud Bomb": {
+    "remix": {
+      "mudslideBoost": 1.3
     }
   }
 }

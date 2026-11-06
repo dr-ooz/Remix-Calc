@@ -341,7 +341,7 @@ function getSet(setName, selector) {
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .dvs").val(15);
 			}
 			pokeObj.find(".nature").val("Hardy");
-			setSelectValueIfValid(abilityObj, pokemon.ab, "");
+			setSelectValueIfValid(abilityObj, remixBlankAbility(pokemonName), ""); // Remix: only single-ability mons auto-fill
 			itemObj.val("");
 			for (i = 0; i < 4; i++) {
 				moveObj = pokeObj.find(".move" + (i + 1) + " select.move-selector");

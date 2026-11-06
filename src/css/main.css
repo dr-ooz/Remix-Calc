@@ -892,7 +892,7 @@ fieldset.poke-info { padding-right: 30px; }
 .header .nav .button, body.dark .header .nav .button { color: #ef1c7b; font-weight: bold; }
 /* Harsh weather row: three cells, text fills most of each */
 .field-info .btn-third { padding-left: 0; padding-right: 0; }
-.field-info .veil-btn { white-space: nowrap; font-size: 0.76em; width: 104px; padding-left: 0; padding-right: 0; }
+.field-info .veil-btn { white-space: nowrap; font-size: 0.8em; width: 114px; padding-left: 0; padding-right: 0; }
 /* Slight color tint on weather + terrain text (unselected) */
 body.dark .visually-hidden:not(:checked) + label[for=sun] { color: #ffcf8f; }
 body.dark .visually-hidden:not(:checked) + label[for=rain] { color: #9fcbff; }
@@ -919,3 +919,19 @@ body:not(.dark) .visually-hidden:not(:checked) + label[for=psychic] { color: #b8
 body.dark .visually-hidden:not(:checked) + label[for=strong-winds] { color: #aab9f3; }
 body:not(.dark) .visually-hidden:not(:checked) + label[for=strong-winds] { color: #4256b8; }
 .field .foresight-row { display: none !important; }
+/* Type box changed from the Pokemon's normal type: red dashed outline + italic */
+.poke-info select.type-changed { font-style: italic; outline: 2px dashed #ff4d4d; outline-offset: 1px; }
+.poke-info select.type-changed:not(.type-pill) { color: #ff6b6b; }
+/* Field side cells (Reflect ... Switching Out): all the same width as the Spikes group */
+table.field .btn:not([for^="spikes"]):not([for^="gscSpikes"]) { width: 114px; box-sizing: content-box; padding-left: 0; padding-right: 0; white-space: nowrap; }
+/* Weather row: 4 buttons (None hidden; click an active weather again to clear it) */
+.field-info .btn-weather { width: calc(5em + 2px); }
+/* Mudslide | Gravity | Magic Room | Wonder Room in one row */
+.field-info .rooms-row .btn-quarter { width: 63px; padding-left: 0; padding-right: 0; font-size: 0.72em; white-space: nowrap; }
+/* Side cells ~10% wider, with a thin divider down the middle */
+table.field .btn:not([for^="spikes"]):not([for^="gscSpikes"]) { width: 126px; }
+.field-info .btn-spikes { width: calc(4.6em + 10px); }
+table.field td:first-child { border-right: 1px solid rgba(160, 140, 190, 0.35); }
+body.dark .visually-hidden:not(:checked) + label[for=mudslide] { color: #d9b48a; }
+body:not(.dark) .visually-hidden:not(:checked) + label[for=mudslide] { color: #8a5a2b; }
+.field-info .rooms-row .btn-quarter { font-size: 0.7em; letter-spacing: -0.3px; }

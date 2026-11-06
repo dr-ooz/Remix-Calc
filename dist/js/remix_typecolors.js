@@ -45,3 +45,23 @@ $(function () {
 	$("#move-colors-toggle").html("&#127912; Move colors: " + (remixResultColors ? "On" : "Off"));
 	setTimeout(remixColorResults, 60);
 });
+
+// Flag a Type box that doesn't match the Pokemon's own data (e.g. changed to pure Water for Soak).
+function remixFlagChangedTypes(scope) {
+	$(scope || document).find(".poke-info").addBack(".poke-info").each(function () {
+		var pokeObj = $(this);
+		var species = typeof remixCurrentSpecies === "function" ? remixCurrentSpecies(pokeObj) : "";
+		var data = species && typeof pokedex !== "undefined" ? pokedex[species] : null;
+		var real = data ? [data.types[0], data.types[1] || ""] : null;
+		pokeObj.find("select.type1, select.type2").each(function (i) {
+			var changed = !!real && ($(this).val() || "") !== real[i];
+			$(this).toggleClass("type-changed", changed)
+				.attr("title", changed ? "Changed from this Pokemon's normal type (" + (real[i] || "none") + ")" : "");
+		});
+	});
+}
+$(document).on("change keyup", ".poke-info", function () {
+	var panel = this;
+	setTimeout(function () { remixFlagChangedTypes(panel); }, 0);
+});
+$(function () { setTimeout(function () { remixFlagChangedTypes(); }, 80); });

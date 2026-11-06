@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>Pok&eacute;mon Damage Calculator</title>
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?f3a9eac4" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?c7905da0" />
     <!--<link type="text/css" rel="stylesheet" href="./css/dynamic.css?5a1643ef" /> -->
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -720,15 +720,15 @@ function toggleTheme() {
                     <span class="visually-hidden" id="selectWeatherInstruction">Select the current weather condition.</span>
                     <div class="gen-specific g3 g4 g5 g6 g7 g8 hide" style="margin: 5px auto;" title="Select the current weather condition.">
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="" id="clear" checked="checked" />
-                        <label class="btn btn-small btn-left" for="clear">None</label>
+                        <label class="btn btn-small btn-left" for="clear" style="display: none;">None</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Sun" id="sun" />
-                        <label class="btn btn-small btn-mid" for="sun">Sun</label>
+                        <label class="btn btn-weather btn-left" for="sun">Sun</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Rain" id="rain" />
-                        <label class="btn btn-small btn-mid" for="rain">Rain</label>
+                        <label class="btn btn-weather btn-mid" for="rain">Rain</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Sand" id="sand" />
-                        <label class="btn btn-small btn-mid" for="sand">Sand</label>
+                        <label class="btn btn-weather btn-mid" for="sand">Sand</label>
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="Hail" id="hail" />
-                        <label class="btn btn-small btn-right" for="hail">Hail</label>
+                        <label class="btn btn-weather btn-right" for="hail" title="Snow">Snow</label>
                     </div>
                     <div class="gen-specific g9" style="width: 22.2em; margin: 5px auto;" title="Select the current weather condition.">
                         <input class="visually-hidden calc-trigger" type="radio" name="weather" value="" id="clear" checked="checked" />
@@ -763,23 +763,18 @@ function toggleTheme() {
                     <label class="btn btn-small btn-right" for="gscSand">Sand</label>
                 </div>
                 <hr class="gen-specific g5 g6 g7 g8 g9" />
-                <div class="gen-specific g5 g6 g7 g8 g9" style="margin: 5px auto;">
+                <div class="gen-specific g4 g5 g6 g7 g8 g9 rooms-row" style="margin: 5px auto;">
                     <span hidden id="magicRoomInstruction">Is Magic Room in effect?</span>
                     <span hidden id="wonderRoomInstruction">Is Wonder Room in effect?</span>
-                    <input aria-describedby="magicRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="magicroom" />
-                    <label class="btn btn-xxxwide btn-left" for="magicroom">Magic Room</label>
-                    <input aria-describedby="wonderRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="wonderroom" />
-                    <label class="btn btn-xxxwide btn-right" for="wonderroom">Wonder Room</label>
-                </div>
-                <div class="gen-specific g4 g5 g6 g7 g8 g9" style="margin: 5px auto;">
                     <span hidden id="gravityInstruction">Is gravity in effect?</span>
+                    <input class="visually-hidden calc-trigger" type="checkbox" id="mudslide" />
+                    <label class="btn btn-quarter btn-left" for="mudslide" title="Mudslide: mud moves 1.3x, Electric moves 1/3">Mudslide</label>
                     <input aria-describedby="gravityInstruction" class="visually-hidden calc-trigger" type="checkbox" id="gravity" />
-                    <label class="btn btn-third btn-left" for="gravity" title="Is gravity in effect?">Gravity</label>
-                    <!-- Lunar Aura boosts moves flagged in move_effects.json; Mudslide is still a placeholder -->
-                    <input class="visually-hidden calc-trigger" type="checkbox" id="lunar-aura" />
-                    <label class="btn btn-third btn-mid" for="lunar-aura" title="Is Lunar Aura in effect?">Lunar Aura</label>
-                    <input class="visually-hidden" type="checkbox" id="mudslide" />
-                    <label class="btn btn-third btn-right" for="mudslide" title="Is Mudslide in effect?">Mudslide</label>
+                    <label class="btn btn-quarter btn-mid" for="gravity" title="Is gravity in effect?">Gravity</label>
+                    <input aria-describedby="magicRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="magicroom" />
+                    <label class="btn btn-quarter btn-mid" for="magicroom">Magic Room</label>
+                    <input aria-describedby="wonderRoomInstruction" class="visually-hidden calc-trigger" type="checkbox" id="wonderroom" />
+                    <label class="btn btn-quarter btn-right" for="wonderroom">Wonder Room</label>
                 </div>
                 <hr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9" />
                 <table class="field">
@@ -790,17 +785,6 @@ function toggleTheme() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="gen-specific g4 g5 g6 g7 g8 g9">
-                            <div hidden id="selectStealthRockInstruction">Is Stealth Rock affecting this side of the field?</div>
-                            <td><div class="left" title="Is Stealth Rock affecting this side of the field?">
-                                <input aria-describedby="selectStealthRockInstruction" class="visually-hidden calc-trigger" type="checkbox" id="srL" />
-                                <label class="btn btn-xwide" for="srL">Stealth Rock</label>
-                            </div></td>
-                            <td><div class="right" title="Is Stealth Rock affecting this side of the field?">
-                                <input aria-describedby="selectStealthRockInstruction" class="visually-hidden calc-trigger" type="checkbox" id="srR" />
-                                <label class="btn btn-xwide" for="srR">Stealth Rock</label>
-                            </div></td>
-                        </tr>
                         <tr class="gen-specific g8 hide">
                             <div hidden id="selectSteelsurgeInstruction">Is Steelsurge affecting this side of the field?</div>
                             <td><div class="left" title="Is Steelsurge affecting this side of the field?">
@@ -842,6 +826,85 @@ function toggleTheme() {
                                 <label class="btn btn-wide btn-right" for="cannonadeR">Cannonade</label>
                             </div></td>
                         </tr>
+                        <tr>
+                            <td><div class="left" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
+                                <div hidden id="selectScreenInstruction">Is this Pok&eacute;mon protected by Reflect and/or Light Screen?</div>
+                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectL" />
+                                <label class="btn btn-xwide btn-top" for="reflectL">Reflect</label><br />
+                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenL" />
+                                <label class="btn btn-xwide btn-bottom" for="lightScreenL">Light Screen</label>
+                            </div></td>
+                            <td><div class="right" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
+                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectR" />
+                                <label class="btn btn-xwide btn-top" for="reflectR">Reflect</label><br />
+                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenR" />
+                                <label class="btn btn-xwide btn-bottom" for="lightScreenR">Light Screen</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g7 g8 g9">
+                            <td><div class="left" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
+                                <div hidden id="selectAuroraVeilInstruction">Is the Pok&eacute;mon protected by an ally's Aurora Veil?</div>
+                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilL" />
+                                <label class="btn btn-xxwide veil-btn" for="auroraVeilL">Aurora/Rainbow Veil</label>
+                            </div></td>
+                            <td><div class="right" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
+                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilR" />
+                                <label class="btn btn-xxwide veil-btn" for="auroraVeilR">Aurora/Rainbow Veil</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g4 g5 g6 g7 g8 g9">
+                            <td><div class="left" title="Lunar Aura on this side: Psychic, Fairy, Ghost and Dark moves 1.5x (plus Surf / Draco Meteor)">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="lunarAuraL" />
+                                <label class="btn btn-xxwide" for="lunarAuraL">Lunar Aura</label>
+                            </div></td>
+                            <td><div class="right" title="Lunar Aura on this side: Psychic, Fairy, Ghost and Dark moves 1.5x (plus Surf / Draco Meteor)">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="lunarAuraR" />
+                                <label class="btn btn-xxwide" for="lunarAuraR">Lunar Aura</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g4 g5 g6 g7 g8 g9">
+                            <td><div class="left" title="Is Lucky Chant protecting this side from critical hits?">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="luckyChantL" />
+                                <label class="btn btn-xxwide" for="luckyChantL">Lucky Chant</label>
+                            </div></td>
+                            <td><div class="right" title="Is Lucky Chant protecting this side from critical hits?">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="luckyChantR" />
+                                <label class="btn btn-xxwide" for="luckyChantR">Lucky Chant</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
+                            <td><div class="left" title="Is this Pok&eacute;mon protected?">
+                                <div hidden id="selectProtectInstruction">Is this Pok&eacute;mon protected?</div>
+                                <input aria-describedby="selectProtectInstruction" class="visually-hidden calc-trigger" type="checkbox" id="protectL" />
+                                <label class="btn btn-wide" for="protectL">Protect</label>
+                            </div></td>
+                            <td><div class="right" title="Is this Pok&eacute;mon protected?">
+                                <input aria-describedby="selectProtectInstruction" class="visually-hidden calc-trigger" type="checkbox" id="protectR" />
+                                <label class="btn btn-wide" for="protectR">Protect</label>
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="left" title="Has this Pok&eacute;mon been affected by Leech Seed?">
+                                <div hidden id="selectLeechSeedInstruction">Has this Pok&eacute;mon been affected by Leech Seed?</div>
+                                <input aria-describedby="selectLeechSeedInstruction" class="visually-hidden calc-trigger" type="checkbox" id="leechSeedL" />
+                                <label class="btn btn-wide" for="leechSeedL">Leech Seed</label>
+                            </div></td>
+                            <td><div class="right" title="Has this Pok&eacute;mon been affected by Leech Seed?">
+                                <input aria-describedby="selectLeechSeedInstruction" class="visually-hidden calc-trigger" type="checkbox" id="leechSeedR" />
+                                <label class="btn btn-wide" for="leechSeedR">Leech Seed</label>
+                            </div></td>
+                        </tr>
+                        <tr class="gen-specific g4 g5 g6 g7 g8 g9">
+                            <div hidden id="selectStealthRockInstruction">Is Stealth Rock affecting this side of the field?</div>
+                            <td><div class="left" title="Is Stealth Rock affecting this side of the field?">
+                                <input aria-describedby="selectStealthRockInstruction" class="visually-hidden calc-trigger" type="checkbox" id="srL" />
+                                <label class="btn btn-xwide" for="srL">Stealth Rock</label>
+                            </div></td>
+                            <td><div class="right" title="Is Stealth Rock affecting this side of the field?">
+                                <input aria-describedby="selectStealthRockInstruction" class="visually-hidden calc-trigger" type="checkbox" id="srR" />
+                                <label class="btn btn-xwide" for="srR">Stealth Rock</label>
+                            </div></td>
+                        </tr>
                         <tr class="gen-specific g3 g4 g5 g6 g7 g8 g9">
                             <div hidden id="selectSpikeInstruction">Are there Spikes on this side of the field?</div>
                             <td><div aria-labelledby="selectSpikeInstruction" class="left" role="radiogroup" title="Are there Spikes on this side of the field?">
@@ -873,54 +936,6 @@ function toggleTheme() {
                             <td><div class="right" title="Are there Spikes on this side of the field?">
                                 <input aria-describedby="selectSpikeInstruction" class="visually-hidden calc-trigger" type="checkbox" id="gscSpikesR" />
                                 <label class="btn" for="gscSpikesR">Spikes</label>
-                            </div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="left" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
-                                <div hidden id="selectScreenInstruction">Is this Pok&eacute;mon protected by Reflect and/or Light Screen?</div>
-                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectL" />
-                                <label class="btn btn-xwide btn-top" for="reflectL">Reflect</label><br />
-                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenL" />
-                                <label class="btn btn-xwide btn-bottom" for="lightScreenL">Light Screen</label>
-                            </div></td>
-                            <td><div class="right" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
-                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectR" />
-                                <label class="btn btn-xwide btn-top" for="reflectR">Reflect</label><br />
-                                <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenR" />
-                                <label class="btn btn-xwide btn-bottom" for="lightScreenR">Light Screen</label>
-                            </div></td>
-                        </tr>
-                        <tr class="gen-specific g7 g8 g9">
-                            <td><div class="left" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
-                                <div hidden id="selectAuroraVeilInstruction">Is the Pok&eacute;mon protected by an ally's Aurora Veil?</div>
-                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilL" />
-                                <label class="btn btn-xxwide veil-btn" for="auroraVeilL">Aurora/Rainbow Veil</label>
-                            </div></td>
-                            <td><div class="right" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
-                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilR" />
-                                <label class="btn btn-xxwide veil-btn" for="auroraVeilR">Aurora/Rainbow Veil</label>
-                            </div></td>
-                        </tr>
-                        <tr class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
-                            <td><div class="left" title="Is this Pok&eacute;mon protected?">
-                                <div hidden id="selectProtectInstruction">Is this Pok&eacute;mon protected?</div>
-                                <input aria-describedby="selectProtectInstruction" class="visually-hidden calc-trigger" type="checkbox" id="protectL" />
-                                <label class="btn btn-wide" for="protectL">Protect</label>
-                            </div></td>
-                            <td><div class="right" title="Is this Pok&eacute;mon protected?">
-                                <input aria-describedby="selectProtectInstruction" class="visually-hidden calc-trigger" type="checkbox" id="protectR" />
-                                <label class="btn btn-wide" for="protectR">Protect</label>
-                            </div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="left" title="Has this Pok&eacute;mon been affected by Leech Seed?">
-                                <div hidden id="selectLeechSeedInstruction">Has this Pok&eacute;mon been affected by Leech Seed?</div>
-                                <input aria-describedby="selectLeechSeedInstruction" class="visually-hidden calc-trigger" type="checkbox" id="leechSeedL" />
-                                <label class="btn btn-wide" for="leechSeedL">Leech Seed</label>
-                            </div></td>
-                            <td><div class="right" title="Has this Pok&eacute;mon been affected by Leech Seed?">
-                                <input aria-describedby="selectLeechSeedInstruction" class="visually-hidden calc-trigger" type="checkbox" id="leechSeedR" />
-                                <label class="btn btn-wide" for="leechSeedR">Leech Seed</label>
                             </div></td>
                         </tr>
                         <tr class="foresight-row gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
@@ -1616,37 +1631,38 @@ function toggleTheme() {
     <script type="text/javascript" src="./calc/data/types.js?35449ca5"></script>
     <script type="text/javascript" src="./calc/data/natures.js?04f00dc5"></script>
     <script type="text/javascript" src="./calc/data/abilities.js?1386689e"></script>
-    <script type="text/javascript" src="./calc/data/remix_moves.js?4ecf8c5e"></script>
+    <script type="text/javascript" src="./calc/data/remix_moves.js?e5622b54"></script>
     <script type="text/javascript" src="./calc/data/moves.js?26490301"></script>
     <script type="text/javascript" src="./calc/data/items.js?6166b606"></script>
     <script type="text/javascript" src="./calc/data/index.js?083d2bc9"></script>
-    <script type="text/javascript" src="./calc/move.js?e9e14b52"></script>
+    <script type="text/javascript" src="./calc/move.js?d52a78c2"></script>
     <script type="text/javascript" src="./calc/pokemon.js?165ba7e1"></script>
-    <script type="text/javascript" src="./calc/field.js?dbfa9236"></script>
+    <script type="text/javascript" src="./calc/field.js?951ff77b"></script>
     <script type="text/javascript" src="./calc/items.js?47646e68"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?b2b1209c"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?628eedf2"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?79fabb78"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?32531a4a"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?326e578d"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?a7626c4b"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?070ab0fe"></script>
     <script type="text/javascript" src="./calc/mechanics/gen12.js?5a38a633"></script>
     <script type="text/javascript" src="./calc/calc.js?cd072314"></script>
-    <script type="text/javascript" src="./calc/desc.js?eee84792"></script>
+    <script type="text/javascript" src="./calc/desc.js?5cde48d3"></script>
     <script type="text/javascript" src="./calc/result.js?d5c7552b"></script>
     <script type="text/javascript" src="./calc/adaptable.js?afeb3759"></script>
     <script type="text/javascript" src="./calc/index.js?2377cbc8"></script>
+    <script type="text/javascript" src="./js/remix_species_data.js?49f1d22a"></script>
     <script type="text/javascript" src="./js/remix_hidden.js?b8007480"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?a3424b31"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?d1e894a5"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?9457fe14"></script>
     <script type="text/javascript" src="./js/moveset_import.js?311ba138"></script>
-    <script type="text/javascript" src="./js/showdown_hooks.js?ce7c967b"></script>
+    <script type="text/javascript" src="./js/showdown_hooks.js?6b3a85b0"></script>
     <script type="text/javascript" src="./js/sprite_version.js?3aafac6f"></script>
     <script type="text/javascript" src="./js/sprite_colors.js?96348966"></script>
     <script type="text/javascript" src="./js/remix_minisprite.js?6213762f"></script>
     <script type="text/javascript" src="./js/remix_forms.js?abd9f4b9"></script>
     <script type="text/javascript" src="./js/remix_teamzoom.js?fdb19f27"></script>
-    <script type="text/javascript" src="./js/remix_typecolors.js?4297be85"></script>
-    <script type="text/javascript" src="./js/remix_layout.js?832657bc"></script>
+    <script type="text/javascript" src="./js/remix_typecolors.js?046c495e"></script>
+    <script type="text/javascript" src="./js/remix_layout.js?3390819a"></script>
     <script type="text/javascript" src="./js/remix_kotext.js?37dac70b"></script>
     <script type="text/javascript" src="./js/remix_typechart.js?29f5e349"></script>
 </div>

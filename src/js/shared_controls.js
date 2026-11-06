@@ -603,7 +603,7 @@ $(".set-selector").change(function () {
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .dvs").val(15);
 			}
 			pokeObj.find(".nature").val("Hardy");
-			setSelectValueIfValid(abilityObj, pokemon.ab, "");
+			setSelectValueIfValid(abilityObj, remixBlankAbility(pokemonName), ""); // Remix: only single-ability mons auto-fill
 			itemObj.val("");
 			for (i = 0; i < 4; i++) {
 				moveObj = pokeObj.find(".move" + (i + 1) + " select.move-selector");
@@ -719,7 +719,10 @@ $(".forme").change(function () {
 	var chosenSet = pokemonSets && pokemonSets[setName];
 	var greninjaSet = $(this).val().indexOf("Greninja") !== -1;
 	var isAltForme = $(this).val() !== pokemonName;
-	if (isAltForme && abilities.indexOf(altForme.ab) !== -1 && !greninjaSet) {
+	if (!chosenSet && !greninjaSet) {
+		// Remix: blank sets only auto-fill single-ability Pokemon
+		setSelectValueIfValid(container.find(".ability"), remixBlankAbility($(this).val()), "");
+	} else if (isAltForme && abilities.indexOf(altForme.ab) !== -1 && !greninjaSet) {
 		container.find(".ability").val(altForme.ab);
 	} else if (greninjaSet) {
 		$(this).parent().find(".ability");
@@ -932,7 +935,7 @@ function createField() {
 	var isMagicRoom = $("#magicroom").prop("checked");
 	var isWonderRoom = $("#wonderroom").prop("checked");
 	var isGravity = $("#gravity").prop("checked");
-	var isLunarAura = $("#lunar-aura").prop("checked"); // Remix
+	var isMudslide = $("#mudslide").prop("checked"); // Remix
 	var isSR = [$("#srL").prop("checked"), $("#srR").prop("checked")];
 	var weather;
 	var spikes;
@@ -959,6 +962,8 @@ function createField() {
 	var isFlowerGift = [$("#flowerGiftL").prop("checked"), $("#flowerGiftR").prop("checked")];
 	var isFriendGuard = [$("#friendGuardL").prop("checked"), $("#friendGuardR").prop("checked")];
 	var isAuroraVeil = [$("#auroraVeilL").prop("checked"), $("#auroraVeilR").prop("checked")];
+	var isLuckyChant = [$("#luckyChantL").prop("checked"), $("#luckyChantR").prop("checked")]; // Remix
+	var isLunarAura = [$("#lunarAuraL").prop("checked"), $("#lunarAuraR").prop("checked")]; // Remix
 	var isBattery = [$("#batteryL").prop("checked"), $("#batteryR").prop("checked")];
 	var isPowerSpot = [$("#powerSpotL").prop("checked"), $("#powerSpotR").prop("checked")];
 	// TODO: support switching in as well!
@@ -971,12 +976,12 @@ function createField() {
 			isReflect: isReflect[i], isLightScreen: isLightScreen[i],
 			isProtected: isProtected[i], isSeeded: isSeeded[i], isForesight: isForesight[i],
 			isTailwind: isTailwind[i], isHelpingHand: isHelpingHand[i], isFlowerGift: isFlowerGift[i], isFriendGuard: isFriendGuard[i],
-			isAuroraVeil: isAuroraVeil[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined
+			isAuroraVeil: isAuroraVeil[i], isLuckyChant: isLuckyChant[i], isLunarAura: isLunarAura[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined
 		});
 	};
 	return new calc.Field({
 		gameType: gameType, weather: weather, terrain: terrain,
-		isMagicRoom: isMagicRoom, isWonderRoom: isWonderRoom, isGravity: isGravity, isLunarAura: isLunarAura,
+		isMagicRoom: isMagicRoom, isWonderRoom: isWonderRoom, isGravity: isGravity, isMudslide: isMudslide,
 		isBeadsOfRuin: isBeadsOfRuin, isTabletsOfRuin: isTabletsOfRuin,
 		isSwordOfRuin: isSwordOfRuin, isVesselOfRuin: isVesselOfRuin,
 		attackerSide: createSide(0), defenderSide: createSide(1)

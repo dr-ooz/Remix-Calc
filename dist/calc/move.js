@@ -97,8 +97,7 @@ var Move = (function () {
         this.mindBlownRecoil = !!data.mindBlownRecoil;
         this.struggleRecoil = !!data.struggleRecoil;
         this.isCrit =
-            !!options.isCrit ||
-                !!data.willCrit ||
+            (options.isCrit !== undefined ? !!options.isCrit : !!data.willCrit) ||
                 (gen.num === 1 &&
                     ["crabhammer", "razorleaf", "slash", "karate chop"].includes(data.id));
         this.drain = data.drain;

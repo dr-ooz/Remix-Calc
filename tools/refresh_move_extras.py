@@ -46,7 +46,8 @@ def refresh_extras(romfs):
             "target": e[20],
             "contact": bool(struct.unpack_from("<I", e, 36)[0] & 1),
             "secondary": bool(inflict_pct or flinch or any(stat_pcts)),
-            "trap": struct.unpack_from("<H", e, 8)[0] == 8,  # partial-trap condition (end-of-turn damage)
+            "trap": struct.unpack_from("<H", e, 8)[0] == 8,
+            "protect": bool(struct.unpack_from("<I", e, 36)[0] & 8),  # blocked by Protect  # partial-trap condition (end-of-turn damage)
         }
     json.dump(extras, open(EXTRAS, "w"), indent=0)
     print("refreshed", EXTRAS, "from", romfs)

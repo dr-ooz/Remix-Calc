@@ -8,7 +8,7 @@ export class Field implements State.Field {
   isMagicRoom: boolean;
   isWonderRoom: boolean;
   isGravity: boolean;
-  isLunarAura: boolean;
+  isMudslide: boolean;
   isAuraBreak?: boolean;
   isFairyAura?: boolean;
   isDarkAura?: boolean;
@@ -26,7 +26,7 @@ export class Field implements State.Field {
     this.isMagicRoom = !!field.isMagicRoom;
     this.isWonderRoom = !!field.isWonderRoom;
     this.isGravity = !!field.isGravity;
-    this.isLunarAura = !!(field as any).isLunarAura;
+    this.isMudslide = !!(field as any).isMudslide;
     this.isAuraBreak = field.isAuraBreak || false;
     this.isFairyAura = field.isFairyAura || false;
     this.isDarkAura = field.isDarkAura || false;
@@ -60,7 +60,7 @@ export class Field implements State.Field {
       isMagicRoom: this.isMagicRoom,
       isWonderRoom: this.isWonderRoom,
       isGravity: this.isGravity,
-      isLunarAura: this.isLunarAura,
+      isMudslide: this.isMudslide,
       attackerSide: this.attackerSide,
       defenderSide: this.defenderSide,
       isAuraBreak: this.isAuraBreak,
@@ -92,6 +92,8 @@ export class Side implements State.Side {
   isFlowerGift: boolean;
   isFriendGuard: boolean;
   isAuroraVeil: boolean;
+  isLuckyChant: boolean;
+  isLunarAura: boolean;
   isBattery: boolean;
   isPowerSpot: boolean;
   isSwitching?: 'out' | 'in';
@@ -114,6 +116,8 @@ export class Side implements State.Side {
     this.isFlowerGift = !!side.isFlowerGift;
     this.isFriendGuard = !!side.isFriendGuard;
     this.isAuroraVeil = !!side.isAuroraVeil;
+    this.isLuckyChant = !!(side as any).isLuckyChant;
+    this.isLunarAura = !!(side as any).isLunarAura;
     this.isBattery = !!side.isBattery;
     this.isPowerSpot = !!side.isPowerSpot;
     this.isSwitching = side.isSwitching;

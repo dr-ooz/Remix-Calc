@@ -26,7 +26,7 @@ var Field = (function () {
         this.isMagicRoom = !!field.isMagicRoom;
         this.isWonderRoom = !!field.isWonderRoom;
         this.isGravity = !!field.isGravity;
-        this.isLunarAura = !!field.isLunarAura;
+        this.isMudslide = !!field.isMudslide;
         this.isAuraBreak = field.isAuraBreak || false;
         this.isFairyAura = field.isFairyAura || false;
         this.isDarkAura = field.isDarkAura || false;
@@ -64,7 +64,7 @@ var Field = (function () {
             isMagicRoom: this.isMagicRoom,
             isWonderRoom: this.isWonderRoom,
             isGravity: this.isGravity,
-            isLunarAura: this.isLunarAura,
+            isMudslide: this.isMudslide,
             attackerSide: this.attackerSide,
             defenderSide: this.defenderSide,
             isAuraBreak: this.isAuraBreak,
@@ -99,6 +99,8 @@ var Side = (function () {
         this.isFlowerGift = !!side.isFlowerGift;
         this.isFriendGuard = !!side.isFriendGuard;
         this.isAuroraVeil = !!side.isAuroraVeil;
+        this.isLuckyChant = !!side.isLuckyChant;
+        this.isLunarAura = !!side.isLunarAura;
         this.isBattery = !!side.isBattery;
         this.isPowerSpot = !!side.isPowerSpot;
         this.isSwitching = side.isSwitching;

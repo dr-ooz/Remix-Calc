@@ -428,7 +428,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     if (field.hasTerrain('Grassy')) {
         if ((0, util_2.isGrounded)(defender, field)) {
-            damage += Math.floor(defender.maxHP() / 16);
+            damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 10 : 16));
             texts.push('Grassy Terrain recovery');
         }
     }

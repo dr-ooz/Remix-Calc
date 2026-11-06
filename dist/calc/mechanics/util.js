@@ -191,7 +191,10 @@ function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRin
             gen.types.get('flying').effectiveness[type]);
     }
     else {
-        return gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
+        var eff = gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
+        if (eff === 0 && move.remix && move.remix.neutralVs && move.remix.neutralVs.includes(type))
+            return 1;
+        return eff;
     }
 }
 exports.getMoveEffectiveness = getMoveEffectiveness;

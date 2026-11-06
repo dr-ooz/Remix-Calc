@@ -52,3 +52,17 @@ $(function () {
 		remixMatchSoon();
 	}, 0);
 });
+
+// Weather: click the active weather again to turn it off (like terrains); the "None" button is hidden.
+$(document).on("mousedown", "label[for]", function () {
+	var input = document.getElementById($(this).attr("for"));
+	if (input && input.name === "weather") $(this).data("wasChecked", input.checked);
+});
+$(document).on("click", "label[for]", function (e) {
+	var input = document.getElementById($(this).attr("for"));
+	if (input && input.name === "weather" && $(this).data("wasChecked") && input.id !== "clear") {
+		e.preventDefault();
+		$(this).data("wasChecked", false);
+		$("#clear").prop("checked", true).change();
+	}
+});

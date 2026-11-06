@@ -170,9 +170,9 @@ export class Move implements State.Move {
     this.hasCrashDamage = !!data.hasCrashDamage;
     this.mindBlownRecoil = !!data.mindBlownRecoil;
     this.struggleRecoil = !!data.struggleRecoil;
+    // Remix: guaranteed-crit moves default to a crit, but the Crit button can switch it off
     this.isCrit =
-      !!options.isCrit ||
-      !!data.willCrit ||
+      (options.isCrit !== undefined ? !!options.isCrit : !!data.willCrit) ||
       // These don't *always* crit (255/256 chance), but for the purposes of the calc they do
       (gen.num === 1 &&
         ["crabhammer", "razorleaf", "slash", "karate chop"].includes(data.id));

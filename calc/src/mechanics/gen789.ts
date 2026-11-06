@@ -131,7 +131,7 @@ export function calculateSMSSSV(
     "Moongeist Beam",
     "Searing Sunraze Smash",
     "Sunsteel Strike"
-  );
+  ) || !!(move.remix && move.remix.ignoresAbilities);
   if (
     !defenderIgnoresAbility &&
     !defender.hasAbility("Poison Heal") &&
@@ -149,6 +149,7 @@ export function calculateSMSSSV(
   // will not be a critical hit (UltiMario)
   const isCritical =
     !defender.hasAbility("Battle Armor", "Shell Armor") &&
+    !field.defenderSide.isLuckyChant && // Remix: Lucky Chant blocks crits on that side
     (move.isCrit ||
       (attacker.hasAbility("Merciless") && defender.hasStatus("psn", "tox"))) &&
     move.timesUsed === 1;
@@ -343,7 +344,7 @@ export function calculateSMSSSV(
     typeEffectiveness = 1;
   }
 
-  if (typeEffectiveness === 0 && move.named("Thousand Arrows")) {
+  if (typeEffectiveness === 0 && (move.named("Thousand Arrows") || (move.remix && move.remix.groundsTarget))) {
     typeEffectiveness = 1;
   }
 
@@ -392,10 +393,11 @@ export function calculateSMSSSV(
     (move.hasType("Water") &&
       defender.hasAbility("Dry Skin", "Storm Drain", "Water Absorb")) ||
     (move.hasType("Electric") &&
+      !(move.remix && move.remix.ignoresAbsorb) &&
       defender.hasAbility("Lightning Rod", "Motor Drive", "Volt Absorb")) ||
     (move.hasType("Ground") &&
       !field.isGravity &&
-      !move.named("Thousand Arrows") &&
+      !(move.named("Thousand Arrows") || (move.remix && move.remix.groundsTarget)) &&
       !defender.hasItem("Iron Ball") &&
       defender.hasAbility("Levitate")) ||
     (move.flags.bullet && defender.hasAbility("Bulletproof")) ||
@@ -414,7 +416,7 @@ export function calculateSMSSSV(
 
   if (
     move.hasType("Ground") &&
-    !move.named("Thousand Arrows") &&
+    !(move.named("Thousand Arrows") || (move.remix && move.remix.groundsTarget)) &&
     !field.isGravity &&
     defender.hasItem("Air Balloon")
   ) {
@@ -1179,6 +1181,16 @@ export function calculateBPModsSMSSSV(
     }
   }
 
+  // Remix: Lunar Aura (user's side) boosts Psychic, Fairy, Ghost and Dark moves by 50%
+  if (gen.num === 7 && field.attackerSide.isLunarAura && move.hasType("Psychic", "Fairy", "Ghost", "Dark")) {
+    bpMods.push(6144);
+    desc.moveBP = basePower * 1.5;
+  }
+  // Remix: Mudslide field cuts Electric moves to 1/3 power
+  if (gen.num === 7 && field.isMudslide && move.hasType("Electric")) {
+    bpMods.push(1365);
+    desc.moveBP = basePower / 3;
+  }
   // Sweltering Sun Remix: data-driven power boosts (remix-data/move_effects.json -> move.remix)
   const rx = move.remix;
   if (rx) {
@@ -1190,7 +1202,8 @@ export function calculateBPModsSMSSSV(
     if (rx.weatherBoost && weather && rx.weatherBoost[weather]) mult *= rx.weatherBoost[weather];
     if (rx.terrainBoost && field.terrain) mult *= rx.terrainBoost[field.terrain] || rx.terrainBoost.any || 1;
     if (rx.gravityBoost && field.isGravity) mult *= rx.gravityBoost;
-    if (rx.lunarAuraBoost && field.isLunarAura) mult *= rx.lunarAuraBoost;
+    if (rx.lunarAuraBoost && field.attackerSide.isLunarAura) mult *= rx.lunarAuraBoost;
+    if (rx.mudslideBoost && field.isMudslide) mult *= rx.mudslideBoost;
     if (rx.stealBoost && defender.item && !attacker.item) mult *= 1.5;
     if (rx.berryBoost && defender.item && defender.item.endsWith("Berry")) mult *= 1.5;
     if (mult !== 1) {
@@ -1211,7 +1224,8 @@ export function calculateBPModsSMSSSV(
     if (
       (field.hasTerrain("Electric") && move.hasType("Electric")) ||
       (field.hasTerrain("Grassy") && move.hasType("Grass")) ||
-      (field.hasTerrain("Psychic") && move.hasType("Psychic"))
+      (field.hasTerrain("Psychic") && move.hasType("Psychic")) ||
+      (gen.num === 7 && field.hasTerrain("Misty") && move.hasType("Fairy")) // Remix: Misty boosts Fairy
     ) {
       bpMods.push(terrainMultiplier);
       desc.terrain = field.terrain;
@@ -1821,7 +1835,7 @@ export function calculateFinalModsSMSSSV(
   if (
     field.defenderSide.isReflect &&
     move.category === "Physical" &&
-    !isCritical &&
+    (gen.num === 7 || !isCritical) && // Remix: crits no longer ignore screens
     !field.defenderSide.isAuroraVeil
   ) {
     // doesn't stack with Aurora Veil
@@ -1830,14 +1844,14 @@ export function calculateFinalModsSMSSSV(
   } else if (
     field.defenderSide.isLightScreen &&
     move.category === "Special" &&
-    !isCritical &&
+    (gen.num === 7 || !isCritical) &&
     !field.defenderSide.isAuroraVeil
   ) {
     // doesn't stack with Aurora Veil
     finalMods.push(field.gameType !== "Singles" ? 2732 : 2048);
     desc.isLightScreen = true;
   }
-  if (field.defenderSide.isAuroraVeil && !isCritical) {
+  if (field.defenderSide.isAuroraVeil && (gen.num === 7 || !isCritical)) {
     finalMods.push(field.gameType !== "Singles" ? 2732 : 2048);
     desc.isAuroraVeil = true;
   }

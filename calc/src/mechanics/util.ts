@@ -160,7 +160,10 @@ export function getMoveEffectiveness(
       gen.types.get('flying' as ID)!.effectiveness[type]!
     );
   } else {
-    return gen.types.get(toID(move.type))!.effectiveness[type]!;
+    const eff = gen.types.get(toID(move.type))!.effectiveness[type]!;
+    // Remix: remix.neutralVs lets a move hit a normally immune type for neutral damage
+    if (eff === 0 && move.remix && move.remix.neutralVs && move.remix.neutralVs.includes(type)) return 1;
+    return eff;
   }
 }
 
