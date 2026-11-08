@@ -242,6 +242,12 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
     "Dusknoir"
    ],
    "critImmune": true
+  },
+  {
+   "species": [
+    "Dusknoir"
+   ],
+   "drainPct": 50
   }
  ],
  "Loaded Dice": [
@@ -346,6 +352,13 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
     "Battle Armor",
     "Iron Barbs"
    ]
+  },
+  {
+   "species": [
+    "Krabby",
+    "Kingler"
+   ],
+   "drainPct": 50
   }
  ],
  "Shiny Scale": [
@@ -405,7 +418,8 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
     "Incinerate",
     "No Guard",
     "Aftermath"
-   ]
+   ],
+   "selfDamagePct": 25
   }
  ],
  "Metal Coat": [
@@ -683,7 +697,10 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
    ],
    "moveBoost": {
     "Guillotine": 1.5
-   }
+   },
+   "items": [
+    "Scope Lens"
+   ]
   }
  ],
  "Silk Scarf": [
@@ -728,7 +745,9 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
    ],
    "abilities": [
     "Soporific"
-   ]
+   ],
+   "drainPct": 50,
+   "drainIfAsleep": true
   }
  ],
  "Star Gauntlet": [
@@ -855,7 +874,8 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
    ],
    "items": [
     "Loaded Dice",
-    "Covert Cloak"
+    "Covert Cloak",
+    "Scope Lens"
    ]
   }
  ],

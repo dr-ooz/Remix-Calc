@@ -82,6 +82,7 @@ function remixOpenPicker(btn, side, moveIndex) {
 		if (dmg === undefined) dmg = Number(custom.find("input").val());
 		if (!(dmg >= 0)) return;
 		remixSetHP(target, cur - dmg, -Math.min(dmg, cur));
+		if (typeof remixUsePP === "function") remixUsePP(side, moveIndex);
 		remixClosePicker();
 	});
 	custom.find("input").on("keydown", function (e) {

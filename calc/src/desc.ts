@@ -50,6 +50,7 @@ export interface RawDesc {
   weather?: Weather;
   isDefenderDynamaxed?: boolean;
   remixHits?: number[][]; // Remix: [min, max] of each hit
+  remixFinalBP?: number; // Remix: move power after all power modifiers
   remixHitsCombined?: number; // Remix: hits already added together (damage = total of N hits)
 }
 
@@ -152,6 +153,15 @@ export function getRecovery(
     }
   }
 
+  // Remix items that heal a share of the damage dealt (Dusknoir, Kingler line, Hypno vs a sleeping target)
+  const fx = attacker.remixItemFx();
+  if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose'))) {
+    for (let i = 0; i < minD.length; i++) {
+      recovery[0] += Math.min(Math.round(minD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+      recovery[1] += Math.min(Math.round(maxD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+    }
+  }
+
   if (recovery[1] === 0) return {recovery, text};
 
   const minHealthRecovered = toDisplay(notation, recovery[0], attacker.maxHP());
@@ -251,6 +261,13 @@ export function getRecoil(
     text = '50% recoil damage';
   }
 
+  // Remix: Detonator (Togepi line) loses a share of max HP each attack, like Life Orb
+  const selfPct = attacker.remixItemFx().selfDamagePct;
+  if (selfPct && !attacker.hasAbility('Magic Guard') && move.category !== 'Status') {
+    const lost = toDisplay(notation, Math.floor(attacker.maxHP() * selfPct / 100), attacker.maxHP());
+    recoil = [Number(lost), Number(lost)];
+    text = (text ? text + ', ' : '') + `${lost}${notation} ${attacker.item} damage`;
+  }
   return {recoil, text};
 }
 
@@ -570,6 +587,24 @@ function getEndOfTurn(
   } else if (defender.hasItem('Sticky Barb')) {
     damage -= Math.floor(defender.maxHP() / 4);
     texts.push('Sticky Barb damage');
+  }
+
+  // Remix residual toggles (field panel): Ingrain / Aqua Ring heal 1/16, Bound loses 1/8
+  if (gen.num === 7) {
+    const side = field.defenderSide as any;
+    const root = defender.hasItem('Big Root') ? 1.5 : 1;
+    if (side.isIngrain) {
+      damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
+      texts.push('Ingrain recovery');
+    }
+    if (side.isAquaRing) {
+      damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
+      texts.push('Aqua Ring recovery');
+    }
+    if (side.isBound && !defender.hasAbility('Magic Guard')) {
+      damage -= Math.floor(defender.maxHP() / 8);
+      texts.push('binding damage');
+    }
   }
 
   if (field.defenderSide.isSeeded) {

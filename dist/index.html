@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>Pok&eacute;mon Damage Calculator</title>
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?3324e012" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?56cdf06b" />
     <!--<link type="text/css" rel="stylesheet" href="./css/dynamic.css?5a1643ef" /> -->
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -553,8 +553,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="50" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critL1" />
                 <label class="btn crit-btn" for="critL1" title="Force this attack to be a critical hit?">Crit</label>
@@ -587,8 +587,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critL2" />
                 <label class="btn crit-btn" for="critL2" title="Force this attack to be a critical hit?">Crit</label>
@@ -621,8 +621,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critL3" />
                 <label class="btn crit-btn" for="critL3" title="Force this attack to be a critical hit?">Crit</label>
@@ -655,8 +655,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critL4" />
                 <label class="btn crit-btn" for="critL4" title="Force this attack to be a critical hit?">Crit</label>
@@ -830,27 +830,21 @@ function toggleTheme() {
                         <tr>
                             <td><div class="left" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
                                 <div hidden id="selectScreenInstruction">Is this Pok&eacute;mon protected by Reflect and/or Light Screen?</div>
+                                <div hidden id="selectAuroraVeilInstruction">Is the Pok&eacute;mon protected by an ally's Aurora Veil?</div>
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectL" />
                                 <label class="btn btn-xwide btn-top" for="reflectL">Reflect</label><br />
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenL" />
-                                <label class="btn btn-xwide btn-bottom" for="lightScreenL">Light Screen</label>
+                                <label class="btn btn-xwide btn-mid" for="lightScreenL">Light Screen</label><br />
+                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilL" />
+                                <label class="btn btn-xwide btn-bottom veil-btn" for="auroraVeilL">Aurora/Rainbow Veil</label>
                             </div></td>
                             <td><div class="right" title="Is this Pok&eacute;mon protected by Reflect and/or Light Screen?">
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="reflectR" />
                                 <label class="btn btn-xwide btn-top" for="reflectR">Reflect</label><br />
                                 <input aria-describedby="selectScreenInstruction" class="visually-hidden calc-trigger" type="checkbox" id="lightScreenR" />
-                                <label class="btn btn-xwide btn-bottom" for="lightScreenR">Light Screen</label>
-                            </div></td>
-                        </tr>
-                        <tr class="gen-specific g7 g8 g9">
-                            <td><div class="left" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
-                                <div hidden id="selectAuroraVeilInstruction">Is the Pok&eacute;mon protected by an ally's Aurora Veil?</div>
-                                <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilL" />
-                                <label class="btn btn-xxwide veil-btn" for="auroraVeilL">Aurora/Rainbow Veil</label>
-                            </div></td>
-                            <td><div class="right" title="Is the Pok&eacute;mon protected by an ally's Aurora Veil?">
+                                <label class="btn btn-xwide btn-mid" for="lightScreenR">Light Screen</label><br />
                                 <input aria-describedby="selectAuroraVeilInstruction" class="visually-hidden calc-trigger" type="checkbox" id="auroraVeilR" />
-                                <label class="btn btn-xxwide veil-btn" for="auroraVeilR">Aurora/Rainbow Veil</label>
+                                <label class="btn btn-xwide btn-bottom veil-btn" for="auroraVeilR">Aurora/Rainbow Veil</label>
                             </div></td>
                         </tr>
                         <tr class="gen-specific g4 g5 g6 g7 g8 g9">
@@ -895,6 +889,20 @@ function toggleTheme() {
                                 <label class="btn btn-wide" for="leechSeedR">Leech Seed</label>
                             </div></td>
                         </tr>
+                        <tr class="remix-residual-row">
+                            <td><div class="left remix-residual" title="End-of-turn healing / damage on this side (counted in the KO chance)">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="ingrainL" />
+                                <label class="btn btn-left" for="ingrainL">Ingrain</label>
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="boundL" />
+                                <label class="btn btn-right" for="boundL">Bound</label>
+                            </div></td>
+                            <td><div class="right remix-residual" title="End-of-turn healing / damage on this side (counted in the KO chance)">
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="ingrainR" />
+                                <label class="btn btn-left" for="ingrainR">Ingrain</label>
+                                <input class="visually-hidden calc-trigger" type="checkbox" id="boundR" />
+                                <label class="btn btn-right" for="boundR">Bound</label>
+                            </div></td>
+                        </tr>
                         <tr class="gen-specific g4 g5 g6 g7 g8 g9">
                             <div hidden id="selectStealthRockInstruction">Is Stealth Rock affecting this side of the field?</div>
                             <td><div class="left" title="Is Stealth Rock affecting this side of the field?">
@@ -910,9 +918,9 @@ function toggleTheme() {
                             <div hidden id="selectSpikeInstruction">Are there Spikes on this side of the field?</div>
                             <td><div aria-labelledby="selectSpikeInstruction" class="left" role="radiogroup" title="Are there Spikes on this side of the field?">
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="0" id="spikesL0" checked="checked" />
-                                <label class="btn btn-xsmall btn-left" for="spikesL0">0</label>
+                                <label class="btn btn-xsmall btn-left hide" for="spikesL0">0</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="1" id="spikesL1" />
-                                <label class="btn btn-xsmall btn-mid" for="spikesL1">1</label>
+                                <label class="btn btn-xsmall btn-left" for="spikesL1">1</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="2" id="spikesL2" />
                                 <label class="btn btn-xsmall btn-mid" for="spikesL2">2</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesL" value="3" id="spikesL3" />
@@ -924,9 +932,9 @@ function toggleTheme() {
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="2" id="spikesR2" />
                                 <label class="btn btn-xsmall btn-mid" for="spikesR2">2</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="1" id="spikesR1" />
-                                <label class="btn btn-xsmall btn-mid" for="spikesR1">1</label>
+                                <label class="btn btn-xsmall btn-right" for="spikesR1">1</label>
                                 <input class="visually-hidden calc-trigger" type="radio" name="spikesR" value="0" id="spikesR0" checked="checked" />
-                                <label class="btn btn-xsmall btn-right" for="spikesR0">0</label>
+                                <label class="btn btn-xsmall btn-right hide" for="spikesR0">0</label>
                             </div></td>
                         </tr>
                         <tr class="gen-specific g2">
@@ -1471,8 +1479,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="50" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critR1" />
                 <label class="btn crit-btn" for="critR1" title="Force this attack to be a critical hit?">Crit</label>
@@ -1505,8 +1513,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critR2" />
                 <label class="btn crit-btn" for="critR2" title="Force this attack to be a critical hit?">Crit</label>
@@ -1539,8 +1547,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critR3" />
                 <label class="btn crit-btn" for="critR3" title="Force this attack to be a critical hit?">Crit</label>
@@ -1573,8 +1581,8 @@ function toggleTheme() {
                 <input class="move-bp calc-trigger" value="0" />
                 <select class="move-type calc-trigger"></select>
                 <select class="move-cat calc-trigger gen-specific g4 g5 g6 g7 g8 g9">
-                    <option value="Physical">Physical</option>
-                    <option value="Special">Special</option>
+                    <option value="Physical">Phys</option>
+                    <option value="Special">Spec</option>
                 </select>
                 <input aria-describedby="criticalHitInstruction" class="move-crit calc-trigger visually-hidden" type="checkbox" id="critR4" />
                 <label class="btn crit-btn" for="critR4" title="Force this attack to be a critical hit?">Crit</label>
@@ -1621,7 +1629,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./calc/stats.js?9220179f"></script>
     <script type="text/javascript" src="./calc/data/remix_species_renames.js?db19e136"></script>
     <script type="text/javascript" src="./js/remix_species_renames.js?e9267ead"></script>
-    <script type="text/javascript" src="./js/remix_item_effects.js?87155250"></script>
+    <script type="text/javascript" src="./js/remix_item_effects.js?35fe7090"></script>
     <script type="text/javascript" src="./calc/data/species.js?eed8a302"></script>
 	 <script type="text/javascript" src="./js/data/sets/gen9.js?609860b3"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?3961cb8c"></script>
@@ -1636,30 +1644,30 @@ function toggleTheme() {
     <script type="text/javascript" src="./calc/data/natures.js?04f00dc5"></script>
     <script type="text/javascript" src="./calc/data/remix_abilities.js?b22c420f"></script>
     <script type="text/javascript" src="./calc/data/abilities.js?88012c81"></script>
-    <script type="text/javascript" src="./calc/data/remix_moves.js?08c22e59"></script>
+    <script type="text/javascript" src="./calc/data/remix_moves.js?9889843b"></script>
     <script type="text/javascript" src="./calc/data/moves.js?26490301"></script>
-    <script type="text/javascript" src="./calc/data/remix_items.js?316400c0"></script>
+    <script type="text/javascript" src="./calc/data/remix_items.js?44722a23"></script>
     <script type="text/javascript" src="./calc/data/items.js?a17eeb28"></script>
     <script type="text/javascript" src="./calc/data/index.js?083d2bc9"></script>
     <script type="text/javascript" src="./calc/move.js?d52a78c2"></script>
-    <script type="text/javascript" src="./calc/pokemon.js?bcb2d9f4"></script>
-    <script type="text/javascript" src="./calc/field.js?951ff77b"></script>
+    <script type="text/javascript" src="./calc/pokemon.js?e5df8782"></script>
+    <script type="text/javascript" src="./calc/field.js?0a8c6a3e"></script>
     <script type="text/javascript" src="./calc/items.js?47646e68"></script>
     <script type="text/javascript" src="./calc/mechanics/util.js?69a13aaf"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?3da604c3"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?8673082c"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?326e578d"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?a7626c4b"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?070ab0fe"></script>
     <script type="text/javascript" src="./calc/mechanics/gen12.js?5a38a633"></script>
     <script type="text/javascript" src="./calc/calc.js?cd072314"></script>
-    <script type="text/javascript" src="./calc/desc.js?28a36a3b"></script>
+    <script type="text/javascript" src="./calc/desc.js?d0da02ae"></script>
     <script type="text/javascript" src="./calc/result.js?d5c7552b"></script>
     <script type="text/javascript" src="./calc/adaptable.js?afeb3759"></script>
     <script type="text/javascript" src="./calc/index.js?2377cbc8"></script>
     <script type="text/javascript" src="./js/remix_species_data.js?49f1d22a"></script>
     <script type="text/javascript" src="./js/remix_hidden.js?b8007480"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?07af8633"></script>
-    <script type="text/javascript" src="./js/index_randoms_controls.js?66e955b3"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?5a1490c3"></script>
+    <script type="text/javascript" src="./js/index_randoms_controls.js?a96270cc"></script>
     <script type="text/javascript" src="./js/moveset_import.js?d5119830"></script>
     <script type="text/javascript" src="./js/showdown_hooks.js?6edfe6d3"></script>
     <script type="text/javascript" src="./js/sprite_version.js?3aafac6f"></script>
@@ -1667,12 +1675,14 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/remix_minisprite.js?8f984ad5"></script>
     <script type="text/javascript" src="./js/remix_forms.js?abd9f4b9"></script>
     <script type="text/javascript" src="./js/remix_teamzoom.js?dc74c75e"></script>
-    <script type="text/javascript" src="./js/remix_typecolors.js?046c495e"></script>
-    <script type="text/javascript" src="./js/remix_layout.js?cd5dc1ed"></script>
+    <script type="text/javascript" src="./js/remix_typecolors.js?5b2b4c8e"></script>
+    <script type="text/javascript" src="./js/remix_layout.js?246bcf20"></script>
     <script type="text/javascript" src="./js/remix_kotext.js?34d1df64"></script>
-    <script type="text/javascript" src="./js/remix_applydamage.js?1a56fc41"></script>
-    <script type="text/javascript" src="./js/remix_faint.js?725e4bc5"></script>
-    <script type="text/javascript" src="./js/remix_hpmemory.js?e8d87290"></script>
+    <script type="text/javascript" src="./js/remix_applydamage.js?4c654a93"></script>
+    <script type="text/javascript" src="./js/remix_faint.js?864a9d08"></script>
+    <script type="text/javascript" src="./js/remix_hpmemory.js?7c7ebf53"></script>
+    <script type="text/javascript" src="./js/remix_transform.js?4875e524"></script>
+    <script type="text/javascript" src="./js/remix_moverows.js?ddc4fcf8"></script>
     <script type="text/javascript" src="./js/remix_typechart.js?29f5e349"></script>
 </div>
 

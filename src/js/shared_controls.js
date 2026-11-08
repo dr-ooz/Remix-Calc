@@ -996,6 +996,9 @@ function createField() {
 	var isAuroraVeil = [$("#auroraVeilL").prop("checked"), $("#auroraVeilR").prop("checked")];
 	var isLuckyChant = [$("#luckyChantL").prop("checked"), $("#luckyChantR").prop("checked")]; // Remix
 	var isLunarAura = [$("#lunarAuraL").prop("checked"), $("#lunarAuraR").prop("checked")]; // Remix
+	var isIngrain = [$("#ingrainL").prop("checked"), $("#ingrainR").prop("checked")];
+	var isAquaRing = [$("#aquaRingL").prop("checked"), $("#aquaRingR").prop("checked")];
+	var isBound = [$("#boundL").prop("checked"), $("#boundR").prop("checked")];
 	var isBattery = [$("#batteryL").prop("checked"), $("#batteryR").prop("checked")];
 	var isPowerSpot = [$("#powerSpotL").prop("checked"), $("#powerSpotR").prop("checked")];
 	// TODO: support switching in as well!
@@ -1008,7 +1011,7 @@ function createField() {
 			isReflect: isReflect[i], isLightScreen: isLightScreen[i],
 			isProtected: isProtected[i], isSeeded: isSeeded[i], isForesight: isForesight[i],
 			isTailwind: isTailwind[i], isHelpingHand: isHelpingHand[i], isFlowerGift: isFlowerGift[i], isFriendGuard: isFriendGuard[i],
-			isAuroraVeil: isAuroraVeil[i], isLuckyChant: isLuckyChant[i], isLunarAura: isLunarAura[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined
+			isAuroraVeil: isAuroraVeil[i], isLuckyChant: isLuckyChant[i], isLunarAura: isLunarAura[i], isIngrain: isIngrain[i], isAquaRing: isAquaRing[i], isBound: isBound[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined
 		});
 	};
 	return new calc.Field({

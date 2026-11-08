@@ -118,6 +118,8 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         !remixCritImmune &&
         !field.defenderSide.isLuckyChant &&
         (move.isCrit || attacker.remixItemFx().alwaysCrit ||
+            (gen.num === 7 && !!move.remix && move.remix.highCrit &&
+                (attacker.hasItem("Scope Lens", "Razor Claw") || attacker.hasAbility("Super Luck"))) ||
             (attacker.hasAbility("Merciless") &&
                 (gen.num === 7 ? !!defender.status : defender.hasStatus("psn", "tox")))) &&
         move.timesUsed === 1;
@@ -956,6 +958,7 @@ function calculateBasePowerSMSSSV(gen, attacker, defender, move, field, hasAteAb
     }
     var bpMods = calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, basePower, hasAteAbilityTypeChange, turnOrder);
     basePower = (0, util_2.OF16)(Math.max(1, (0, util_2.pokeRound)((basePower * (0, util_2.chainMods)(bpMods, 41, 2097152)) / 4096)));
+    desc.remixFinalBP = basePower;
     if (attacker.teraType &&
         move.type === attacker.teraType &&
         attacker.hasType(attacker.teraType) &&
@@ -1097,7 +1100,8 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         (gen.num !== 7 && attacker.hasAbility("Toxic Boost") &&
             attacker.hasStatus("psn", "tox") &&
             move.category === "Physical") ||
-        (gen.num === 7 && ((attacker.hasAbility("Toxic Boost") && move.hasType("Poison")) ||
+        (gen.num === 7 && ((attacker.hasAbility("Showstopper") && !!move.remix && move.remix.showstopper) ||
+            (attacker.hasAbility("Toxic Boost") && move.hasType("Poison")) ||
             (attacker.hasAbility("Titanic") && move.hasType("Ice", "Rock", "Steel")) ||
             (attacker.hasAbility("Levitate") && move.hasType("Flying")) ||
             (attacker.hasAbility("Sand Force") && field.hasWeather("Sand")) ||
@@ -1177,7 +1181,8 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(4915);
         desc.attackerAbility = attacker.ability;
     }
-    if (gen.num === 7 && ((attacker.hasAbility("Corrosion") && move.hasType("Poison")) ||
+    if (gen.num === 7 && ((attacker.hasAbility("Wind Rider") && !!move.flags.wind) ||
+        (attacker.hasAbility("Corrosion") && move.hasType("Poison")) ||
         (attacker.hasAbility("Amplifier") && move.flags.sound))) {
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;

@@ -9,6 +9,10 @@ Then rebuild the calc (npm run compile).
 import json, os, struct, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# pk3DS move flag bits used by Remix abilities (Iron Fist, Amplifier, Dancer, Sharpness, Strong Jaw,
+# Bulletproof, Mega Launcher, Showstopper, Wind Rider)
+FLAG_BITS = {7: "punch", 8: "sound", 16: "dance", 17: "slicing", 18: "bite", 19: "bullet",
+             20: "pulse", 22: "showstopper", 26: "wind"}
 EXTRAS = os.path.join(HERE, "..", "remix-data", "move_extras.json")
 
 # ---- game file reading (only needed with --romfs) ----
@@ -47,7 +51,9 @@ def refresh_extras(romfs):
             "contact": bool(struct.unpack_from("<I", e, 36)[0] & 1),
             "secondary": bool(inflict_pct or flinch or any(stat_pcts)),
             "trap": struct.unpack_from("<H", e, 8)[0] == 8,
-            "protect": bool(struct.unpack_from("<I", e, 36)[0] & 8),  # blocked by Protect  # partial-trap condition (end-of-turn damage)
+            "protect": bool(struct.unpack_from("<I", e, 36)[0] & 8),
+            # Remix move flags (pk3DS flag bits): ability move lists
+            "flags": [name for bit, name in FLAG_BITS.items() if struct.unpack_from("<I", e, 36)[0] >> bit & 1],  # blocked by Protect  # partial-trap condition (end-of-turn damage)
         }
     json.dump(extras, open(EXTRAS, "w"), indent=0)
     print("refreshed", EXTRAS, "from", romfs)

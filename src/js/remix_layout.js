@@ -66,3 +66,36 @@ $(document).on("click", "label[for]", function (e) {
 		$("#clear").prop("checked", true).change();
 	}
 });
+
+// Remix: Spikes start empty (no lit "0" button). Click 1/2/3 to set layers; click the lit one again to clear.
+$(document).on("click", "label[for^='spikesL'], label[for^='spikesR']", function (e) {
+	var input = $("#" + this.htmlFor);
+	if (input.val() !== "0" && input.prop("checked")) {
+		e.preventDefault();
+		$("#" + this.htmlFor.replace(/\d$/, "0")).prop("checked", true).change();
+	}
+});
+
+// Remix: nature labels. Options read "Adamant +Atk/-SpA"; the closed box shows the name at normal size
+// with the stat changes in a smaller font (an overlay; the real dropdown underneath still opens on click).
+$(function () {
+	$(".poke-info select.nature").each(function () {
+		var sel = $(this);
+		sel.find("option").each(function () {
+			this.text = this.text.replace(/\s*\(\+(\w+), -(\w+)\)/, " +$1/-$2");
+		});
+		sel.parent().css("position", "relative");
+		var label = $("<span class='remix-nature-label' aria-hidden='true'></span>").insertAfter(sel);
+		var draw = function () {
+			var m = /^(\S+)(?: (\+\S+))?$/.exec(sel.find("option:selected").text() || "") || [];
+			label.empty().append($("<span class='n-name'></span>").text(m[1] || ""))
+				.append(m[2] ? $("<span class='n-stats'></span>").text(" " + m[2]) : "");
+			var p = sel.position();
+			label.css({ left: p.left, top: p.top, width: sel.outerWidth(), height: sel.outerHeight() });
+		};
+		sel.addClass("remix-nature-select").on("change", draw);
+		draw();
+		setTimeout(draw, 200);
+	});
+	$(window).on("resize", function () { $(".poke-info select.nature").trigger("change"); });
+});

@@ -3,6 +3,7 @@
 // Remembered while you click around the same trainer's sets; cleared when the trainer changes.
 var remixFainted = {};
 var remixFaintTrainer = null;
+var remixClearFainted = null; // set once the enemy box exists
 
 function remixCurrentTrainer() {
 	try { return typeof get_current_trainer === "function" ? get_current_trainer() : ""; } catch (e) { return ""; }
@@ -16,6 +17,10 @@ $(function () {
 		function refresh() {
 			var trainer = remixCurrentTrainer();
 			if (trainer !== remixFaintTrainer) {
+				// New boss fight: your team starts fresh (only on a real switch, not the first load)
+				if (remixFaintTrainer !== null && trainer && typeof remixResetTeam === "function") {
+					setTimeout(function () { remixResetTeam(0); }, 0);
+				}
 				remixFaintTrainer = trainer;
 				remixFainted = {};
 			}
@@ -43,6 +48,8 @@ $(function () {
 			if (records.some(function (r) { return r.target === box[0]; })) refresh();
 		}).observe(box[0], { childList: true });
 		refresh();
+
+		remixClearFainted = function () { remixFainted = {}; refresh(); };
 
 		box.on("click", ".enemy-faint", function (e) {
 			e.preventDefault();

@@ -33,6 +33,7 @@ for (const m of moves) {
 	const damaging = cat !== "Status";
 	const d = {bp: damaging ? m.power : 0, type: TYPES[m.type], category: cat};
 	if (m.zPower) d.zp = m.zPower;
+	if (m.pp) d.pp = m.pp; // Remix PP counter
 	if (x.priority) d.priority = x.priority;
 	if (x.hitMax > 1) d.multihit = x.hitMin === x.hitMax ? x.hitMin : [x.hitMin, x.hitMax];
 	if (damaging && x.drainRecoil > 0) d.drain = [x.drainRecoil, 100];
@@ -40,6 +41,14 @@ for (const m of moves) {
 	if (damaging && x.crit >= 6) d.willCrit = true;
 	if (damaging && TARGETS[x.target]) d.target = TARGETS[x.target];
 	if (x.contact) d.makesContact = true;
+	// move flags from the game (tools/refresh_move_extras.py): ability move lists
+	const FLAG_FIELDS = {punch: "isPunch", sound: "isSound", bite: "isBite", bullet: "isBullet",
+		pulse: "isPulse", slicing: "isSlicing", wind: "isWind"};
+	for (const f of x.flags || []) {
+		if (FLAG_FIELDS[f]) d[FLAG_FIELDS[f]] = true;
+		else d.remix = Object.assign(d.remix || {}, {[f]: true}); // showstopper, dance
+	}
+	if (damaging && x.crit === 2) d.remix = Object.assign(d.remix || {}, {highCrit: true}); // high crit ratio
 	if (damaging && x.secondary) d.secondaries = true;
 	if (damaging && x.protect === false && !isZ(m.num)) d.breaksProtect = true; // Z-moves keep the 1/4-through-Protect rule
 	if (isZ(m.num)) d.isZ = true;

@@ -1007,3 +1007,75 @@ body.dark .rdp-btn:hover { background: #3c3249; }
 body.dark .poke-info .status option { background-color: #2b2533; color: #e6e1ec; }
 .poke-info .totalMod.remix-stat-up { font-weight: bold; background: rgba(60, 180, 90, 0.18); border-radius: 4px; padding: 0 3px; }
 .poke-info .totalMod.remix-stat-down { font-weight: bold; background: rgba(220, 70, 60, 0.18); border-radius: 4px; padding: 0 3px; }
+
+/* ---- Remix: Spikes group (1 | 2 | 3 Spikes) spans the same width as the other field buttons ---- */
+table.field div[role="radiogroup"][title^="Are there Spikes"] { display: inline-flex; width: 121.6px; vertical-align: middle; }
+table.field div[role="radiogroup"][title^="Are there Spikes"] label[for^="spikes"] { width: auto; flex: 1 1 0; box-sizing: border-box; padding-left: 0; padding-right: 0; white-space: nowrap; }
+table.field div[role="radiogroup"][title^="Are there Spikes"] label.btn-spikes { flex: 3.6 1 0; }
+
+/* ---- Remix: Reset team buttons + item-status toggle ---- */
+.remix-reset-row { margin: 6px 4px 0; }
+.remix-reset-row.left { text-align: left; }
+.remix-reset-row.right { text-align: right; }
+.remix-reset-team { border: 1px solid #9cc7a4; background: #eef8f0; color: #2f7a3d; border-radius: 6px; padding: 2px 10px; font-size: 12px; font-weight: bold; cursor: pointer; transition: background .15s, transform .15s; }
+.remix-reset-team:hover { background: #d9f0de; transform: scale(1.04); }
+body.dark .remix-reset-team { background: #1f3326; border-color: #3d6b4a; color: #9fe0ad; }
+body.dark .remix-reset-team:hover { background: #29452f; }
+.poke-info .remix-item-status { margin-left: 6px; border: 1px solid #c9a24a; background: #fbf3df; color: #7a5a10; border-radius: 5px; padding: 0 6px; font-size: 11px; line-height: 16px; cursor: pointer; white-space: nowrap; }
+.poke-info .remix-item-status.off { border-color: #a9a2b3; background: transparent; color: #8a8294; }
+body.dark .poke-info .remix-item-status { background: #3a3020; border-color: #7a6430; color: #f0d58f; }
+body.dark .poke-info .remix-item-status.off { background: transparent; border-color: #4a4058; color: #9a90a8; }
+
+/* ---- Remix: residual toggles row + Imposter "Transformed" ---- */
+table.field .remix-residual { display: inline-flex; width: 121.6px; vertical-align: middle; }
+table.field .remix-residual label.btn { width: auto !important; flex: 1 1 auto; box-sizing: border-box; padding-left: 2px; padding-right: 2px; font-size: 0.72em; white-space: nowrap; }
+.poke-info .remix-transform { display: inline-block; width: auto; margin-left: 6px; font-size: 11px; white-space: nowrap; cursor: pointer; }
+.poke-info .remix-transform input { margin: 0 2px 0 0; vertical-align: middle; }
+
+/* ---- Remix: move rows (effective type/BP/category overlay, PP counter) ---- */
+.poke-info .move1, .poke-info .move2, .poke-info .move3, .poke-info .move4 { position: relative; }
+.poke-info .remix-eff { position: absolute; pointer-events: none; font-style: italic; box-sizing: border-box; margin: 0; z-index: 2; }
+.poke-info input.remix-eff { text-align: center; background: #fff; color: #222; border: 1px solid #b9b0c6; border-radius: 3px; padding: 0; font-weight: bold; }
+body.dark .poke-info input.remix-eff { background: #2b2533; color: #f0e6ff; border-color: #6a5a86; }
+.poke-info select.remix-eff { font-weight: bold; }
+.poke-info .remix-pp { display: inline-flex; width: auto; align-items: center; gap: 1px; margin-left: 4px; font-size: 11px; white-space: nowrap; vertical-align: middle; }
+.poke-info .remix-pp button { width: 14px; height: 16px; padding: 0; border: 1px solid #b9b0c6; background: #f4f0f8; color: #5b4a73; border-radius: 3px; line-height: 13px; font-size: 11px; cursor: pointer; }
+body.dark .poke-info .remix-pp button { background: #2b2435; border-color: #4a4058; color: #d9c9f0; }
+.poke-info .remix-pp .pp-val { display: inline-block; width: auto; min-width: 34px; text-align: center; cursor: pointer; border-radius: 3px; }
+.poke-info .remix-pp.used .pp-val { font-weight: bold; background: rgba(235, 160, 40, 0.18); }
+.poke-info .remix-pp.empty .pp-val { font-weight: bold; background: rgba(220, 70, 60, 0.25); }
+/* move rows: one even line (move name takes the leftover width), PP counter at the end */
+.poke-info .move1, .poke-info .move2, .poke-info .move3, .poke-info .move4 { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; row-gap: 2px;
+	width: calc(100% + 22px); box-sizing: border-box; } /* reaches the right edge of the type chart */
+.poke-info [class^="move"] > .select2-container.move-selector { flex: 1 1 0; min-width: 80px; width: auto !important; }
+.poke-info [class^="move"] > .move-bp { flex: 0 0 30px; margin: 0; }
+.poke-info [class^="move"] > .move-type { flex: 0 0 66px; width: 66px !important; min-width: 0; margin: 0; }
+.poke-info [class^="move"] > .move-cat { flex: 0 0 54px; width: 54px !important; min-width: 0; padding-left: 4px; padding-right: 0; margin: 0; }
+.poke-info [class^="move"] > label.btn { margin: 0; }
+.poke-info .remix-pp { flex: 0 0 auto; margin-left: auto; gap: 5px; }
+.poke-info .remix-pp button { width: 16px; }
+.poke-info .remix-pp .pp-val { min-width: 38px; font-size: 11px; }
+
+/* changed category: same dropdown look (arrow kept), bold italic in a slightly smaller font so it fits */
+.poke-info select.remix-eff-cat { font-size: 11px; padding-left: 3px; padding-right: 0; opacity: 1; }
+.poke-info select.remix-eff-cat { color: #222; -webkit-text-fill-color: #222; background-color: #fff; }
+body.dark .poke-info select.remix-eff-cat { color: #f0e6ff; -webkit-text-fill-color: #f0e6ff; background-color: #2b2533; border: 1px solid #6a5a86; }
+
+/* changed move type: crisp pill text (not greyed like a disabled box), slightly smaller so italic fits */
+.poke-info select.remix-eff-type { opacity: 1; color: #fff; -webkit-text-fill-color: #fff; font-size: 11px; padding-left: 2px; padding-right: 0; }
+/* top move buttons: italic + bold when an ability/item changed the move's type */
+label.result-changed { font-style: italic; font-weight: bold; }
+/* Reset team: tucked up right under the team box, in its corner */
+.remix-reset-row { margin: -17px 3px 0; }
+.remix-reset-team { padding: 1px 8px; font-size: 11px; }
+
+/* ---- Remix: nature box = name + smaller "+Atk/-SpA" ---- */
+.poke-info select.remix-nature-select { color: transparent; }
+.poke-info select.remix-nature-select option { color: #222; }
+body.dark .poke-info select.remix-nature-select option { color: #e6e1ec; }
+.poke-info .remix-nature-label { position: absolute; display: flex; align-items: center; width: auto; box-sizing: border-box; padding: 0 18px 0 4px; pointer-events: none; overflow: hidden; white-space: nowrap; }
+.poke-info .remix-nature-label .n-name { display: inline; width: auto; }
+.poke-info .remix-nature-label .n-stats { display: inline; width: auto; font-size: 10px; opacity: .85; margin-left: 2px; }
+
+/* base power boxes: centered text (matches the changed-power overlay) */
+.poke-info [class^="move"] > .move-bp { text-align: center; padding-left: 0; padding-right: 0; }

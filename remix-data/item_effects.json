@@ -1,5 +1,5 @@
 {
- "_readme": "Remix item effects for the calc. Each item = a list of rules. A rule with 'species' only works for those Pokemon (calc names; a name ending in * matches every form, e.g. Minior-*). No 'species' = everyone. Keys: abilities (counts as having them), items (counts as holding them), boost {Type: x} power boost, resist {Type: x} damage taken, stab [types], ate (Normal moves become this type, 1.2x), addType (extra type), vsSteel {Type: x} damage vs Steel types, moveBoost {Move: x}, stats [{stat at/sa/df/sd, mult, weather [], terrain []}], critImmune, alwaysCrit, weatherHeal {Weather: divisor}, metronomeStep (0.35 = +35% per use), selfStatus (brn/psn/tox: the item statuses its holder, set automatically). Only damage-relevant effects are here; game-only parts (pivoting, hazards, speed below half, etc.) are left out.",
+ "_readme": "Remix item effects for the calc. Each item = a list of rules. A rule with 'species' only works for those Pokemon (calc names; a name ending in * matches every form, e.g. Minior-*). No 'species' = everyone. Keys: abilities (counts as having them), items (counts as holding them), boost {Type: x} power boost, resist {Type: x} damage taken, stab [types], ate (Normal moves become this type, 1.2x), addType (extra type), vsSteel {Type: x} damage vs Steel types, moveBoost {Move: x}, stats [{stat at/sa/df/sd, mult, weather [], terrain []}], critImmune, alwaysCrit, weatherHeal {Weather: divisor}, metronomeStep (0.35 = +35% per use), selfStatus (brn/psn/tox: the item statuses its holder, set automatically), selfDamagePct (% max HP lost per attack, like Life Orb), drainPct (% of damage dealt healed; drainIfAsleep = only vs a sleeping target). \"Scope Lens\" in items = +1 crit rate (high-crit moves always crit). Only damage-relevant effects are here; game-only parts (pivoting, hazards, speed below half, etc.) are left out.",
  "_removed": [
   "Toxic Plate",
   "Meadow Plate",
@@ -278,6 +278,12 @@
     "Dusknoir"
    ],
    "critImmune": true
+  },
+  {
+   "species": [
+    "Dusknoir"
+   ],
+   "drainPct": 50
   }
  ],
  "Loaded Dice": [
@@ -382,6 +388,13 @@
     "Battle Armor",
     "Iron Barbs"
    ]
+  },
+  {
+   "species": [
+    "Krabby",
+    "Kingler"
+   ],
+   "drainPct": 50
   }
  ],
  "Shiny Scale": [
@@ -441,7 +454,8 @@
     "Incinerate",
     "No Guard",
     "Aftermath"
-   ]
+   ],
+   "selfDamagePct": 25
   }
  ],
  "Metal Coat": [
@@ -719,7 +733,10 @@
    ],
    "moveBoost": {
     "Guillotine": 1.5
-   }
+   },
+   "items": [
+    "Scope Lens"
+   ]
   }
  ],
  "Silk Scarf": [
@@ -764,7 +781,9 @@
    ],
    "abilities": [
     "Soporific"
-   ]
+   ],
+   "drainPct": 50,
+   "drainIfAsleep": true
   }
  ],
  "Star Gauntlet": [
@@ -891,7 +910,8 @@
    ],
    "items": [
     "Loaded Dice",
-    "Covert Cloak"
+    "Covert Cloak",
+    "Scope Lens"
    ]
   }
  ],

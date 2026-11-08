@@ -157,6 +157,10 @@ export function calculateSMSSSV(
     !remixCritImmune &&
     !field.defenderSide.isLuckyChant && // Remix: Lucky Chant blocks crits on that side
     (move.isCrit || attacker.remixItemFx().alwaysCrit ||
+      // Remix: high-crit moves always crit with a crit-rate boost (Scope Lens, Razor Claw, Super Luck,
+      // or an item that includes +1 crit rate)
+      (gen.num === 7 && !!(move as any).remix && (move as any).remix.highCrit &&
+        (attacker.hasItem("Scope Lens", "Razor Claw") || attacker.hasAbility("Super Luck"))) ||
       (attacker.hasAbility("Merciless") &&
         (gen.num === 7 ? !!defender.status : defender.hasStatus("psn", "tox")))) &&
     move.timesUsed === 1;
@@ -1220,6 +1224,7 @@ export function calculateBasePowerSMSSSV(
   basePower = OF16(
     Math.max(1, pokeRound((basePower * chainMods(bpMods, 41, 2097152)) / 4096))
   );
+  desc.remixFinalBP = basePower; // Remix: shown in the move row when abilities/items change it
   if (
     attacker.teraType &&
     move.type === attacker.teraType &&
@@ -1414,6 +1419,7 @@ export function calculateBPModsSMSSSV(
       move.category === "Physical") ||
     // Remix (gen 7) 1.5x power boosts
     (gen.num === 7 && (
+      (attacker.hasAbility("Showstopper") && !!(move as any).remix && (move as any).remix.showstopper) ||
       (attacker.hasAbility("Toxic Boost") && move.hasType("Poison")) ||
       (attacker.hasAbility("Titanic") && move.hasType("Ice", "Rock", "Steel")) ||
       (attacker.hasAbility("Levitate") && move.hasType("Flying")) ||
@@ -1511,8 +1517,9 @@ export function calculateBPModsSMSSSV(
     desc.attackerAbility = attacker.ability;
   }
 
-  // Remix (gen 7) 1.3x: Corrosion Poison moves, Amplifier sound moves
+  // Remix (gen 7) 1.3x: Corrosion Poison moves, Amplifier sound moves, Wind Rider wind moves
   if (gen.num === 7 && (
+    (attacker.hasAbility("Wind Rider") && !!move.flags.wind) ||
     (attacker.hasAbility("Corrosion") && move.hasType("Poison")) ||
     (attacker.hasAbility("Amplifier") && move.flags.sound))) {
     bpMods.push(5325);

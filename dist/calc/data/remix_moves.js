@@ -12,6 +12,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true
@@ -21,6 +22,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "willCrit": true,
         "makesContact": true
     },
@@ -29,6 +31,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "multihit": 2,
         "makesContact": true
     },
@@ -37,6 +40,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 140,
+        "pp": 5,
         "multihit": [
             2,
             5
@@ -48,6 +52,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -56,8 +61,10 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 160,
+        "pp": 5,
         "multihit": 3,
         "remix": {
+            "highCrit": true,
             "useHigherStat": true
         }
     },
@@ -66,6 +73,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -74,6 +82,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -82,6 +91,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -90,6 +100,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "willCrit": true,
         "makesContact": true
     },
@@ -98,6 +109,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -109,6 +121,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "makesContact": true
     },
@@ -117,6 +130,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 200,
+        "pp": 1,
         "willCrit": true,
         "secondaries": true,
         "remix": {
@@ -130,6 +144,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": -1
     },
     "Fury Cutter": {
@@ -137,6 +152,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 100,
+        "pp": 15,
         "willCrit": true,
         "makesContact": true
     },
@@ -145,6 +161,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Dual Wingbeat": {
@@ -152,6 +169,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true
@@ -160,6 +178,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Flying",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Fly": {
@@ -167,6 +186,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -176,6 +196,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -184,6 +205,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -197,6 +219,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 160,
+        "pp": 15,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true,
@@ -211,6 +234,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 1,
         "makesContact": true,
         "secondaries": true
     },
@@ -219,6 +243,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": 2,
         "makesContact": true
     },
@@ -227,6 +252,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -240,6 +266,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "makesContact": true
     },
     "Rolling Kick": {
@@ -247,6 +274,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true
     },
     "Sand Sling": {
@@ -254,6 +282,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -267,6 +296,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -275,6 +305,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 150,
+        "pp": 5,
         "priority": 4,
         "willCrit": true,
         "secondaries": true
@@ -284,6 +315,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -294,6 +326,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "willCrit": true,
         "makesContact": true,
         "remix": {
@@ -305,6 +338,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -316,6 +350,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -324,6 +359,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -335,6 +371,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -347,6 +384,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -359,6 +397,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -370,6 +409,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Poison Dart": {
@@ -377,6 +417,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Barb Barrage": {
@@ -384,6 +425,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -395,6 +437,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -403,37 +446,43 @@ exports.REMIX_MOVES = {
     "Leer": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Jagged Fangs": {
         "bp": 90,
         "type": "Rock",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
     "Growl": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Roar": {
         "bp": 0,
         "type": "Dark",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Sing": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Pendulum Wave": {
         "bp": 65,
         "type": "Psychic",
         "category": "Special",
         "zp": 130,
+        "pp": 1,
         "priority": 4,
         "secondaries": true
     },
@@ -442,6 +491,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 110,
+        "pp": 10,
         "multihit": 3,
         "remix": {
             "noVanilla": true
@@ -450,13 +500,15 @@ exports.REMIX_MOVES = {
     "Disable": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Caustic Acid": {
         "bp": 50,
         "type": "Poison",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -470,6 +522,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Flamethrower": {
@@ -477,18 +530,21 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Chill Out": {
         "bp": 0,
         "type": "Ice",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Water Gun": {
         "bp": 45,
         "type": "Water",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Hydro Pump": {
@@ -496,6 +552,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "targetDrop": {
@@ -508,6 +565,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "target": "allAdjacent",
         "remix": {
             "lunarAuraBoost": 1.5
@@ -518,6 +576,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Blizzard": {
@@ -525,6 +584,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -533,6 +593,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Bubble Burst": {
@@ -540,6 +601,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "secondaries": true
     },
     "Aurora Beam": {
@@ -547,6 +609,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 110,
+        "pp": 10,
         "secondaries": true
     },
     "Hyper Beam": {
@@ -554,6 +617,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "secondaries": true
     },
     "Fury Pecks": {
@@ -561,6 +625,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -572,13 +637,18 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Submission": {
         "bp": 140,
         "type": "Fighting",
         "category": "Physical",
         "zp": 200,
+        "pp": 10,
         "recoil": [
             50,
             100
@@ -590,6 +660,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -598,6 +669,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 160,
+        "pp": 2,
         "priority": -6,
         "makesContact": true
     },
@@ -606,6 +678,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "priority": 4,
         "makesContact": true,
         "secondaries": true
@@ -615,6 +688,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "recoil": [
             50,
             100
@@ -632,6 +706,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "drain": [
             100,
             100
@@ -642,6 +717,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "drain": [
             75,
             100
@@ -650,18 +726,21 @@ exports.REMIX_MOVES = {
     "Leech Seed": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Growth": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Razor Leaf": {
         "bp": 45,
         "type": "Grass",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "willCrit": true,
         "target": "allAdjacentFoes"
     },
@@ -669,28 +748,33 @@ exports.REMIX_MOVES = {
         "bp": 135,
         "type": "Grass",
         "category": "Special",
-        "zp": 180
+        "zp": 180,
+        "pp": 5
     },
     "Poison Powder": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Stun Spore": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Sleep Powder": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Petal Dance": {
         "bp": 80,
         "type": "Grass",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "useHigherStat": true,
@@ -703,13 +787,15 @@ exports.REMIX_MOVES = {
     "String Shot": {
         "bp": 0,
         "type": "Bug",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Dragon Burst": {
         "bp": 30,
         "type": "Dragon",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "multihit": 3,
         "remix": {
             "noVanilla": true
@@ -720,6 +806,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "secondaries": true,
         "remix": {
             "trap": true
@@ -730,6 +817,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "multihit": 3
     },
     "Thunderbolt": {
@@ -737,18 +825,21 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Thunder Wave": {
         "bp": 0,
         "type": "Electric",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Thunder": {
         "bp": 125,
         "type": "Electric",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true
     },
     "Sugar Rush": {
@@ -756,6 +847,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 90,
+        "pp": 2,
         "priority": 4,
         "secondaries": true
     },
@@ -764,6 +856,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "target": "allAdjacent"
     },
     "Fissure": {
@@ -771,6 +864,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Dig": {
@@ -778,6 +872,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -785,13 +880,15 @@ exports.REMIX_MOVES = {
     "Toxic": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Mind Pulse": {
         "bp": 60,
         "type": "Psychic",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "secondaries": true
     },
     "Psychic": {
@@ -799,22 +896,26 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Hypnosis": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Meditate": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 3
     },
     "Agility": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 1,
         "priority": -1
     },
     "Quick Attack": {
@@ -822,6 +923,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -830,6 +932,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 100,
+        "pp": 10,
         "makesContact": true,
         "remix": {
             "matchUserType": true
@@ -839,6 +942,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 10,
         "priority": -6
     },
     "Soul Absorb": {
@@ -846,6 +950,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 100,
+        "pp": 5,
         "drain": [
             100,
             100
@@ -855,18 +960,21 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Screech": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Water Shuriken": {
         "bp": 30,
         "type": "Water",
         "category": "Special",
         "zp": 190,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -878,81 +986,96 @@ exports.REMIX_MOVES = {
     "Recover": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Concentrate": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 3
     },
     "Sleep Mode": {
         "bp": 0,
         "type": "Steel",
         "category": "Status",
+        "pp": 3,
         "priority": 4
     },
     "Contaminate": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Eerie Wave": {
         "bp": 0,
         "type": "Ghost",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Withdraw": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Defense Curl": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 3
     },
     "Barrier": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Light Screen": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Dark Haze": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Reflect": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Focus Energy": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Bide": {
         "bp": 1,
         "type": "Normal",
         "category": "Physical",
         "zp": 130,
+        "pp": 5,
         "priority": 1,
         "makesContact": true
     },
     "Metronome": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Mirror Move": {
         "bp": 0,
         "type": "Flying",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Detonate": {
@@ -960,6 +1083,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 250,
+        "pp": 1,
         "target": "allAdjacent",
         "secondaries": true,
         "breaksProtect": true,
@@ -972,6 +1096,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 190,
+        "pp": 5,
         "multihit": 3,
         "remix": {
             "matchUserType": true
@@ -982,6 +1107,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 100,
+        "pp": 2,
         "makesContact": true,
         "secondaries": true
     },
@@ -990,6 +1116,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "drain": [
             100,
             100
@@ -1001,6 +1128,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "secondaries": true
     },
     "Bone Club": {
@@ -1008,6 +1136,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 100,
+        "pp": 3,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -1019,6 +1148,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true
     },
     "Wave Crash": {
@@ -1026,6 +1156,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -1038,6 +1169,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 100,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -1049,6 +1181,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "target": "allAdjacentFoes"
     },
@@ -1057,6 +1190,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "recoil": [
             30,
             100
@@ -1076,6 +1210,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -1087,6 +1222,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -1096,13 +1232,15 @@ exports.REMIX_MOVES = {
     "Amnesia": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Brainfreeze": {
         "bp": 20,
         "type": "Steel",
         "category": "Special",
         "zp": 100,
+        "pp": 1,
         "priority": 4,
         "secondaries": true
     },
@@ -1110,6 +1248,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Divebomb": {
@@ -1117,18 +1256,21 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "makesContact": true
     },
     "Glare": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Brain Drain": {
         "bp": 75,
         "type": "Psychic",
         "category": "Special",
         "zp": 120,
+        "pp": 10,
         "drain": [
             100,
             100
@@ -1137,13 +1279,15 @@ exports.REMIX_MOVES = {
     "Poison Gas": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Triple Cannonade": {
         "bp": 35,
         "type": "Steel",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "multihit": 3
     },
     "Leech Life": {
@@ -1151,6 +1295,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 130,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -1161,6 +1306,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Ghost",
         "category": "Status",
+        "pp": 1,
         "makesContact": true
     },
     "Sky Attack": {
@@ -1168,6 +1314,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 200,
+        "pp": 1,
         "willCrit": true,
         "makesContact": true,
         "secondaries": true,
@@ -1182,6 +1329,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 10,
         "priority": 6
     },
     "Dribble Drain": {
@@ -1189,6 +1337,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "drain": [
             100,
             100
@@ -1200,6 +1349,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "multihit": 3,
         "makesContact": true,
         "secondaries": true
@@ -1207,12 +1357,14 @@ exports.REMIX_MOVES = {
     "Spore": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Flash": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Brainwave": {
@@ -1220,6 +1372,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 160,
+        "pp": 5,
         "remix": {
             "statusBoost": {
                 "slp": 1.5
@@ -1231,19 +1384,22 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
     "Acid Armor": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Crabhammer": {
         "bp": 80,
         "type": "Water",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "willCrit": true,
         "makesContact": true
     },
@@ -1252,6 +1408,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 250,
+        "pp": 1,
         "willCrit": true,
         "target": "allAdjacent",
         "breaksProtect": true,
@@ -1264,6 +1421,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -1275,6 +1433,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "multihit": 2,
         "secondaries": true,
         "remix": {
@@ -1284,13 +1443,15 @@ exports.REMIX_MOVES = {
     "Rest": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Rock Slide": {
         "bp": 120,
         "type": "Rock",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "priority": -5,
         "target": "allAdjacentFoes"
     },
@@ -1299,18 +1460,21 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 190,
+        "pp": 10,
         "willCrit": true,
         "makesContact": true
     },
     "Fortify": {
         "bp": 0,
         "type": "Steel",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Conversion": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Tri Attack": {
@@ -1318,6 +1482,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 170,
+        "pp": 5,
         "multihit": 3,
         "secondaries": true
     },
@@ -1326,6 +1491,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 1,
         "priority": 4,
         "makesContact": true,
         "secondaries": true
@@ -1335,24 +1501,31 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Substitute": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 3
     },
     "Struggle": {
         "bp": 50,
         "type": "Normal",
         "category": "Physical",
         "zp": 1,
+        "pp": 1,
         "makesContact": true
     },
     "Sketch": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 7
     },
     "Triple Kick": {
@@ -1360,6 +1533,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "multihit": 3,
         "willCrit": true,
         "makesContact": true,
@@ -1372,6 +1546,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "remix": {
             "stealBoost": true
@@ -1382,19 +1557,22 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "secondaries": true
     },
     "Look-Out": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Night Terror": {
         "bp": 50,
         "type": "Dark",
         "category": "Special",
         "zp": 100,
+        "pp": 5,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -1406,6 +1584,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 100,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -1414,6 +1593,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 120,
+        "pp": 5,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -1423,13 +1603,15 @@ exports.REMIX_MOVES = {
     "Curse": {
         "bp": 0,
         "type": "Ghost",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Flail": {
         "bp": 1,
         "type": "Normal",
         "category": "Physical",
         "zp": 200,
+        "pp": 1,
         "makesContact": true
     },
     "Arcane Fangs": {
@@ -1437,6 +1619,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -1448,24 +1631,28 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Cotton Spore": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Reversal": {
         "bp": 1,
         "type": "Fighting",
         "category": "Physical",
         "zp": 200,
+        "pp": 1,
         "makesContact": true
     },
     "Soul Shed": {
         "bp": 0,
         "type": "Ghost",
         "category": "Status",
+        "pp": 3,
         "priority": 4
     },
     "Frost Flurry": {
@@ -1473,6 +1660,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "target": "allAdjacentFoes"
     },
@@ -1480,6 +1668,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Mach Punch": {
@@ -1487,19 +1676,22 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
     "Scary Face": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Cheap Shot": {
         "bp": 65,
         "type": "Dark",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true,
         "remix": {
             "statusBoost": {
@@ -1510,18 +1702,21 @@ exports.REMIX_MOVES = {
     "Dreamy Kiss": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Belly Drum": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Sludge Bomb": {
         "bp": 90,
         "type": "Poison",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Mud Shot": {
@@ -1529,6 +1724,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "remix": {
             "mudslideBoost": 1.3
@@ -1539,19 +1735,22 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "secondaries": true
     },
     "Spikes": {
         "bp": 0,
         "type": "Ground",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Zap Cannon": {
         "bp": 130,
         "type": "Electric",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Scorching Sands": {
@@ -1559,6 +1758,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "weatherBoost": {
@@ -1570,18 +1770,21 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Ghost",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Perish Song": {
         "bp": 0,
         "type": "Ghost",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Icy Wind": {
         "bp": 60,
         "type": "Ice",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -1589,6 +1792,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Fire",
         "category": "Status",
+        "pp": 2,
         "priority": 6
     },
     "Bone Rush": {
@@ -1596,6 +1800,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "remix": {
             "groundsTarget": true
@@ -1604,19 +1809,22 @@ exports.REMIX_MOVES = {
     "Take-Aim": {
         "bp": 0,
         "type": "Steel",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Raging Fury": {
         "bp": 130,
         "type": "Fire",
         "category": "Physical",
         "zp": 190,
+        "pp": 5,
         "makesContact": true
     },
     "Sandstorm": {
         "bp": 0,
         "type": "Rock",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Giga Drain": {
@@ -1624,6 +1832,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 120,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -1633,18 +1842,21 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Charm": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Roll-Out": {
         "bp": 90,
         "type": "Rock",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "makesContact": true
     },
     "Papercut": {
@@ -1652,6 +1864,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 190,
+        "pp": 10,
         "willCrit": true,
         "makesContact": true,
         "remix": {
@@ -1664,12 +1877,14 @@ exports.REMIX_MOVES = {
     "Bait N' Switch": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Milk Drink": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Spark": {
@@ -1677,6 +1892,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -1685,6 +1901,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -1693,6 +1910,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true,
@@ -1705,29 +1923,34 @@ exports.REMIX_MOVES = {
     "Mesmer-Eyes": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Attract": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 15
     },
     "Lucid Dream": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": 1
     },
     "Heal Bell": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Hoodwink": {
         "bp": 85,
         "type": "Fairy",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -1736,6 +1959,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 170,
+        "pp": 5,
         "multihit": 3,
         "remix": {
             "useHigherStat": true
@@ -1746,23 +1970,27 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true
     },
     "Safeguard": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Pain Split": {
         "bp": 0,
         "type": "Ghost",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Infernal Parade": {
         "bp": 125,
         "type": "Ghost",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true
     },
     "Aftershock": {
@@ -1770,6 +1998,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "priority": -5,
         "target": "allAdjacent"
     },
@@ -1778,6 +2007,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true
     },
@@ -1786,6 +2016,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 190,
+        "pp": 10,
         "recoil": [
             50,
             100
@@ -1798,24 +2029,28 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 120,
+        "pp": 20,
         "secondaries": true
     },
     "Baton Pass": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 10,
         "priority": -6
     },
     "Encore": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Pursuit": {
         "bp": 75,
         "type": "Dark",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true
     },
     "Rapid Spin": {
@@ -1823,6 +2058,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -1832,13 +2068,15 @@ exports.REMIX_MOVES = {
     "Sweet Scent": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Iron Tail": {
         "bp": 95,
         "type": "Steel",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -1847,36 +2085,45 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Skirmish": {
         "bp": 70,
         "type": "Fighting",
         "category": "Physical",
         "zp": 110,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
     "Morning Sun": {
         "bp": 0,
         "type": "Fire",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Synthesis": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Moonlight": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Flashbang": {
         "bp": 50,
         "type": "Normal",
         "category": "Special",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "target": "allAdjacentFoes",
         "secondaries": true,
@@ -1889,13 +2136,18 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Twister": {
         "bp": 90,
         "type": "Dragon",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -1908,12 +2160,14 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Water",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Sunny Day": {
         "bp": 0,
         "type": "Fire",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Crunch": {
@@ -1921,6 +2175,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -1929,12 +2184,14 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 160,
+        "pp": 2,
         "priority": -6
     },
     "Psych Up": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Extreme Speed": {
@@ -1942,6 +2199,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 5,
         "priority": 3,
         "makesContact": true
     },
@@ -1950,6 +2208,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Special",
         "zp": 120,
+        "pp": 10,
         "secondaries": true
     },
     "Shadow Ball": {
@@ -1957,19 +2216,22 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Future Sight": {
         "bp": 140,
         "type": "Psychic",
         "category": "Special",
-        "zp": 200
+        "zp": 200,
+        "pp": 10
     },
     "Boulder Bash": {
         "bp": 85,
         "type": "Rock",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -1983,6 +2245,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "secondaries": true,
         "remix": {
             "trap": true
@@ -1993,6 +2256,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "multihit": 6,
         "makesContact": true
     },
@@ -2001,6 +2265,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 90,
+        "pp": 5,
         "priority": 5,
         "makesContact": true,
         "secondaries": true
@@ -2010,6 +2275,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -2021,13 +2287,15 @@ exports.REMIX_MOVES = {
     "Stockpile": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Spew Out": {
         "bp": 150,
         "type": "Poison",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "willCrit": true,
         "secondaries": true,
         "remix": {
@@ -2040,6 +2308,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 10,
         "priority": 4
     },
     "Heat Wave": {
@@ -2047,6 +2316,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "target": "allAdjacentFoes",
         "secondaries": true
@@ -2055,28 +2325,33 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Ice",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Torment": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Curtain Call": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Will-O-Wisp": {
         "bp": 0,
         "type": "Fire",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Bitter Malice": {
         "bp": 60,
         "type": "Ghost",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "secondaries": true
     },
     "Facade": {
@@ -2084,6 +2359,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 150,
+        "pp": 20,
         "makesContact": true
     },
     "Ice Breaker": {
@@ -2091,6 +2367,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "remix": {
             "superEffectiveVs": [
@@ -2103,6 +2380,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 180,
+        "pp": 3,
         "makesContact": true,
         "secondaries": true
     },
@@ -2110,63 +2388,74 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Nature Power": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
-        "zp": 150
+        "zp": 150,
+        "pp": 15
     },
     "Charge-Up": {
         "bp": 0,
         "type": "Electric",
         "category": "Status",
+        "pp": 1,
         "priority": -1
     },
     "Taunt": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Helping Hand": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 7
     },
     "Trick": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Role Play": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Wish": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Cat's Cradle": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Ingrain": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Superpower": {
         "bp": 130,
         "type": "Fighting",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true
     },
@@ -2174,12 +2463,14 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": 4
     },
     "Recycle": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Temper Flare": {
@@ -2187,6 +2478,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "target": "allAdjacentFoes",
         "makesContact": true,
@@ -2197,6 +2489,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -2208,13 +2501,15 @@ exports.REMIX_MOVES = {
     "Yawn": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Knock Off": {
         "bp": 50,
         "type": "Dark",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true
     },
     "Endeavor": {
@@ -2222,6 +2517,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 1,
         "makesContact": true
     },
     "Eruption": {
@@ -2229,47 +2525,55 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 190,
+        "pp": 5,
         "target": "allAdjacentFoes"
     },
     "Skill Swap": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Artist's Block": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Molt": {
         "bp": 0,
         "type": "Bug",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Spectral Shroud": {
         "bp": 0,
         "type": "Ghost",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Snatch": {
         "bp": 0,
         "type": "Dark",
         "category": "Status",
+        "pp": 10,
         "priority": 6
     },
     "Secret Power": {
         "bp": 70,
         "type": "Water",
         "category": "Physical",
-        "zp": 160
+        "zp": 160,
+        "pp": 20
     },
     "Dive": {
         "bp": 75,
         "type": "Water",
         "category": "Physical",
         "zp": 120,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -2279,6 +2583,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -2286,18 +2591,21 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Power Glow": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Scale Shot": {
         "bp": 25,
         "type": "Dragon",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -2310,36 +2618,42 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 110,
+        "pp": 10,
         "secondaries": true
     },
     "Feather Dance": {
         "bp": 0,
         "type": "Flying",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Teeter Dance": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Blaze Kick": {
         "bp": 120,
         "type": "Fire",
         "category": "Physical",
         "zp": 170,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
     "Mudslide": {
         "bp": 0,
         "type": "Ground",
-        "category": "Status"
+        "category": "Status",
+        "pp": 10
     },
     "Ice Tomb": {
         "bp": 60,
         "type": "Ice",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "secondaries": true
     },
     "Thorn Thrust": {
@@ -2347,6 +2661,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -2355,13 +2670,15 @@ exports.REMIX_MOVES = {
     "Slack Off": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Hyper Voice": {
         "bp": 95,
         "type": "Normal",
         "category": "Special",
         "zp": 150,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -2370,6 +2687,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 120,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -2378,13 +2696,18 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Blast Burn": {
         "bp": 130,
         "type": "Fire",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Hydro Cannon": {
@@ -2392,6 +2715,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Meteor Mash": {
@@ -2399,6 +2723,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -2407,6 +2732,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Weather Ball": {
@@ -2414,23 +2740,27 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "secondaries": true
     },
     "Aromatherapy": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Fake Tears": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Air Cutter": {
         "bp": 45,
         "type": "Flying",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "willCrit": true,
         "target": "allAdjacentFoes",
         "secondaries": true
@@ -2440,6 +2770,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -2449,26 +2780,30 @@ exports.REMIX_MOVES = {
     "Sniff Out": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Rock Tomb": {
         "bp": 60,
         "type": "Rock",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "secondaries": true
     },
     "Pollen Puff": {
         "bp": 60,
         "type": "Bug",
         "category": "Special",
-        "zp": 100
+        "zp": 100,
+        "pp": 20
     },
     "Metallic Noise": {
         "bp": 85,
         "type": "Steel",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -2480,24 +2815,28 @@ exports.REMIX_MOVES = {
     "Grass Whistle": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Tickle": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "makesContact": true
     },
     "Cosmic Power": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Water Spout": {
         "bp": 150,
         "type": "Water",
         "category": "Special",
         "zp": 190,
+        "pp": 5,
         "target": "allAdjacentFoes"
     },
     "Signal Beam": {
@@ -2505,6 +2844,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 130,
+        "pp": 10,
         "secondaries": true
     },
     "Shadow Punch": {
@@ -2512,6 +2852,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -2520,6 +2861,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "secondaries": true
     },
     "Sky Uppercut": {
@@ -2527,6 +2869,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 150,
+        "pp": 15,
         "makesContact": true,
         "remix": {
             "superEffectiveVs": [
@@ -2539,6 +2882,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "secondaries": true,
         "remix": {
             "trap": true,
@@ -2552,6 +2896,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true
     },
     "Mud Shower": {
@@ -2559,6 +2904,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "remix": {
             "mudslideBoost": 1.3
@@ -2569,6 +2915,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 110,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -2579,6 +2926,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -2587,6 +2935,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 110,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -2595,36 +2944,45 @@ exports.REMIX_MOVES = {
     "Iron Defense": {
         "bp": 0,
         "type": "Steel",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Enchantment": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Howl": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Savage Slash": {
         "bp": 80,
         "type": "Dragon",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Frenzy Plant": {
         "bp": 130,
         "type": "Grass",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Bulk Up": {
         "bp": 0,
         "type": "Fighting",
         "category": "Status",
+        "pp": 2,
         "priority": -1
     },
     "Bounce": {
@@ -2632,6 +2990,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -2641,6 +3000,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 110,
+        "pp": 15,
         "multihit": 3,
         "remix": {
             "mudslideBoost": 1.3
@@ -2651,6 +3011,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -2659,6 +3020,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "remix": {
             "stealBoost": true
@@ -2669,6 +3031,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -2681,18 +3044,21 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 120,
+        "pp": 10,
         "secondaries": true
     },
     "Wash Away": {
         "bp": 0,
         "type": "Water",
         "category": "Status",
+        "pp": 5,
         "priority": -6
     },
     "Calm Mind": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": -1
     },
     "Leaf Blade": {
@@ -2700,12 +3066,17 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Dragon Dance": {
         "bp": 0,
         "type": "Dragon",
         "category": "Status",
+        "pp": 2,
         "priority": -1
     },
     "Rock Blast": {
@@ -2713,6 +3084,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -2723,6 +3095,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Water Pulse": {
@@ -2730,36 +3103,42 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 120,
+        "pp": 20,
         "secondaries": true
     },
     "Doom Desire": {
         "bp": 140,
         "type": "Dark",
         "category": "Special",
-        "zp": 200
+        "zp": 200,
+        "pp": 5
     },
     "Psycho Boost": {
         "bp": 130,
         "type": "Psychic",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Roost": {
         "bp": 0,
         "type": "Flying",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Gravity": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Piercing Gaze": {
         "bp": 50,
         "type": "Psychic",
         "category": "Special",
         "zp": 100,
+        "pp": 5,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -2771,6 +3150,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -2784,6 +3164,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -2792,6 +3173,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "priority": -6,
         "makesContact": true,
         "remix": {
@@ -2801,13 +3183,15 @@ exports.REMIX_MOVES = {
     "Rainbow Veil": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Chilling Water": {
         "bp": 50,
         "type": "Water",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "secondaries": true
     },
     "Natural Gift": {
@@ -2815,6 +3199,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "remix": {
             "useHigherStat": true
         }
@@ -2824,6 +3209,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true,
         "breaksProtect": true
@@ -2833,6 +3219,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -2842,18 +3229,21 @@ exports.REMIX_MOVES = {
     "Tailwind": {
         "bp": 0,
         "type": "Flying",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Pressure Point": {
         "bp": 0,
         "type": "Fighting",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Metal Burst": {
         "bp": 1,
         "type": "Steel",
         "category": "Physical",
         "zp": 160,
+        "pp": 2,
         "priority": -6
     },
     "U-turn": {
@@ -2861,6 +3251,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true
     },
     "Close Combat": {
@@ -2868,6 +3259,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -2879,6 +3271,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "priority": -5,
         "makesContact": true,
         "remix": {
@@ -2890,6 +3283,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true
     },
     "Lockdown": {
@@ -2897,6 +3291,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "priority": 4,
         "willCrit": true,
         "secondaries": true
@@ -2906,6 +3301,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 170,
+        "pp": 3,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -2921,6 +3317,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": 4
     },
     "Royal Flush": {
@@ -2928,8 +3325,10 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 160,
+        "pp": 5,
         "multihit": 3,
         "remix": {
+            "highCrit": true,
             "matchUserType": true,
             "useHigherStat": true
         }
@@ -2938,52 +3337,61 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Chromosome Crush": {
         "bp": 1,
         "type": "Psychic",
         "category": "Special",
-        "zp": 190
+        "zp": 190,
+        "pp": 5
     },
     "Power Trick": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Acid Reflux": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Lucky Chant": {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Me First": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Copycat": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Power Swap": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Guard Swap": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Blindside": {
@@ -2991,6 +3399,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "makesContact": true,
         "secondaries": true
@@ -3000,47 +3409,55 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "makesContact": true
     },
     "Worry Seed": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Sucker Punch": {
         "bp": 70,
         "type": "Dark",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "priority": 2,
         "makesContact": true
     },
     "Toxic Spikes": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Heart Swap": {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 2,
         "priority": 4
     },
     "Rehydrate": {
         "bp": 0,
         "type": "Water",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Magnet Rise": {
         "bp": 0,
         "type": "Electric",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Flare Blitz": {
         "bp": 120,
         "type": "Fire",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3053,6 +3470,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 110,
+        "pp": 20,
         "multihit": 2,
         "secondaries": true
     },
@@ -3061,18 +3479,21 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Rock Polish": {
         "bp": 0,
         "type": "Rock",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Poison Jab": {
         "bp": 85,
         "type": "Poison",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -3081,6 +3502,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Night Slash": {
@@ -3088,13 +3510,18 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Aqua Tail": {
         "bp": 95,
         "type": "Water",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -3103,6 +3530,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Air Slash": {
@@ -3110,6 +3538,10 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
+        "remix": {
+            "highCrit": true
+        },
         "secondaries": true
     },
     "X-Scissor": {
@@ -3117,13 +3549,18 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Bug Buzz": {
         "bp": 95,
         "type": "Bug",
         "category": "Special",
         "zp": 150,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -3132,6 +3569,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 160,
+        "pp": 15,
         "secondaries": true,
         "remix": {
             "targetDrop": {
@@ -3144,6 +3582,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3156,6 +3595,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Special",
         "zp": 140,
+        "pp": 10,
         "secondaries": true
     },
     "Drain Punch": {
@@ -3163,6 +3603,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 120,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -3174,6 +3615,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Focus Blast": {
@@ -3181,6 +3623,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "targetDrop": {
@@ -3193,6 +3636,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Brave Bird": {
@@ -3200,6 +3644,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3212,12 +3657,14 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 150,
+        "pp": 10,
         "secondaries": true
     },
     "Engorge": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Giga Impact": {
@@ -3225,6 +3672,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true
     },
@@ -3232,6 +3680,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Dark",
         "category": "Status",
+        "pp": 1,
         "priority": -1
     },
     "Bullet Punch": {
@@ -3239,6 +3688,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -3247,6 +3697,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "priority": -5,
         "target": "allAdjacentFoes",
         "remix": {
@@ -3260,19 +3711,25 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Shadow Slash": {
         "bp": 80,
         "type": "Ghost",
         "category": "Physical",
-        "zp": 140
+        "zp": 140,
+        "pp": 15,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Thunder Fang": {
         "bp": 80,
         "type": "Electric",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -3281,6 +3738,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -3289,6 +3747,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -3297,6 +3756,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -3305,6 +3765,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true,
         "remix": {
             "mudslideBoost": 1.3
@@ -3315,13 +3776,18 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Zen Headbutt": {
         "bp": 85,
         "type": "Psychic",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -3330,6 +3796,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "secondaries": true
     },
     "Flash Cannon": {
@@ -3337,6 +3804,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3348,6 +3816,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -3358,18 +3827,21 @@ exports.REMIX_MOVES = {
     "Smoke Out": {
         "bp": 0,
         "type": "Flying",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Trick Room": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Draco Meteor": {
         "bp": 140,
         "type": "Dragon",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "secondaries": true,
         "remix": {
             "gravityBoost": 1.5,
@@ -3381,6 +3853,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 110,
+        "pp": 15,
         "target": "allAdjacent",
         "secondaries": true,
         "remix": {
@@ -3394,6 +3867,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "target": "allAdjacent",
         "secondaries": true,
         "remix": {
@@ -3407,6 +3881,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Power Whip": {
@@ -3414,6 +3889,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -3427,6 +3903,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Cross Poison": {
@@ -3434,7 +3911,11 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "makesContact": true,
+        "remix": {
+            "highCrit": true
+        },
         "secondaries": true
     },
     "Gunk Shot": {
@@ -3442,6 +3923,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "secondaries": true
     },
@@ -3450,6 +3932,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 130,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true
     },
@@ -3458,6 +3941,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "remix": {
             "superEffectiveVs": [
                 "Electric",
@@ -3470,23 +3954,27 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "willCrit": true
     },
     "Captivate": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Stealth Rock": {
         "bp": 0,
         "type": "Rock",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Grass Knot": {
         "bp": 1,
         "type": "Grass",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -3498,6 +3986,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -3506,6 +3995,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -3514,6 +4004,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true,
@@ -3526,6 +4017,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 90,
+        "pp": 2,
         "secondaries": true,
         "remix": {
             "selfBoost": {
@@ -3538,6 +4030,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3550,6 +4043,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -3558,6 +4052,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "willCrit": true,
         "target": "allAdjacentFoes"
     },
@@ -3565,12 +4060,14 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Bug",
         "category": "Status",
+        "pp": 1,
         "priority": 2
     },
     "Heal Order": {
         "bp": 0,
         "type": "Bug",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Head Smash": {
@@ -3578,6 +4075,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "recoil": [
             50,
             100
@@ -3590,6 +4088,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "multihit": [
             2,
             5
@@ -3601,6 +4100,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3617,18 +4117,21 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true
     },
     "Lunar Blessing": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Titan's Grip": {
         "bp": 1,
         "type": "Ground",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "drain": [
             50,
             100
@@ -3640,6 +4143,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 180,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "trap": true
@@ -3648,13 +4152,15 @@ exports.REMIX_MOVES = {
     "Dark Void": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Seed Flare": {
         "bp": 120,
         "type": "Grass",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3666,6 +4172,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "target": "allAdjacentFoes"
     },
@@ -3674,6 +4181,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3684,30 +4192,35 @@ exports.REMIX_MOVES = {
     "Sharpen": {
         "bp": 0,
         "type": "Steel",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Psycho Shield": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 3,
         "priority": 6
     },
     "Guard Split": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": 4
     },
     "Power Split": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 2,
         "priority": 4
     },
     "Wonder Room": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 5
     },
     "Psyshock": {
@@ -3715,6 +4228,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "overrideDefensiveStat": "def"
     },
     "Venoshock": {
@@ -3722,29 +4236,34 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 110,
+        "pp": 20,
         "secondaries": true
     },
     "Autotomize": {
         "bp": 0,
         "type": "Steel",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Rage Powder": {
         "bp": 0,
         "type": "Bug",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Telekinesis": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Magic Room": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Smack Down": {
@@ -3752,6 +4271,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "secondaries": true
     },
     "Storm Throw": {
@@ -3759,6 +4279,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "makesContact": true
     },
@@ -3767,6 +4288,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "multihit": 3
     },
     "Sludge Wave": {
@@ -3774,6 +4296,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -3781,6 +4304,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Bug",
         "category": "Status",
+        "pp": 2,
         "priority": -1
     },
     "Heavy Slam": {
@@ -3788,6 +4312,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -3803,6 +4328,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "target": "allAdjacent",
         "secondaries": true
     },
@@ -3811,19 +4337,22 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 130,
+        "pp": 10,
         "makesContact": true,
         "overrideOffensiveStat": "def"
     },
     "Soak": {
         "bp": 0,
         "type": "Water",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Pyro Dash": {
         "bp": 45,
         "type": "Fire",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -3831,6 +4360,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Poison",
         "category": "Status",
+        "pp": 2,
         "priority": -1
     },
     "Low Sweep": {
@@ -3838,6 +4368,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "makesContact": true,
         "secondaries": true
     },
@@ -3846,6 +4377,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Foul Play": {
@@ -3853,24 +4385,28 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 150,
+        "pp": 15,
         "makesContact": true,
         "overrideOffensivePokemon": "target"
     },
     "Simple Beam": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Entrainment": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Flip Turn": {
         "bp": 70,
         "type": "Water",
         "category": "Physical",
         "zp": 110,
+        "pp": 20,
         "makesContact": true
     },
     "Cacaphony": {
@@ -3878,6 +4414,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 110,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -3886,6 +4423,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "multihit": 2,
         "target": "allAdjacentFoes",
         "secondaries": true
@@ -3895,6 +4433,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 100,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
@@ -3902,25 +4441,29 @@ exports.REMIX_MOVES = {
         "bp": 60,
         "type": "Fairy",
         "category": "Special",
-        "zp": 100
+        "zp": 100,
+        "pp": 20
     },
     "Mystical Power": {
         "bp": 100,
         "type": "Fairy",
         "category": "Special",
         "zp": 160,
+        "pp": 3,
         "secondaries": true
     },
     "Quick Guard": {
         "bp": 0,
         "type": "Fighting",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Ally Switch": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 15,
         "priority": 6
     },
     "Scald": {
@@ -3928,6 +4471,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 140,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "weatherBoost": {
@@ -3938,24 +4482,28 @@ exports.REMIX_MOVES = {
     "Shell Smash": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Heal Pulse": {
         "bp": 0,
         "type": "Psychic",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Hex": {
         "bp": 65,
         "type": "Ghost",
         "category": "Special",
-        "zp": 120
+        "zp": 120,
+        "pp": 10
     },
     "Sky Drop": {
         "bp": 120,
         "type": "Flying",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "priority": -5,
         "makesContact": true
     },
@@ -3963,6 +4511,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Steel",
         "category": "Status",
+        "pp": 1,
         "priority": -1
     },
     "Circle Throw": {
@@ -3970,6 +4519,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 150,
+        "pp": 15,
         "priority": -7,
         "makesContact": true
     },
@@ -3978,6 +4528,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "drain": [
             75,
             100
@@ -3987,6 +4538,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Dark",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Acrobatics": {
@@ -3994,12 +4546,14 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "makesContact": true
     },
     "Reflect Type": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Retaliate": {
@@ -4007,19 +4561,22 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 160,
+        "pp": 10,
         "makesContact": true
     },
     "Final Gambit": {
         "bp": 1,
         "type": "Dark",
         "category": "Special",
-        "zp": 200
+        "zp": 200,
+        "pp": 1
     },
     "Triple Axel": {
         "bp": 40,
         "type": "Ice",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "multihit": 3,
         "makesContact": true,
         "remix": {
@@ -4031,6 +4588,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "secondaries": true
     },
@@ -4038,31 +4596,36 @@ exports.REMIX_MOVES = {
         "bp": 80,
         "type": "Water",
         "category": "Special",
-        "zp": 160
+        "zp": 160,
+        "pp": 20
     },
     "Fire Pledge": {
         "bp": 80,
         "type": "Fire",
         "category": "Special",
-        "zp": 160
+        "zp": 160,
+        "pp": 10
     },
     "Grass Pledge": {
         "bp": 80,
         "type": "Grass",
         "category": "Special",
-        "zp": 160
+        "zp": 160,
+        "pp": 15
     },
     "Volt Switch": {
         "bp": 70,
         "type": "Electric",
         "category": "Special",
-        "zp": 110
+        "zp": 110,
+        "pp": 15
     },
     "Struggle Bug": {
         "bp": 50,
         "type": "Bug",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4071,6 +4634,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 100,
+        "pp": 20,
         "target": "allAdjacent",
         "secondaries": true
     },
@@ -4079,6 +4643,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "target": "allAdjacentFoes",
         "secondaries": true
@@ -4088,6 +4653,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Physical",
         "zp": 120,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "makesContact": true,
         "secondaries": true
@@ -4095,13 +4661,15 @@ exports.REMIX_MOVES = {
     "Work Up": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Electroweb": {
         "bp": 60,
         "type": "Electric",
         "category": "Special",
         "zp": 100,
+        "pp": 20,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4110,6 +4678,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -4121,13 +4690,18 @@ exports.REMIX_MOVES = {
         "bp": 80,
         "type": "Ground",
         "category": "Physical",
-        "zp": 140
+        "zp": 140,
+        "pp": 15,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Dual Chop": {
         "bp": 55,
         "type": "Dragon",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "multihit": 2,
         "makesContact": true,
         "secondaries": true,
@@ -4142,6 +4716,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -4150,6 +4725,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -4161,6 +4737,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "makesContact": true,
         "ignoreDefensive": true
     },
@@ -4169,13 +4746,18 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 140,
-        "makesContact": true
+        "pp": 15,
+        "makesContact": true,
+        "remix": {
+            "highCrit": true
+        }
     },
     "Scorching Slam": {
         "bp": 105,
         "type": "Fire",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -4193,6 +4775,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Steamroller": {
@@ -4200,6 +4783,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 170,
+        "pp": 15,
         "makesContact": true,
         "remix": {
             "superEffectiveVs": [
@@ -4212,13 +4796,15 @@ exports.REMIX_MOVES = {
     "Cotton Guard": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Night Daze": {
         "bp": 75,
         "type": "Dark",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "secondaries": true
     },
@@ -4227,6 +4813,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "targetDrop": {
@@ -4239,6 +4826,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 110,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -4250,6 +4838,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true
     },
     "Headlong Rush": {
@@ -4257,6 +4846,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -4269,6 +4859,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "multihit": 3,
         "makesContact": true,
         "secondaries": true
@@ -4278,6 +4869,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 190,
+        "pp": 5,
         "secondaries": true
     },
     "Techno Blast": {
@@ -4285,6 +4877,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Alluring Voice": {
@@ -4292,6 +4885,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4300,6 +4894,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "overrideDefensiveStat": "def",
         "remix": {
@@ -4311,6 +4906,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4319,6 +4915,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "recoil": [
             50,
             100
@@ -4335,6 +4932,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 190,
+        "pp": 10,
         "secondaries": true
     },
     "Fiery Dance": {
@@ -4342,6 +4940,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "useHigherStat": true,
@@ -4356,6 +4955,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 200,
+        "pp": 1,
         "willCrit": true,
         "makesContact": true,
         "secondaries": true,
@@ -4371,6 +4971,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 200,
+        "pp": 1,
         "willCrit": true,
         "secondaries": true,
         "remix": {
@@ -4385,6 +4986,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4393,6 +4995,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4401,6 +5004,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 220,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true
     },
@@ -4409,6 +5013,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 230,
+        "pp": 3,
         "secondaries": true
     },
     "Fusion Bolt": {
@@ -4416,6 +5021,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 230,
+        "pp": 3,
         "secondaries": true
     },
     "Flying Press": {
@@ -4423,6 +5029,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 200,
+        "pp": 10,
         "recoil": [
             50,
             100
@@ -4433,6 +5040,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Fighting",
         "category": "Status",
+        "pp": 1,
         "priority": 6
     },
     "Belch": {
@@ -4440,23 +5048,27 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 120,
+        "pp": 15,
         "secondaries": true
     },
     "Rototiller": {
         "bp": 0,
         "type": "Ground",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Sticky Web": {
         "bp": 0,
         "type": "Bug",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Finishing Blow": {
         "bp": 50,
         "type": "Bug",
         "category": "Physical",
         "zp": 120,
+        "pp": 5,
         "willCrit": true,
         "makesContact": true
     },
@@ -4465,6 +5077,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 150,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -4474,6 +5087,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 100,
+        "pp": 1,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -4486,12 +5100,14 @@ exports.REMIX_MOVES = {
     "Battle Cry": {
         "bp": 0,
         "type": "Fighting",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Ion Deluge": {
         "bp": 0,
         "type": "Electric",
         "category": "Status",
+        "pp": 10,
         "priority": 4
     },
     "Parabolic Charge": {
@@ -4499,6 +5115,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "drain": [
             75,
             100
@@ -4508,13 +5125,15 @@ exports.REMIX_MOVES = {
     "Forest’s Curse": {
         "bp": 0,
         "type": "Ghost",
-        "category": "Status"
+        "category": "Status",
+        "pp": 1
     },
     "Petal Blizzard": {
         "bp": 75,
         "type": "Grass",
         "category": "Special",
         "zp": 160,
+        "pp": 15,
         "willCrit": true,
         "target": "allAdjacentFoes"
     },
@@ -4523,6 +5142,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "secondaries": true
     },
     "Disarming Voice": {
@@ -4530,18 +5150,21 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 100,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
     "Parting Shot": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 20
     },
     "Topsy-Turvy": {
         "bp": 0,
         "type": "Dark",
         "category": "Status",
+        "pp": 10,
         "priority": 4
     },
     "Draining Kiss": {
@@ -4549,6 +5172,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 90,
+        "pp": 10,
         "drain": [
             100,
             100
@@ -4559,29 +5183,34 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Floral Guard": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Grassy Terrain": {
         "bp": 0,
         "type": "Grass",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Misty Terrain": {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Electrify": {
         "bp": 0,
         "type": "Electric",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Play Rough": {
@@ -4589,6 +5218,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -4601,6 +5231,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Moonblast": {
@@ -4608,6 +5239,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 140,
+        "pp": 15,
         "secondaries": true
     },
     "Boomburst": {
@@ -4615,6 +5247,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 190,
+        "pp": 5,
         "target": "allAdjacent"
     },
     "Fairy Lock": {
@@ -4622,6 +5255,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "willCrit": true,
         "remix": {
             "superEffectiveVs": [
@@ -4634,24 +5268,28 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Steel",
         "category": "Status",
+        "pp": 3,
         "priority": 6
     },
     "Play Nice": {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Confide": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Mineral Shower": {
         "bp": 130,
         "type": "Rock",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4660,6 +5298,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 160,
+        "pp": 5,
         "secondaries": true,
         "remix": {
             "weatherBoost": {
@@ -4672,6 +5311,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -4683,6 +5323,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "multihit": [
             2,
             5
@@ -4693,33 +5334,39 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 120,
+        "pp": 10,
         "secondaries": true
     },
     "Spiky Shield": {
         "bp": 0,
         "type": "Grass",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Aromatic Mist": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Strange Impulse": {
         "bp": 0,
         "type": "Electric",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Venom Drench": {
         "bp": 0,
         "type": "Poison",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Kindle": {
         "bp": 0,
         "type": "Fire",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Meteor Beam": {
@@ -4727,6 +5374,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Special",
         "zp": 200,
+        "pp": 1,
         "willCrit": true,
         "secondaries": true,
         "remix": {
@@ -4739,17 +5387,20 @@ exports.REMIX_MOVES = {
     "Recharge": {
         "bp": 0,
         "type": "Electric",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Jackpot": {
         "bp": 0,
         "type": "Dark",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Electric Terrain": {
         "bp": 0,
         "type": "Electric",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Dazzling Gleam": {
@@ -4757,6 +5408,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 130,
+        "pp": 15,
         "target": "allAdjacentFoes",
         "secondaries": true
     },
@@ -4764,23 +5416,27 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Befriend": {
         "bp": 0,
         "type": "Fairy",
-        "category": "Status"
+        "category": "Status",
+        "pp": 2
     },
     "Baby-Doll Eyes": {
         "bp": 0,
         "type": "Fairy",
         "category": "Status",
+        "pp": 5,
         "priority": 4
     },
     "Nuzzle": {
         "bp": 0,
         "type": "Electric",
         "category": "Status",
+        "pp": 5,
         "makesContact": true
     },
     "Comet Punch": {
@@ -4788,6 +5444,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 120,
+        "pp": 5,
         "priority": 3,
         "multihit": 4,
         "makesContact": true
@@ -4797,6 +5454,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 90,
+        "pp": 1,
         "priority": 4,
         "secondaries": true,
         "remix": {
@@ -4808,6 +5466,7 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Physical",
         "zp": 90,
+        "pp": 2,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -4821,6 +5480,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true,
         "remix": {
             "noVanilla": true
@@ -4831,6 +5491,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 180,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -4845,6 +5506,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "drain": [
             50,
             100
@@ -4855,6 +5517,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Eternal Beam": {
@@ -4862,6 +5525,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -4873,6 +5537,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true,
         "target": "allAdjacentFoes"
     },
@@ -4881,6 +5546,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "willCrit": true,
         "target": "allAdjacentFoes",
         "secondaries": true
@@ -4890,6 +5556,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Physical",
         "zp": 200,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true
     },
@@ -4898,6 +5565,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 190,
+        "pp": 5,
         "makesContact": true,
         "secondaries": true,
         "breaksProtect": true
@@ -4906,108 +5574,126 @@ exports.REMIX_MOVES = {
         "bp": 1,
         "type": "Normal",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "All-Out Pummeling": {
         "bp": 1,
         "type": "Fighting",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Supersonic Skystrike": {
         "bp": 1,
         "type": "Flying",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Acid Downpour": {
         "bp": 1,
         "type": "Poison",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Tectonic Rage": {
         "bp": 1,
         "type": "Ground",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Continental Crush": {
         "bp": 1,
         "type": "Rock",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Savage Spin-Out": {
         "bp": 1,
         "type": "Bug",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Never-Ending Nightmare": {
         "bp": 1,
         "type": "Ghost",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Corkscrew Crash": {
         "bp": 1,
         "type": "Steel",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Inferno Overdrive": {
         "bp": 1,
         "type": "Fire",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Hydro Vortex": {
         "bp": 1,
         "type": "Water",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Bloom Doom": {
         "bp": 1,
         "type": "Grass",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Gigavolt Havoc": {
         "bp": 1,
         "type": "Electric",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Shattered Psyche": {
         "bp": 1,
         "type": "Psychic",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Subzero Slammer": {
         "bp": 1,
         "type": "Ice",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Devastating Drake": {
         "bp": 1,
         "type": "Dragon",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Black Hole Eclipse": {
         "bp": 1,
         "type": "Dark",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Twinkle Tackle": {
         "bp": 1,
         "type": "Fairy",
         "category": "Special",
+        "pp": 1,
         "isZ": true
     },
     "Catastropika": {
@@ -5015,6 +5701,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "makesContact": true,
         "isZ": true,
         "remix": {
@@ -5028,13 +5715,15 @@ exports.REMIX_MOVES = {
     "Sedimend": {
         "bp": 0,
         "type": "Ground",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "First Impression": {
         "bp": 110,
         "type": "Bug",
         "category": "Physical",
         "zp": 140,
+        "pp": 10,
         "priority": 4,
         "makesContact": true,
         "breaksProtect": true
@@ -5043,6 +5732,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Poison",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Spirit Shackle": {
@@ -5050,6 +5740,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 180,
+        "pp": 10,
         "willCrit": true,
         "secondaries": true
     },
@@ -5058,6 +5749,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -5071,6 +5763,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "target": "allAdjacentFoes",
         "secondaries": true,
         "remix": {
@@ -5084,6 +5777,7 @@ exports.REMIX_MOVES = {
         "type": "Ice",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "recoil": [
             30,
             100
@@ -5094,26 +5788,30 @@ exports.REMIX_MOVES = {
     "Floral Healing": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "High Horsepower": {
         "bp": 95,
         "type": "Ground",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true
     },
     "Strength Sap": {
         "bp": 0,
         "type": "Grass",
-        "category": "Status"
+        "category": "Status",
+        "pp": 3
     },
     "Solar Blade": {
         "bp": 90,
         "type": "Grass",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "willCrit": true,
         "makesContact": true,
         "secondaries": true
@@ -5123,6 +5821,7 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true,
         "remix": {
@@ -5135,6 +5834,7 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 5,
         "priority": 6
     },
     "Toxic Thread": {
@@ -5142,18 +5842,21 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 90,
+        "pp": 5,
         "priority": 4,
         "secondaries": true
     },
     "Laser Focus": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Gear Guard": {
         "bp": 0,
         "type": "Steel",
         "category": "Status",
+        "pp": 2,
         "priority": 6
     },
     "Hell Thrust": {
@@ -5161,6 +5864,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             25,
             100
@@ -5173,6 +5877,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "multihit": 3
     },
     "Anchor Shot": {
@@ -5180,12 +5885,14 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 200,
+        "pp": 10,
         "secondaries": true
     },
     "Psychic Terrain": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 5,
         "priority": 2
     },
     "Lunge": {
@@ -5193,6 +5900,7 @@ exports.REMIX_MOVES = {
         "type": "Bug",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "recoil": [
             20,
             100
@@ -5210,6 +5918,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 100,
+        "pp": 5,
         "priority": 4,
         "willCrit": true,
         "makesContact": true,
@@ -5223,6 +5932,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "willCrit": true,
         "makesContact": true,
         "remix": {
@@ -5234,12 +5944,14 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 180,
+        "pp": 1,
         "secondaries": true
     },
     "Speed Swap": {
         "bp": 0,
         "type": "Psychic",
         "category": "Status",
+        "pp": 1,
         "priority": 4
     },
     "Smart Strike": {
@@ -5247,6 +5959,7 @@ exports.REMIX_MOVES = {
         "type": "Steel",
         "category": "Physical",
         "zp": 120,
+        "pp": 20,
         "willCrit": true,
         "makesContact": true,
         "secondaries": true
@@ -5256,6 +5969,7 @@ exports.REMIX_MOVES = {
         "type": "Poison",
         "category": "Special",
         "zp": 150,
+        "pp": 10,
         "multihit": 3,
         "drain": [
             50,
@@ -5267,6 +5981,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Special",
         "zp": 150,
+        "pp": 15,
         "remix": {
             "matchUserType": true,
             "useHigherStat": true
@@ -5277,6 +5992,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 210,
+        "pp": 5,
         "recoil": [
             30,
             100
@@ -5289,12 +6005,14 @@ exports.REMIX_MOVES = {
         "type": "Grass",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "makesContact": true
     },
     "Instruct": {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 3,
         "priority": 6
     },
     "Beak Blast": {
@@ -5302,6 +6020,7 @@ exports.REMIX_MOVES = {
         "type": "Flying",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "willCrit": true,
         "secondaries": true,
         "remix": {
@@ -5313,6 +6032,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 180,
+        "pp": 10,
         "target": "allAdjacentFoes"
     },
     "Savage Slam": {
@@ -5320,6 +6040,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Physical",
         "zp": 160,
+        "pp": 15,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -5333,18 +6054,21 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Special",
         "zp": 90,
+        "pp": 20,
         "priority": 1
     },
     "Aurora Veil": {
         "bp": 0,
         "type": "Ice",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Sinister Arrow Raid": {
         "bp": 180,
         "type": "Ghost",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "secondaries": true,
         "isZ": true
     },
@@ -5353,6 +6077,7 @@ exports.REMIX_MOVES = {
         "type": "Dark",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "makesContact": true,
         "isZ": true
     },
@@ -5361,6 +6086,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 180,
+        "pp": 1,
         "secondaries": true,
         "isZ": true
     },
@@ -5369,6 +6095,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 150,
+        "pp": 1,
         "makesContact": true,
         "isZ": true,
         "remix": {
@@ -5385,6 +6112,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "makesContact": true,
         "isZ": true
     },
@@ -5393,6 +6121,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 180,
+        "pp": 1,
         "recoil": [
             50,
             100
@@ -5405,6 +6134,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 220,
+        "pp": 5,
         "recoil": [
             50,
             100
@@ -5417,12 +6147,14 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Normal",
         "category": "Status",
+        "pp": 1,
         "isZ": true
     },
     "Genesis Supernova": {
         "bp": 200,
         "type": "Psychic",
         "category": "Special",
+        "pp": 1,
         "secondaries": true,
         "isZ": true
     },
@@ -5431,6 +6163,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 200,
+        "pp": 5,
         "secondaries": true
     },
     "Brilliant Blast": {
@@ -5438,6 +6171,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 170,
+        "pp": 10,
         "secondaries": true,
         "remix": {
             "targetDrop": {
@@ -5450,6 +6184,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Physical",
         "zp": 150,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -5461,6 +6196,7 @@ exports.REMIX_MOVES = {
         "type": "Ground",
         "category": "Physical",
         "zp": 130,
+        "pp": 20,
         "target": "allAdjacentFoes"
     },
     "Shadow Bone": {
@@ -5468,6 +6204,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -5484,6 +6221,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 90,
+        "pp": 20,
         "priority": 1,
         "makesContact": true
     },
@@ -5492,6 +6230,7 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Physical",
         "zp": 130,
+        "pp": 10,
         "makesContact": true,
         "secondaries": true,
         "remix": {
@@ -5505,6 +6244,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true
     },
     "Spectral Thief": {
@@ -5512,6 +6252,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Physical",
         "zp": 170,
+        "pp": 10,
         "willCrit": true
     },
     "Solar Strike": {
@@ -5519,6 +6260,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 180,
+        "pp": 5,
         "recoil": [
             50,
             100
@@ -5531,6 +6273,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 180,
+        "pp": 5,
         "secondaries": true,
         "remix": {
             "ignoresAbilities": true
@@ -5539,13 +6282,15 @@ exports.REMIX_MOVES = {
     "Tearful Look": {
         "bp": 0,
         "type": "Normal",
-        "category": "Status"
+        "category": "Status",
+        "pp": 5
     },
     "Zing Zap": {
         "bp": 60,
         "type": "Electric",
         "category": "Physical",
         "zp": 140,
+        "pp": 15,
         "willCrit": true,
         "makesContact": true,
         "secondaries": true
@@ -5555,6 +6300,7 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 150,
+        "pp": 1,
         "priority": 4,
         "secondaries": true
     },
@@ -5563,6 +6309,7 @@ exports.REMIX_MOVES = {
         "type": "Normal",
         "category": "Physical",
         "zp": 200,
+        "pp": 10,
         "drain": [
             50,
             100
@@ -5576,6 +6323,7 @@ exports.REMIX_MOVES = {
         "bp": 250,
         "type": "Electric",
         "category": "Special",
+        "pp": 1,
         "willCrit": true,
         "secondaries": true,
         "isZ": true
@@ -5585,6 +6333,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Special",
         "zp": 200,
+        "pp": 2,
         "priority": 4,
         "target": "allAdjacent"
     },
@@ -5593,6 +6342,7 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 160,
+        "pp": 10,
         "willCrit": true
     },
     "Photon Geyser": {
@@ -5600,6 +6350,7 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 200,
+        "pp": 10,
         "recoil": [
             50,
             100
@@ -5615,6 +6366,7 @@ exports.REMIX_MOVES = {
         "bp": 220,
         "type": "Psychic",
         "category": "Special",
+        "pp": 1,
         "isZ": true,
         "remix": {
             "useHigherStat": true
@@ -5625,6 +6377,7 @@ exports.REMIX_MOVES = {
         "type": "Fire",
         "category": "Physical",
         "zp": 200,
+        "pp": 1,
         "recoil": [
             50,
             100
@@ -5642,6 +6395,7 @@ exports.REMIX_MOVES = {
         "type": "Ghost",
         "category": "Special",
         "zp": 200,
+        "pp": 1,
         "recoil": [
             50,
             100
@@ -5657,6 +6411,7 @@ exports.REMIX_MOVES = {
         "bp": 250,
         "type": "Fairy",
         "category": "Physical",
+        "pp": 1,
         "makesContact": true,
         "isZ": true
     },
@@ -5665,6 +6420,7 @@ exports.REMIX_MOVES = {
         "type": "Rock",
         "category": "Physical",
         "zp": 180,
+        "pp": 1,
         "isZ": true
     },
     "Clangorous Soulblaze": {
@@ -5672,6 +6428,7 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 180,
+        "pp": 1,
         "recoil": [
             50,
             100

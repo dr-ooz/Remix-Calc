@@ -56,9 +56,9 @@ var STATS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 var SPC = new Set(['spc']);
 var Pokemon = (function () {
     function Pokemon(gen, name, options) {
-        var e_1, _a;
+        var e_1, _a, e_2, _b;
         if (options === void 0) { options = {}; }
-        var _b;
+        var _c;
         this.species = (0, util_1.extend)(true, {}, gen.species.get((0, util_1.toID)(name)), options.overrides);
         this.gen = gen;
         this.name = options.name || name;
@@ -66,7 +66,7 @@ var Pokemon = (function () {
         this.weightkg = this.species.weightkg;
         this.level = options.level || 100;
         this.gender = options.gender || this.species.gender || 'M';
-        this.ability = options.ability || ((_b = this.species.abilities) === null || _b === void 0 ? void 0 : _b[0]) || undefined;
+        this.ability = options.ability || ((_c = this.species.abilities) === null || _c === void 0 ? void 0 : _c[0]) || undefined;
         this.abilityOn = !!options.abilityOn;
         this.isDynamaxed = !!options.isDynamaxed;
         this.dynamaxLevel = this.isDynamaxed
@@ -107,6 +107,24 @@ var Pokemon = (function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
+        var fixed = options.remixRawStats;
+        if (fixed) {
+            this.remixRawStats = fixed;
+            try {
+                for (var STATS_2 = __values(STATS), STATS_2_1 = STATS_2.next(); !STATS_2_1.done; STATS_2_1 = STATS_2.next()) {
+                    var stat = STATS_2_1.value;
+                    if (fixed[stat] !== undefined)
+                        this.rawStats[stat] = this.stats[stat] = fixed[stat];
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (STATS_2_1 && !STATS_2_1.done && (_b = STATS_2["return"])) _b.call(STATS_2);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
         var curHP = options.curHP || options.originalCurHP;
         this.originalCurHP = curHP && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp;
         this.status = options.status || '';
@@ -139,7 +157,7 @@ var Pokemon = (function () {
         return this.remixItemFx().abilities.some(function (a) { return abilities.includes(a); });
     };
     Pokemon.prototype.remixItemFx = function () {
-        var e_2, _a, _b, _c, _d, _e;
+        var e_3, _a, _b, _c, _d, _e;
         var _this = this;
         var key = this.gen.num + '|' + this.name + '|' + (this.item || '') + '|' + (this.ability || '');
         var cached = REMIX_FX_CACHE.get(key);
@@ -148,7 +166,7 @@ var Pokemon = (function () {
         var fx = {
             abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
             moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
-            weatherItems: []
+            weatherItems: [], drainPct: 0, drainIfAsleep: false, selfDamagePct: 0
         };
         var rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability)
             ? remix_items_1.REMIX_ITEM_EFFECTS[this.item] : undefined;
@@ -181,14 +199,20 @@ var Pokemon = (function () {
                     fx.alwaysCrit = true;
                 if (r.metronomeStep)
                     fx.metronomeStep = r.metronomeStep;
+                if (r.drainPct) {
+                    fx.drainPct = r.drainPct;
+                    fx.drainIfAsleep = !!r.drainIfAsleep;
+                }
+                if (r.selfDamagePct)
+                    fx.selfDamagePct = r.selfDamagePct;
             }
         }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
         finally {
             try {
                 if (_g && !_g.done && (_a = _f["return"])) _a.call(_f);
             }
-            finally { if (e_2) throw e_2.error; }
+            finally { if (e_3) throw e_3.error; }
         }
         REMIX_FX_CACHE.set(key, fx);
         return fx;
@@ -236,7 +260,7 @@ var Pokemon = (function () {
         return !!(this.status && statuses.includes(this.status));
     };
     Pokemon.prototype.hasType = function () {
-        var e_3, _a;
+        var e_4, _a;
         var types = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             types[_i] = arguments[_i];
@@ -248,17 +272,17 @@ var Pokemon = (function () {
                     return true;
             }
         }
-        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
         finally {
             try {
                 if (types_1_1 && !types_1_1.done && (_a = types_1["return"])) _a.call(types_1);
             }
-            finally { if (e_3) throw e_3.error; }
+            finally { if (e_4) throw e_4.error; }
         }
         return false;
     };
     Pokemon.prototype.hasOriginalType = function () {
-        var e_4, _a;
+        var e_5, _a;
         var types = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             types[_i] = arguments[_i];
@@ -270,12 +294,12 @@ var Pokemon = (function () {
                     return true;
             }
         }
-        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
         finally {
             try {
                 if (types_2_1 && !types_2_1.done && (_a = types_2["return"])) _a.call(types_2);
             }
-            finally { if (e_4) throw e_4.error; }
+            finally { if (e_5) throw e_5.error; }
         }
         return false;
     };
@@ -306,7 +330,8 @@ var Pokemon = (function () {
             teraType: this.teraType,
             toxicCounter: this.toxicCounter,
             moves: this.moves.slice(),
-            overrides: this.species
+            overrides: this.species,
+            remixRawStats: this.remixRawStats
         });
     };
     Pokemon.prototype.calcStat = function (gen, stat) {

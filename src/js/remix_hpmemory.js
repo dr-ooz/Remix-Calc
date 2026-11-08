@@ -53,6 +53,55 @@ function remixShowStatus(pokeInfo) {
 	var look = REMIX_STATUS_LOOK[sel.val()];
 	pokeInfo.find(".remix-status-emoji").first().text(look ? look.emoji : "");
 	sel.css("background-color", look ? "rgba(" + look.color + ", 0.22)" : "");
+	remixShowItemStatusToggle(pokeInfo);
+}
+
+// Status the held item gives its holder (Flame/Toxic Orb, Charcoal Ursaring...), or "" if none.
+function remixItemAutoStatus(pokeInfo) {
+	if (!pokeInfo.find(".remix-item-on").is(":checked")) return "";
+	var item = pokeInfo.find(".item").first().val();
+	if (item === "Flame Orb") return "Burned";
+	if (item === "Toxic Orb") return "Badly Poisoned";
+	return typeof remixItemSelfStatus === "function" ? remixItemSelfStatus("#" + pokeInfo.attr("id"), item) : "";
+}
+
+// Small toggle next to Status, shown only when the item statuses its holder:
+// calc the turn before the orb triggers (off) or after (on).
+function remixShowItemStatusToggle(pokeInfo) {
+	var btn = pokeInfo.find(".remix-item-status").first();
+	if (!btn.length) {
+		btn = $("<button type='button' class='remix-item-status'></button>").insertAfter(pokeInfo.find(".status").first());
+		btn.on("click", function (e) {
+			e.preventDefault();
+			var auto = remixItemAutoStatus(pokeInfo);
+			var sel = pokeInfo.find(".status").first();
+			sel.val(sel.val() === auto ? "Healthy" : auto).change();
+		});
+	}
+	var auto = remixItemAutoStatus(pokeInfo);
+	if (!auto) { btn.hide(); return; }
+	var on = pokeInfo.find(".status").first().val() === auto;
+	btn.show().toggleClass("off", !on)
+		.text(on ? "Item status: on" : "Item status: off")
+		.attr("title", on ? "The item's " + auto + " status is applied. Click for the turn before it triggers."
+			: "The item hasn't triggered yet. Click to apply its " + auto + " status.");
+}
+
+// Reset a whole team box (0 = your team, 1 = enemy): full HP, Healthy, items back on, nothing fainted.
+function remixResetTeam(side) {
+	var info = $(side === 0 ? "#p1" : "#p2");
+	var box = side === 0 ? $(".player-poks").first() : $(".trainer-poks").last();
+	box.find("img.trainer-pok").each(function () { delete remixSavedHP[this.getAttribute("data-id")]; });
+	delete remixSavedHP[remixSetId(info)];
+	try { sessionStorage.setItem("remixSavedHP", JSON.stringify(remixSavedHP)); } catch (e) {}
+	info.find(".remix-item-on").prop("checked", true).change();
+	info.find(".remix-ability-on").prop("checked", true).change();
+	if (info.find(".status").val() !== "Healthy") info.find(".status").val("Healthy").change();
+	var hp = info.find(".hp-group").first();
+	hp.find(".current-hp").val(hp.find(".max-hp").text()).keyup();
+	if (side === 1 && typeof remixClearFainted === "function") remixClearFainted();
+	if (typeof remixResetPP === "function") remixResetPP(side, box);
+	remixMarkTeamHP();
 }
 
 // Item / ability boxes: greyed out while their "active" tick is off.
@@ -72,9 +121,8 @@ function remixSaveHP(pokeInfo) {
 	if (!(max > 0)) return;
 	var status = pokeInfo.find(".status").first().val() || "Healthy";
 	var itemOff = !pokeInfo.find(".remix-item-on").is(":checked");
-	var abilityOff = !pokeInfo.find(".remix-ability-on").is(":checked");
-	if (cur >= max && status === "Healthy" && !itemOff && !abilityOff) delete remixSavedHP[id];
-	else remixSavedHP[id] = { cur: Math.min(cur, max), max: max, status: status, itemOff: itemOff, abilityOff: abilityOff };
+	if (cur >= max && status === "Healthy" && !itemOff) delete remixSavedHP[id];
+	else remixSavedHP[id] = { cur: Math.min(cur, max), max: max, status: status, itemOff: itemOff };
 	try { sessionStorage.setItem("remixSavedHP", JSON.stringify(remixSavedHP)); } catch (e) {}
 	remixMarkTeamHP();
 }
@@ -88,9 +136,9 @@ function remixRestoreHP(pokeInfo) {
 	var itemBox = pokeInfo.find(".remix-item-on");
 	var wantItemOn = !(saved && saved.itemOff);
 	if (itemBox.is(":checked") !== wantItemOn) itemBox.prop("checked", wantItemOn).change();
+	// A suppressed ability (Gastro Acid, Worry Seed...) never lingers: switching Pokemon turns it back on.
 	var abilityBox = pokeInfo.find(".remix-ability-on");
-	var wantAbilityOn = !(saved && saved.abilityOff);
-	if (abilityBox.is(":checked") !== wantAbilityOn) abilityBox.prop("checked", wantAbilityOn).change();
+	if (!abilityBox.is(":checked")) abilityBox.prop("checked", true).change();
 	if (saved && saved.status && pokeInfo.find(".status").val() !== saved.status) {
 		pokeInfo.find(".status").val(saved.status).change();
 	}
@@ -169,8 +217,10 @@ $(function () {
 	});
 	// Picking a new item / ability means it's active again.
 	$(".poke-info").on("change", ".item", function () {
-		var box = $(this).closest(".poke-info").find(".remix-item-on");
+		var info = $(this).closest(".poke-info");
+		var box = info.find(".remix-item-on");
 		if (!box.is(":checked")) box.prop("checked", true).change();
+		setTimeout(function () { remixShowItemStatusToggle(info); }, 0);
 	});
 	$(".poke-info").on("change", ".ability", function () {
 		var box = $(this).closest(".poke-info").find(".remix-ability-on");
@@ -186,6 +236,17 @@ $(function () {
 		new MutationObserver(function () { remixMarkTeamHP(); }).observe(this, { childList: true, subtree: true });
 	});
 	remixUpdateHPMemoryButton();
+	// "Reset team" under each team box (yours bottom-left, the enemy's bottom-right)
+	setTimeout(function () {
+		[[0, $(".player-poks").first().closest(".trainer-poks")], [1, $(".trainer-poks").last()]].forEach(function (pair) {
+			if (!pair[1].length) return;
+			$("<div class='remix-reset-row " + (pair[0] === 0 ? "left" : "right") + "'>" +
+				"<button type='button' class='remix-reset-team' title='Full HP, no status and items back on for every Pok\u00e9mon in this box'>" +
+				"\u21BA Reset team</button></div>")
+				.insertAfter(pair[1])
+				.on("click", "button", function (e) { e.preventDefault(); remixResetTeam(pair[0]); });
+		});
+	}, 0);
 	setTimeout(function () {
 		$(".poke-info").each(function () {
 			$(this).data("remixActiveId", remixSetId($(this)));
@@ -210,6 +271,17 @@ function remixShowEffectiveStats(pokeInfo, pokemon) {
 		// burn halves physical damage (shown on Attack), unless the ability ignores it
 		if (stat === "atk" && pokemon.status === "brn" &&
 			!pokemon.hasAbility("Guts", "Marvel Scale", "Quick Feet", "Flare Heal")) value = Math.floor(value / 2);
+		// Remix item stat boosts (Ultra Space Dust Ditto, Light Ball Pikachu, weather/terrain items...)
+		if (stat !== "spe" && pokemon.remixItemFx) {
+			var weather = $("input:radio[name='weather']:checked").val() || "";
+			var terrain = $("input:checkbox[name='terrain']:checked").val() || "";
+			pokemon.remixItemFx().stats.forEach(function (st) {
+				if (REMIX_STAT_ROWS[st.stat] !== stat) return;
+				var ok = (!st.weather && !st.terrain) ||
+					(st.weather && st.weather.indexOf(weather) !== -1) || (st.terrain && st.terrain.indexOf(terrain) !== -1);
+				if (ok) value = Math.floor(value * st.mult);
+			});
+		}
 		var base = Number(tr.find(".total").text()) || pokemon.rawStats[stat];
 		cell.text(value)
 			.toggleClass("remix-stat-up", value > base)

@@ -25,10 +25,18 @@ function remixColorResults() {
 			var label = $("label[for=resultMove" + side[1] + i + "]");
 			var move = $("#" + side[0] + " .move" + i);
 			var type = move.find(".move-type").val();
-			var moveName = move.find(".select2-chosen").first().text() || move.find(".move-selector").val() || "";
-			if (!moveName || moveName === "(No Move)") type = null;
-			label.removeClass(function (k, c) { return (c.match(/\b(result-typed|type-\w+)\b/g) || []).join(" "); });
+			var moveName = move.find(".select2-chosen").first().text() || move.find("select.move-selector").val() || "";
+			// Remix: use the type the calc actually used (Galvanize Fake Out = Electric); italic when it changed
+			var res = typeof damageResults !== "undefined" && damageResults && damageResults[side[0] === "p1" ? 0 : 1][i - 1];
+			var changed = false;
+			if (res && res.move && res.move.type && res.move.category !== "Status" && res.move.type !== type) {
+				type = res.move.type;
+				changed = true;
+			}
+			if (!moveName || moveName === "(No Move)") { type = null; changed = false; }
+			label.removeClass(function (k, c) { return (c.match(/\b(result-typed|result-changed|type-\w+)\b/g) || []).join(" "); });
 			if (remixResultColors && REMIX_TYPES.indexOf(type) !== -1) label.addClass("result-typed type-" + type);
+			if (changed) label.addClass("result-changed");
 		}
 	});
 }

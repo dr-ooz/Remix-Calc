@@ -88,6 +88,13 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
             }
         }
     }
+    var fx = attacker.remixItemFx();
+    if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose'))) {
+        for (var i = 0; i < minD.length; i++) {
+            recovery[0] += Math.min(Math.round(minD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+            recovery[1] += Math.min(Math.round(maxD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+        }
+    }
     if (recovery[1] === 0)
         return { recovery: recovery, text: text };
     var minHealthRecovered = toDisplay(notation, recovery[0], attacker.maxHP());
@@ -173,6 +180,12 @@ function getRecoil(gen, attacker, defender, move, damage, notation) {
     else if (move.mindBlownRecoil) {
         recoil = notation === '%' ? 24 : 50;
         text = '50% recoil damage';
+    }
+    var selfPct = attacker.remixItemFx().selfDamagePct;
+    if (selfPct && !attacker.hasAbility('Magic Guard') && move.category !== 'Status') {
+        var lost = toDisplay(notation, Math.floor(attacker.maxHP() * selfPct / 100), attacker.maxHP());
+        recoil = [Number(lost), Number(lost)];
+        text = (text ? text + ', ' : '') + "".concat(lost).concat(notation, " ").concat(attacker.item, " damage");
     }
     return { recoil: recoil, text: text };
 }
@@ -423,6 +436,22 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     else if (defender.hasItem('Sticky Barb')) {
         damage -= Math.floor(defender.maxHP() / 4);
         texts.push('Sticky Barb damage');
+    }
+    if (gen.num === 7) {
+        var side = field.defenderSide;
+        var root = defender.hasItem('Big Root') ? 1.5 : 1;
+        if (side.isIngrain) {
+            damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
+            texts.push('Ingrain recovery');
+        }
+        if (side.isAquaRing) {
+            damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
+            texts.push('Aqua Ring recovery');
+        }
+        if (side.isBound && !defender.hasAbility('Magic Guard')) {
+            damage -= Math.floor(defender.maxHP() / 8);
+            texts.push('binding damage');
+        }
     }
     if (field.defenderSide.isSeeded) {
         if (!defender.hasAbility('Magic Guard')) {

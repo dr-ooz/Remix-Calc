@@ -11,6 +11,7 @@ export interface RemixItemFx {
   stats: Array<{stat: string; mult: number; weather?: string[]; terrain?: string[]}>;
   critImmune: boolean; alwaysCrit: boolean; weatherHeal: {[w: string]: number}; metronomeStep: number;
   weatherItems: Array<{weather: string[]; items: string[]}>;
+  drainPct: number; drainIfAsleep: boolean; selfDamagePct: number;
 }
 const REMIX_FX_CACHE = new Map<string, RemixItemFx>();
 
@@ -42,6 +43,8 @@ export class Pokemon implements State.Pokemon {
   evs: I.StatsTable;
   boosts: I.StatsTable;
   rawStats: I.StatsTable;
+  // Remix: fixed stat values that replace the computed ones (Imposter/Transform), kept through clone()
+  remixRawStats?: Partial<I.StatsTable>;
   stats: I.StatsTable;
 
   originalCurHP: number;
@@ -108,6 +111,13 @@ export class Pokemon implements State.Pokemon {
       this.rawStats[stat] = val;
       this.stats[stat] = val;
     }
+    const fixed = (options as any).remixRawStats as Partial<I.StatsTable> | undefined;
+    if (fixed) {
+      this.remixRawStats = fixed;
+      for (const stat of STATS) {
+        if (fixed[stat] !== undefined) this.rawStats[stat] = this.stats[stat] = fixed[stat]!;
+      }
+    }
 
     const curHP = options.curHP || options.originalCurHP;
     this.originalCurHP = curHP && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp;
@@ -149,7 +159,7 @@ export class Pokemon implements State.Pokemon {
     const fx: RemixItemFx = {
       abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
       moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
-      weatherItems: [],
+      weatherItems: [], drainPct: 0, drainIfAsleep: false, selfDamagePct: 0,
     };
     const rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability as string)
       ? REMIX_ITEM_EFFECTS[this.item] : undefined;
@@ -171,6 +181,8 @@ export class Pokemon implements State.Pokemon {
       if (r.critImmune) fx.critImmune = true;
       if (r.alwaysCrit) fx.alwaysCrit = true;
       if (r.metronomeStep) fx.metronomeStep = r.metronomeStep;
+      if (r.drainPct) { fx.drainPct = r.drainPct; fx.drainIfAsleep = !!r.drainIfAsleep; }
+      if (r.selfDamagePct) fx.selfDamagePct = r.selfDamagePct;
     }
     REMIX_FX_CACHE.set(key, fx);
     return fx;
@@ -251,7 +263,8 @@ export class Pokemon implements State.Pokemon {
       toxicCounter: this.toxicCounter,
       moves: this.moves.slice(),
       overrides: this.species,
-    });
+      remixRawStats: this.remixRawStats,
+    } as any);
   }
 
   private calcStat(gen: I.Generation, stat: I.StatID) {

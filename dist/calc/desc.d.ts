@@ -46,6 +46,7 @@ export interface RawDesc {
     weather?: Weather;
     isDefenderDynamaxed?: boolean;
     remixHits?: number[][];
+    remixFinalBP?: number;
     remixHitsCombined?: number;
 }
 export declare function display(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation?: string, err?: boolean): string;

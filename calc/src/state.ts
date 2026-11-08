@@ -74,6 +74,9 @@ export namespace State {
     isAuroraVeil?: boolean;
     isLuckyChant?: boolean;
     isLunarAura?: boolean;
+    isIngrain?: boolean;
+    isAquaRing?: boolean;
+    isBound?: boolean;
     isBattery?: boolean;
     isPowerSpot?: boolean;
     isSwitching?: 'out' | 'in';

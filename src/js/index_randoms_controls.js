@@ -30,6 +30,14 @@ function performCalculations() {
 	var p2info = $("#p2");
 	var p1 = createPokemon(p1info);
 	var p2 = createPokemon(p2info);
+	// Remix: Imposter "Transformed" box -> copy the opponent (keeping own HP, level, item, status)
+	if (typeof remixTransform === "function") {
+		var p1t = p1info.find(".remix-transformed").is(":checked");
+		var p2t = p2info.find(".remix-transformed").is(":checked");
+		var orig1 = p1;
+		if (p1t) p1 = remixTransform(p1, p2);
+		if (p2t) p2 = remixTransform(p2, orig1);
+	}
 	var p1field = createField();
 	var p2field = p1field.clone().swap();
 
@@ -41,6 +49,7 @@ function performCalculations() {
 	p2.maxDamages = [];
 	p1info.find(".sp .totalMod").text(p1.stats.spe);
 	p2info.find(".sp .totalMod").text(p2.stats.spe);
+	if (typeof remixUpdateMoveRows === "function") remixUpdateMoveRows(damageResults);
 	if (typeof remixShowEffectiveStats === "function") {
 		remixShowEffectiveStats(p1info, p1);
 		remixShowEffectiveStats(p2info, p2);

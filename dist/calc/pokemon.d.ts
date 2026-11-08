@@ -34,6 +34,9 @@ export interface RemixItemFx {
         weather: string[];
         items: string[];
     }>;
+    drainPct: number;
+    drainIfAsleep: boolean;
+    selfDamagePct: number;
 }
 export declare class Pokemon implements State.Pokemon {
     gen: I.Generation;
@@ -56,6 +59,7 @@ export declare class Pokemon implements State.Pokemon {
     evs: I.StatsTable;
     boosts: I.StatsTable;
     rawStats: I.StatsTable;
+    remixRawStats?: Partial<I.StatsTable>;
     stats: I.StatsTable;
     originalCurHP: number;
     status: I.StatusName | '';

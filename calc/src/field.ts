@@ -94,6 +94,9 @@ export class Side implements State.Side {
   isAuroraVeil: boolean;
   isLuckyChant: boolean;
   isLunarAura: boolean;
+  isIngrain: boolean; // Remix residual toggles
+  isAquaRing: boolean;
+  isBound: boolean;
   isBattery: boolean;
   isPowerSpot: boolean;
   isSwitching?: 'out' | 'in';
@@ -118,6 +121,9 @@ export class Side implements State.Side {
     this.isAuroraVeil = !!side.isAuroraVeil;
     this.isLuckyChant = !!(side as any).isLuckyChant;
     this.isLunarAura = !!(side as any).isLunarAura;
+    this.isIngrain = !!(side as any).isIngrain;
+    this.isAquaRing = !!(side as any).isAquaRing;
+    this.isBound = !!(side as any).isBound;
     this.isBattery = !!side.isBattery;
     this.isPowerSpot = !!side.isPowerSpot;
     this.isSwitching = side.isSwitching;

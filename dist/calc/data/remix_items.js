@@ -244,6 +244,12 @@ exports.REMIX_ITEM_EFFECTS = {
                 "Dusknoir"
             ],
             "critImmune": true
+        },
+        {
+            "species": [
+                "Dusknoir"
+            ],
+            "drainPct": 50
         }
     ],
     "Loaded Dice": [
@@ -348,6 +354,13 @@ exports.REMIX_ITEM_EFFECTS = {
                 "Battle Armor",
                 "Iron Barbs"
             ]
+        },
+        {
+            "species": [
+                "Krabby",
+                "Kingler"
+            ],
+            "drainPct": 50
         }
     ],
     "Shiny Scale": [
@@ -407,7 +420,8 @@ exports.REMIX_ITEM_EFFECTS = {
                 "Incinerate",
                 "No Guard",
                 "Aftermath"
-            ]
+            ],
+            "selfDamagePct": 25
         }
     ],
     "Metal Coat": [
@@ -685,7 +699,10 @@ exports.REMIX_ITEM_EFFECTS = {
             ],
             "moveBoost": {
                 "Guillotine": 1.5
-            }
+            },
+            "items": [
+                "Scope Lens"
+            ]
         }
     ],
     "Silk Scarf": [
@@ -730,7 +747,9 @@ exports.REMIX_ITEM_EFFECTS = {
             ],
             "abilities": [
                 "Soporific"
-            ]
+            ],
+            "drainPct": 50,
+            "drainIfAsleep": true
         }
     ],
     "Star Gauntlet": [
@@ -857,7 +876,8 @@ exports.REMIX_ITEM_EFFECTS = {
             ],
             "items": [
                 "Loaded Dice",
-                "Covert Cloak"
+                "Covert Cloak",
+                "Scope Lens"
             ]
         }
     ],
