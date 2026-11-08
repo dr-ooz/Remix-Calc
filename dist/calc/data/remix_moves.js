@@ -2910,10 +2910,10 @@ exports.REMIX_MOVES = {
         "secondaries": true,
         "remix": {
             "flingPower": {
-                "Iron Ball": 100,
                 "Flame Orb": 60,
                 "Toxic Orb": 60,
-                "Light Ball": 60
+                "Light Ball": 60,
+                "Lagging Tail": 100
             }
         }
     },

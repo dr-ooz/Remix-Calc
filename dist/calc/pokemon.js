@@ -21,10 +21,37 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 
 var stats_1 = require("./stats");
 var util_1 = require("./util");
+var remix_items_1 = require("./data/remix_items");
+var REMIX_FX_CACHE = new Map();
 var STATS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 var SPC = new Set(['spc']);
 var Pokemon = (function () {
@@ -105,11 +132,66 @@ var Pokemon = (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             abilities[_i] = arguments[_i];
         }
-        if (!this.ability)
-            return false;
-        if (abilities.includes(this.ability))
+        if (this.ability && abilities.includes(this.ability))
             return true;
-        return this.remixGrantedAbilities().some(function (a) { return abilities.includes(a); });
+        if (this.remixGrantedAbilities().some(function (a) { return abilities.includes(a); }))
+            return true;
+        return this.remixItemFx().abilities.some(function (a) { return abilities.includes(a); });
+    };
+    Pokemon.prototype.remixItemFx = function () {
+        var e_2, _a, _b, _c, _d, _e;
+        var _this = this;
+        var key = this.gen.num + '|' + this.name + '|' + (this.item || '') + '|' + (this.ability || '');
+        var cached = REMIX_FX_CACHE.get(key);
+        if (cached)
+            return cached;
+        var fx = {
+            abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
+            moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
+            weatherItems: []
+        };
+        var rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability)
+            ? remix_items_1.REMIX_ITEM_EFFECTS[this.item] : undefined;
+        try {
+            for (var _f = __values(rules || []), _g = _f.next(); !_g.done; _g = _f.next()) {
+                var r = _g.value;
+                if (r.species && !r.species.some(function (sp) { return sp.endsWith('*')
+                    ? _this.name.startsWith(sp.slice(0, -1)) : sp === _this.name; }))
+                    continue;
+                if (r.weatherOnly) {
+                    fx.weatherItems.push({ weather: r.weatherOnly, items: r.items || [] });
+                    continue;
+                }
+                (_b = fx.abilities).push.apply(_b, __spreadArray([], __read((r.abilities || [])), false));
+                (_c = fx.items).push.apply(_c, __spreadArray([], __read((r.items || [])), false));
+                (_d = fx.stab).push.apply(_d, __spreadArray([], __read((r.stab || [])), false));
+                (_e = fx.stats).push.apply(_e, __spreadArray([], __read((r.stats || [])), false));
+                Object.assign(fx.boost, r.boost || {});
+                Object.assign(fx.resist, r.resist || {});
+                Object.assign(fx.vsSteel, r.vsSteel || {});
+                Object.assign(fx.moveBoost, r.moveBoost || {});
+                Object.assign(fx.weatherHeal, r.weatherHeal || {});
+                if (r.ate)
+                    fx.ate = r.ate;
+                if (r.addType)
+                    fx.addType = r.addType;
+                if (r.critImmune)
+                    fx.critImmune = true;
+                if (r.alwaysCrit)
+                    fx.alwaysCrit = true;
+                if (r.metronomeStep)
+                    fx.metronomeStep = r.metronomeStep;
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_g && !_g.done && (_a = _f["return"])) _a.call(_f);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        REMIX_FX_CACHE.set(key, fx);
+        return fx;
     };
     Pokemon.prototype.remixGrantedAbilities = function () {
         if (this.gen.num !== 7 || !this.ability)
@@ -142,7 +224,9 @@ var Pokemon = (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             items[_i] = arguments[_i];
         }
-        return !!(this.item && items.includes(this.item));
+        if (this.item && items.includes(this.item))
+            return true;
+        return this.remixItemFx().items.some(function (i) { return items.includes(i); });
     };
     Pokemon.prototype.hasStatus = function () {
         var statuses = [];
@@ -152,7 +236,7 @@ var Pokemon = (function () {
         return !!(this.status && statuses.includes(this.status));
     };
     Pokemon.prototype.hasType = function () {
-        var e_2, _a;
+        var e_3, _a;
         var types = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             types[_i] = arguments[_i];
@@ -164,17 +248,17 @@ var Pokemon = (function () {
                     return true;
             }
         }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
         finally {
             try {
                 if (types_1_1 && !types_1_1.done && (_a = types_1["return"])) _a.call(types_1);
             }
-            finally { if (e_2) throw e_2.error; }
+            finally { if (e_3) throw e_3.error; }
         }
         return false;
     };
     Pokemon.prototype.hasOriginalType = function () {
-        var e_3, _a;
+        var e_4, _a;
         var types = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             types[_i] = arguments[_i];
@@ -186,12 +270,12 @@ var Pokemon = (function () {
                     return true;
             }
         }
-        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
         finally {
             try {
                 if (types_2_1 && !types_2_1.done && (_a = types_2["return"])) _a.call(types_2);
             }
-            finally { if (e_3) throw e_3.error; }
+            finally { if (e_4) throw e_4.error; }
         }
         return false;
     };

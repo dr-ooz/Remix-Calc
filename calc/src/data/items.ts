@@ -1,4 +1,5 @@
 import * as I from './interface';
+import { REMIX_ITEM_EFFECTS, REMIX_GAME_ITEMS, REMIX_REMOVED_ITEMS } from "./remix_items";
 import {toID} from '../util';
 
 const RBY: string[] = [];
@@ -569,7 +570,13 @@ const BERRIES: {[berry: string]: {t: I.TypeName; p: number}} = {
   'Yache Berry': {t: 'Ice', p: 110},
 };
 
-export const ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
+// Sweltering Sun Remix: Gen 7 = calc items that still exist in the game under that name,
+// plus every Remix item with effects (remix-data/item_effects.json).
+const REMIX_GAME_ITEM_SET = new Set(REMIX_GAME_ITEMS);
+const REMIX_SM = Array.from(new Set(
+  SM.filter(i => REMIX_GAME_ITEM_SET.has(i) && !REMIX_REMOVED_ITEMS.includes(i)).concat(Object.keys(REMIX_ITEM_EFFECTS))
+)).sort();
+export const ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, REMIX_SM, SS, SV];
 
 export class Items implements I.Items {
   private readonly gen: I.GenerationNum;

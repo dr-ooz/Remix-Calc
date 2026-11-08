@@ -34,9 +34,9 @@
   "scripts": {
     "lint": "subpkg run lint && eslint --cache src --ext js",
     "fix": "subpkg run fix && eslint --fix src --ext js",
-    "compile": "node tools/build_remix_moves.js && node tools/build_remix_species.js && subpkg run compile && node build view",
+    "compile": "node tools/build_remix_moves.js && node tools/build_remix_species.js && node tools/build_remix_items.js && subpkg run compile && node build view",
     "bundle": "subpkg run bundle",
-    "build": "node tools/build_remix_moves.js && node tools/build_remix_species.js && subpkg run build && node build view",
+    "build": "node tools/build_remix_moves.js && node tools/build_remix_species.js && node tools/build_remix_items.js && subpkg run build && node build view",
     "test": "subpkg run test && npm run build && eslint --cache src --ext js",
     "postinstall": "subpkg install"
   },

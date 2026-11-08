@@ -989,3 +989,21 @@ body.dark .rdp-btn:hover { background: #3c3249; }
 .percent-hp { transition: background-color .3s ease; border-radius: 4px; }
 .poke-info .remix-mini-hp { position: absolute; display: block; width: auto; left: 12%; right: 12%; bottom: 3px; height: 5px; border-radius: 3px; background: rgba(0,0,0,.45); overflow: hidden; pointer-events: auto; }
 .poke-info .remix-mini-hp i { display: block; height: 100%; border-radius: 3px; transition: width .3s ease; }
+
+/* ---- Remix: status emoji/tint, item on/off, team-box markers ---- */
+.poke-info .remix-status-emoji { display: inline-block; width: 1.6em; text-align: center; margin-left: 2px; }
+.poke-info .status { transition: background-color .25s ease; }
+.poke-info .remix-item-on { margin: 0 0 0 4px; vertical-align: middle; cursor: pointer; }
+.poke-info .item.remix-item-off { opacity: .45; text-decoration: line-through; }
+.poke-info .remix-mini-status { position: absolute; display: block; width: auto; left: 3px; top: 1px; font-size: 13px; line-height: 1; pointer-events: auto; text-shadow: 0 0 2px rgba(0,0,0,.6); }
+.poke-info .remix-mini-item { position: absolute; display: block; width: 10px; height: 10px; right: 4px; bottom: 9px; border-radius: 3px;
+	background: #fff; border: 1.5px solid #4a4a5a; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #e8b14a; pointer-events: auto; }
+.poke-info .remix-mini-item.off { opacity: .35; background: #999; box-shadow: none; }
+
+/* ---- Remix: tick boxes before the boxes, status tint on the closed box only, effective stats ---- */
+.poke-info .remix-ability-on { margin: 0 4px 0 0; vertical-align: middle; cursor: pointer; }
+.poke-info .remix-item-on { margin: 0 4px 0 0; }
+.poke-info .status option { background-color: #fff; color: #222; }
+body.dark .poke-info .status option { background-color: #2b2533; color: #e6e1ec; }
+.poke-info .totalMod.remix-stat-up { font-weight: bold; background: rgba(60, 180, 90, 0.18); border-radius: 4px; padding: 0 3px; }
+.poke-info .totalMod.remix-stat-down { font-weight: bold; background: rgba(220, 70, 60, 0.18); border-radius: 4px; padding: 0 3px; }

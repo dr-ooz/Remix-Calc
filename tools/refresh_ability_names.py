@@ -59,4 +59,5 @@ def main():
     print("wrote %d abilities; non-ASCII chars: %s" % (len(out), [hex(ord(c)) for c in odd]))
 
 
-main()
+if __name__ == "__main__":
+    main()

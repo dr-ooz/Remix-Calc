@@ -78,6 +78,7 @@ function toggleTheme() {
         <button type="button" class="btn" id="theme-toggle" onclick="toggleTheme()">&#128161; Light mode</button>
         <button type="button" class="btn" id="move-colors-toggle" onclick="remixToggleResultColors()">&#127912; Move colors: On</button>
         <button type="button" class="btn" id="ko-text-toggle" onclick="remixToggleKOText()" title="Show or hide the KO chance text (e.g. &quot;guaranteed 2HKO&quot;) at the end of the result">&#127919; KO text: Shown</button>
+        <button type="button" class="btn" id="hp-memory-toggle" onclick="remixToggleHPMemory()" title="On: each Pok&eacute;mon keeps the HP you set when you switch away and back. Off: every Pok&eacute;mon you switch to starts at full HP">&#10084;&#65039; Dynamic HP: On</button>
         </span>
         </span>
         <script>if (!document.body.classList.contains('dark')) document.getElementById('theme-toggle').innerHTML = '&#127769; Dark mode';</script>
@@ -481,6 +482,7 @@ function toggleTheme() {
             <div class="info-group info-selectors">
                 <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
                     <label for="abilityL1">Ability</label>
+                    <input type="checkbox" class="remix-ability-on calc-trigger" checked title="Ability active. Untick if it is suppressed (Gastro Acid, Core Enforcer...)." aria-label="Ability active" />
                     <select class="ability terrain-trigger calc-trigger" id="abilityL1"></select>
                     <input hidden type="checkbox" title= "Is this ability active?" class="abilityToggle calc-trigger">
 						  <select hidden aria-label="Allies fainted" class="alliesFainted calc-trigger">
@@ -494,6 +496,7 @@ function toggleTheme() {
                 </div>
                 <div class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
                     <label for="itemL1">Item</label>
+                    <input type="checkbox" class="remix-item-on calc-trigger" checked title="Item active. Untick if it was knocked off or used up." aria-label="Item active" />
                     <select class="item terrain-trigger calc-trigger" id="itemL1"></select>
                 </div>
             </div>
@@ -510,7 +513,7 @@ function toggleTheme() {
                 <input class="current-hp calc-trigger" id="currentHpL1" value="341" />/<span class="max-hp">341</span> (
                 <input class="percent-hp calc-trigger" value="100" />%)
                 <div class="info-selectors status-row">
-                    <label for="statusL1">Status</label>
+                    <label for="statusL1">Status</label><span class="remix-status-emoji" aria-hidden="true"></span>
                     <select class="status calc-trigger" id="statusL1">
                         <option value="Healthy">Healthy</option>
                         <option value="Poisoned">Poisoned</option>
@@ -1399,6 +1402,7 @@ function toggleTheme() {
             <div class="info-group info-selectors">
                 <div class="gen-specific g3 g4 g5 g6 g7 g8 g9">
                     <label for="abilityR1">Ability</label>
+                    <input type="checkbox" class="remix-ability-on calc-trigger" checked title="Ability active. Untick if it is suppressed (Gastro Acid, Core Enforcer...)." aria-label="Ability active" />
                     <select class="ability terrain-trigger calc-trigger" id="abilityR1"></select>
                     <input hidden type="checkbox" title= "Is this ability active?" class="abilityToggle calc-trigger">
 						  <select hidden aria-label="Allies fainted" class="alliesFainted calc-trigger">
@@ -1412,6 +1416,7 @@ function toggleTheme() {
                 </div>
                 <div class="gen-specific g2 g3 g4 g5 g6 g7 g8 g9">
                     <label for="itemR1">Item</label>
+                    <input type="checkbox" class="remix-item-on calc-trigger" checked title="Item active. Untick if it was knocked off or used up." aria-label="Item active" />
                     <select class="item terrain-trigger calc-trigger" id="itemR1"></select>
                 </div>
             </div>
@@ -1428,7 +1433,7 @@ function toggleTheme() {
                 <input class="current-hp calc-trigger" id="currentHpR1" value="341" />/<span class="max-hp">341</span> (
                 <input class="percent-hp calc-trigger" value="100" />%)
                 <div class="info-selectors status-row">
-                    <label for="statusR1">Status</label>
+                    <label for="statusR1">Status</label><span class="remix-status-emoji" aria-hidden="true"></span>
                     <select class="status calc-trigger" id="statusR1">
                         <option value="Healthy">Healthy</option>
                         <option value="Poisoned">Poisoned</option>
@@ -1616,6 +1621,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./calc/stats.js?"></script>
     <script type="text/javascript" src="./calc/data/remix_species_renames.js?"></script>
     <script type="text/javascript" src="./js/remix_species_renames.js?"></script>
+    <script type="text/javascript" src="./js/remix_item_effects.js?"></script>
     <script type="text/javascript" src="./calc/data/species.js?"></script>
 	 <script type="text/javascript" src="./js/data/sets/gen9.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?"></script>
@@ -1632,6 +1638,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./calc/data/abilities.js?"></script>
     <script type="text/javascript" src="./calc/data/remix_moves.js?"></script>
     <script type="text/javascript" src="./calc/data/moves.js?"></script>
+    <script type="text/javascript" src="./calc/data/remix_items.js?"></script>
     <script type="text/javascript" src="./calc/data/items.js?"></script>
     <script type="text/javascript" src="./calc/data/index.js?"></script>
     <script type="text/javascript" src="./calc/move.js?"></script>

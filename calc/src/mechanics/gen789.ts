@@ -1,4 +1,4 @@
-import { Generation, AbilityName, StatID, Terrain } from "../data/interface";
+import { Generation, AbilityName, StatID, Terrain, TypeName } from "../data/interface";
 import { toID } from "../util";
 import {
   getBerryResistType,
@@ -149,13 +149,14 @@ export function calculateSMSSSV(
   // will not be a critical hit (UltiMario)
   // Remix (gen 7): Oblivious / Scribble / Schooling / Zen form can't be crit; Merciless = any status
   const remixCritImmune = gen.num === 7 && (
-    defender.hasAbility("Oblivious", "Scribble", "Schooling") ||
+    defender.hasAbility("Oblivious", "Scribble", "Schooling", "Good Fortune") ||
+    defender.remixItemFx().critImmune ||
     defender.named("Darmanitan-Zen"));
   const isCritical =
     !defender.hasAbility("Battle Armor", "Shell Armor") &&
     !remixCritImmune &&
     !field.defenderSide.isLuckyChant && // Remix: Lucky Chant blocks crits on that side
-    (move.isCrit ||
+    (move.isCrit || attacker.remixItemFx().alwaysCrit ||
       (attacker.hasAbility("Merciless") &&
         (gen.num === 7 ? !!defender.status : defender.hasStatus("psn", "tox")))) &&
     move.timesUsed === 1;
@@ -283,6 +284,9 @@ export function calculateSMSSSV(
     } else if (gen.num === 7 && normal && attacker.hasAbility("Amplifier") && !!move.flags.sound) {
       type = attacker.types[0]; // Remix: Normal sound moves match its type
       desc.attackerAbility = attacker.ability;
+    } else if ((isRemixAte = gen.num === 7 && normal && !!attacker.remixItemFx().ate)) {
+      type = attacker.remixItemFx().ate as TypeName; // Remix item: Normal moves change type, 1.2x
+      desc.attackerItem = attacker.item;
     } else if ((isNormalize = attacker.hasAbility("Normalize"))) {
       // Boosts any type
       type = "Normal";
@@ -365,6 +369,14 @@ export function calculateSMSSSV(
       field.isGravity,
       isRingTarget
     );
+  }
+
+  // Remix: a type added by an item (Rusty Anchor) counts as a third type
+  const remixAddType = defender.remixItemFx().addType as TypeName;
+  if (remixAddType && !defender.teraType && !defender.types.includes(remixAddType)) {
+    typeEffectiveness *= getMoveEffectiveness(
+      gen, move, remixAddType, isGhostRevealed, field.isGravity, isRingTarget);
+    desc.defenderItem = defender.item;
   }
 
   if (
@@ -670,7 +682,9 @@ export function calculateSMSSSV(
   // the random factor is applied between the crit mod and the stab mod, so don't apply anything
   // below this until we're inside the loop
   let stabMod = 4096;
-  if (attacker.hasOriginalType(move.type)) {
+  const remixItemStab = attacker.remixItemFx().stab.includes(move.type) ||
+    attacker.remixItemFx().addType === move.type;
+  if (attacker.hasOriginalType(move.type) || remixItemStab) {
     stabMod += 2048;
   } else if (
     attacker.hasAbility("Protean", "Libero", "Versatility") &&
@@ -729,7 +743,7 @@ export function calculateSMSSSV(
     child.ability = "Parental Bond (Child)" as AbilityName;
     const childDefender = gen.num === 7 ? defender.clone() : defender;
     checkMultihitBoost(gen, child, childDefender, move, field, desc);
-    if (gen.num === 7) remixAfterFirstHit(gen, child, childDefender, move);
+    if (gen.num === 7) remixAfterFirstHit(gen, child, childDefender, move, field);
     childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
       .damage as number[];
     desc.attackerAbility = attacker.ability;
@@ -741,7 +755,7 @@ export function calculateSMSSSV(
     child.ability = "Beatdown (Second Hit)" as AbilityName;
     const childDefender = defender.clone();
     checkMultihitBoost(gen, child, childDefender, move, field, desc);
-    remixAfterFirstHit(gen, child, childDefender, move);
+    remixAfterFirstHit(gen, child, childDefender, move, field);
     childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
       .damage as number[];
     desc.attackerAbility = attacker.ability;
@@ -829,7 +843,7 @@ export function calculateSMSSSV(
     const hitDefender = defender.clone();
     for (let h = 1; h < move.hits; h++) {
       checkMultihitBoost(gen, hitAttacker, hitDefender, move, field, desc);
-      if (remixFx.perHitDrop && remixCanLowerStats(hitAttacker, hitDefender, remixFx.perHitDrop)) {
+      if (remixFx.perHitDrop && remixCanLowerStats(hitAttacker, hitDefender, remixFx.perHitDrop, field)) {
         remixApplyBoosts(gen, hitDefender, remixFx.perHitDrop);
       }
       const laterHit = move.clone();
@@ -858,8 +872,20 @@ export function calculateSMSSSV(
 // ---- Remix helpers for hits after the first ----
 
 // Can the move's added effect lower the defender's stats? (items like Covert Cloak: not yet)
-function remixCanLowerStats(attacker: Pokemon, defender: Pokemon, boosts: {[stat: string]: number}) {
+// Does an item/weather rule apply right now? (Remix item_effects "stats" entries)
+function remixStatCondition(st: {weather?: string[]; terrain?: string[]}, field: Field) {
+  if (!st.weather && !st.terrain) return true;
+  return !!((st.weather && field.weather && st.weather.includes(field.weather)) ||
+    (st.terrain && field.terrain && st.terrain.includes(field.terrain)));
+}
+
+function remixCanLowerStats(
+  attacker: Pokemon, defender: Pokemon, boosts: {[stat: string]: number}, field?: Field
+) {
   if (attacker.hasAbility("Sheer Force")) return false;
+  if (defender.hasItem("Covert Cloak", "Clear Amulet")) return false;
+  if (field && defender.remixItemFx().weatherItems.some(w =>
+    field.weather && w.weather.includes(field.weather) && w.items.includes("Clear Amulet"))) return false;
   if (defender.hasAbility("Clear Body", "Full Metal Body", "Titanic", "Flower Veil", "Shield Dust")) return false;
   if (boosts.def && defender.hasAbility("Big Pecks")) return false;
   return true;
@@ -877,9 +903,11 @@ function remixApplyBoosts(gen: Generation, pokemon: Pokemon, boosts: {[stat: str
 }
 
 // Parental Bond / Beatdown: the 2nd hit sees the 1st hit's guaranteed drops and the user's boosts.
-function remixAfterFirstHit(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move) {
+function remixAfterFirstHit(
+  gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move, field?: Field
+) {
   const fx: any = (move as any).remix || {};
-  if (fx.targetDrop && remixCanLowerStats(attacker, defender, fx.targetDrop)) {
+  if (fx.targetDrop && remixCanLowerStats(attacker, defender, fx.targetDrop, field)) {
     remixApplyBoosts(gen, defender, fx.targetDrop);
   }
   if (fx.selfBoost && !attacker.hasAbility("Sheer Force")) {
@@ -1491,6 +1519,16 @@ export function calculateBPModsSMSSSV(
     desc.attackerAbility = attacker.ability;
   }
 
+  // Remix item power boosts (type boosts, move boosts)
+  {
+    const fx = attacker.remixItemFx();
+    const pow = (fx.boost[move.type] || 1) * (fx.moveBoost[move.name] || 1);
+    if (pow !== 1) {
+      bpMods.push(Math.round(4096 * pow));
+      desc.attackerItem = attacker.item;
+    }
+  }
+
   if (attacker.hasItem("Punching Glove") && move.flags.punch) {
     bpMods.push(4506);
     desc.attackerItem = attacker.item;
@@ -1513,11 +1551,14 @@ export function calculateBPModsSMSSSV(
 
   // Items
 
-  if (attacker.hasItem(`${move.type} Gem`)) {
+  if (gen.num === 7 && attacker.hasItem("Normal Gem") && move.hasType("Normal")) {
+    bpMods.push(6144); // Remix: Normal Gem 1.5x (the other gems are signature items now)
+    desc.attackerItem = attacker.item;
+  } else if (gen.num !== 7 && attacker.hasItem(`${move.type} Gem`)) {
     bpMods.push(5325);
     desc.attackerItem = attacker.item;
   } else if (attacker.hasItem("Dragon Fang") && move.hasType("Dragon")) {
-    bpMods.push(5325);
+    bpMods.push(gen.num === 7 ? 4915 : 5325); // Remix: Dragon Fang 20% like the other type items
     desc.attackerItem = attacker.item;
   } else if (
     (attacker.hasItem("Adamant Orb") &&
@@ -1655,6 +1696,12 @@ export function calculateAtModsSMSSSV(
     } else if (!phys && field.attackerSide.isFlowerGift && field.hasWeather("Sun", "Harsh Sunshine")) {
       atMods.push(6144);
       desc.isFlowerGiftAttacker = true;
+    }
+    for (const st of attacker.remixItemFx().stats) {
+      if (st.stat === (phys ? "at" : "sa") && remixStatCondition(st, field)) {
+        atMods.push(Math.round(4096 * st.mult));
+        desc.attackerItem = attacker.item;
+      }
     }
     if (attacker.hasAbility("Steelworker") && move.hasType("Fire")) {
       atMods.push(6144);
@@ -1822,7 +1869,7 @@ export function calculateAtModsSMSSSV(
     (attacker.hasItem("Deep Sea Tooth") &&
       attacker.named("Clamperl") &&
       move.category === "Special") ||
-    (attacker.hasItem("Light Ball") &&
+    (gen.num !== 7 && attacker.hasItem("Light Ball") &&
       attacker.name.includes("Pikachu") &&
       !move.isZ)
   ) {
@@ -1918,6 +1965,12 @@ export function calculateDfModsSMSSSV(
   const dfMods = [];
   // Remix (gen 7) defense changes
   if (gen.num === 7) {
+    for (const st of defender.remixItemFx().stats) {
+      if (st.stat === (hitsPhysical ? "df" : "sd") && remixStatCondition(st, field)) {
+        dfMods.push(Math.round(4096 * st.mult));
+        desc.defenderItem = defender.item;
+      }
+    }
     const cloak = defender.hasAbility("Climate Cloak") && /^(Burmy|Wormadam)/.test(defender.name)
       ? (/-Sandy$/.test(defender.name) ? "Sand" : /-(Trash|Snow)$/.test(defender.name) ? "Hail" : "Grassy")
       : "";
@@ -2095,6 +2148,20 @@ export function calculateFinalModsSMSSSV(
     desc.defenderAbility = defender.ability;
   }
 
+  // Remix items: damage taken by type, and "x4 vs Steel" moves
+  if (gen.num === 7) {
+    const dfx = defender.remixItemFx();
+    if (dfx.resist[move.type]) {
+      finalMods.push(Math.round(4096 * dfx.resist[move.type]));
+      desc.defenderItem = defender.item;
+    }
+    const vs = attacker.remixItemFx().vsSteel[move.type];
+    if (vs && defender.hasType("Steel")) {
+      finalMods.push(Math.round(4096 * vs));
+      desc.attackerItem = attacker.item;
+    }
+  }
+
   // Remix (gen 7): 1/4 damage from listed types
   if (gen.num === 7 && (
     (defender.hasAbility("Rock-Solid") && move.hasType("Rock", "Ground", "Steel", "Fighting")) ||
@@ -2149,14 +2216,13 @@ export function calculateFinalModsSMSSSV(
     desc.attackerItem = attacker.item;
   } else if (
     attacker.hasItem("Metronome") &&
-    move.timesUsedWithMetronome! >= 1
+    move.timesUsedWithMetronome! >= 1 &&
+    (gen.num !== 7 || attacker.remixItemFx().metronomeStep > 0)
   ) {
     const timesUsedWithMetronome = Math.floor(move.timesUsedWithMetronome!);
-    if (timesUsedWithMetronome <= 4) {
-      finalMods.push(4096 + timesUsedWithMetronome * 819);
-    } else {
-      finalMods.push(8192);
-    }
+    // Remix: step per use comes from the item (Chatot/Kricketune +35%, Stoutland's Snowball +20%), max 2x
+    const step = gen.num === 7 ? Math.round(4096 * attacker.remixItemFx().metronomeStep) : 819;
+    finalMods.push(Math.min(8192, 4096 + timesUsedWithMetronome * step));
     desc.attackerItem = attacker.item;
   }
 

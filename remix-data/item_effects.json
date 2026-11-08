@@ -1,0 +1,1980 @@
+{
+ "_readme": "Remix item effects for the calc. Each item = a list of rules. A rule with 'species' only works for those Pokemon (calc names; a name ending in * matches every form, e.g. Minior-*). No 'species' = everyone. Keys: abilities (counts as having them), items (counts as holding them), boost {Type: x} power boost, resist {Type: x} damage taken, stab [types], ate (Normal moves become this type, 1.2x), addType (extra type), vsSteel {Type: x} damage vs Steel types, moveBoost {Move: x}, stats [{stat at/sa/df/sd, mult, weather [], terrain []}], critImmune, alwaysCrit, weatherHeal {Weather: divisor}, metronomeStep (0.35 = +35% per use), selfStatus (brn/psn/tox: the item statuses its holder, set automatically). Only damage-relevant effects are here; game-only parts (pivoting, hazards, speed below half, etc.) are left out.",
+ "_removed": [
+  "Toxic Plate",
+  "Meadow Plate",
+  "Icicle Plate",
+  "Draco Plate",
+  "Earth Plate",
+  "Fairy Gem",
+  "Electric Gem",
+  "Fighting Gem",
+  "Ground Gem",
+  "Flying Gem",
+  "Psychic Gem",
+  "Bug Gem",
+  "Rock Gem",
+  "Dragon Gem",
+  "Power Belt",
+  "Power Lens",
+  "Full Incense",
+  "Luck Incense",
+  "Rock Incense",
+  "Bright Powder",
+  "Starf Berry",
+  "Oran Berry",
+  "Figy Berry",
+  "Wiki Berry",
+  "Mago Berry",
+  "Iapapa Berry",
+  "Ganlon Berry",
+  "Apicot Berry",
+  "Lansat Berry",
+  "Enigma Berry",
+  "Micle Berry",
+  "Jaboca Berry",
+  "Rowap Berry",
+  "Binding Band"
+ ],
+ "Bounsweet Juice": [
+  {
+   "species": [
+    "Bounsour"
+   ],
+   "abilities": [
+    "Filter",
+    "Regenerator"
+   ],
+   "items": [
+    "Big Root"
+   ]
+  }
+ ],
+ "Petrified Wood": [
+  {
+   "species": [
+    "Sudowoodo"
+   ],
+   "ate": "Rock",
+   "stab": [
+    "Grass"
+   ],
+   "resist": {
+    "Grass": 0.5
+   },
+   "abilities": [
+    "Headstrong"
+   ]
+  }
+ ],
+ "Lucky Donut": [
+  {
+   "species": [
+    "Quagsire"
+   ],
+   "abilities": [
+    "Good Fortune"
+   ]
+  }
+ ],
+ "Comet Shard": [
+  {
+   "species": [
+    "Minior-*",
+    "Taillow",
+    "Swellow"
+   ],
+   "items": [
+    "Life Orb"
+   ],
+   "abilities": [
+    "Refraction",
+    "Good Fortune"
+   ]
+  },
+  {
+   "species": [
+    "Latios",
+    "Latios-Mega"
+   ],
+   "items": [
+    "Life Orb"
+   ],
+   "abilities": [
+    "Refraction"
+   ]
+  },
+  {
+   "species": [
+    "Latias",
+    "Latias-Mega"
+   ],
+   "abilities": [
+    "Refraction",
+    "Good Fortune"
+   ]
+  }
+ ],
+ "Sun Stone": [
+  {
+   "species": [
+    "Solrock"
+   ],
+   "abilities": [
+    "Solar Power",
+    "Refraction"
+   ]
+  }
+ ],
+ "Moon Stone": [
+  {
+   "species": [
+    "Lunatone"
+   ],
+   "abilities": [
+    "Magic Bounce",
+    "Refraction"
+   ]
+  }
+ ],
+ "Dubious Disc": [
+  {
+   "species": [
+    "Porygon-Z"
+   ],
+   "stab": [
+    "Psychic",
+    "Steel",
+    "Bug"
+   ],
+   "abilities": [
+    "Infectious"
+   ]
+  }
+ ],
+ "Up-Grade": [
+  {
+   "species": [
+    "Porygon2"
+   ],
+   "stab": [
+    "Psychic",
+    "Steel"
+   ],
+   "abilities": [
+    "Energy Shield",
+    "Analytic",
+    "Full Metal Body"
+   ]
+  }
+ ],
+ "Smelly Sachet": [
+  {
+   "species": [
+    "Spritzee",
+    "Aromatisse"
+   ],
+   "abilities": [
+    "Pungent Aroma",
+    "Prankster",
+    "Shield Dust"
+   ]
+  }
+ ],
+ "Heart Scale": [
+  {
+   "species": [
+    "Luvdisc",
+    "Alomomola",
+    "Nidorina",
+    "Nidoqueen"
+   ],
+   "abilities": [
+    "Refraction",
+    "Soul-Heart"
+   ]
+  }
+ ],
+ "Savage Scale": [
+  {
+   "species": [
+    "Basculin",
+    "Basculin-Blue-Striped",
+    "Nidorino",
+    "Nidoking"
+   ],
+   "abilities": [
+    "Moxie",
+    "Rough Skin",
+    "Stakeout"
+   ]
+  }
+ ],
+ "Dragon Scale": [
+  {
+   "species": [
+    "Dratini",
+    "Dragonair",
+    "Dragonite",
+    "Kingdra"
+   ],
+   "boost": {
+    "Dragon": 1.5
+   },
+   "abilities": [
+    "Filter"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Protector": [
+  {
+   "species": [
+    "Rhyperior"
+   ],
+   "abilities": [
+    "Solid Rock"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Prism Scale": [
+  {
+   "species": [
+    "Milotic"
+   ],
+   "abilities": [
+    "Resilient",
+    "Refraction"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Reaper Cloth": [
+  {
+   "species": [
+    "Duskull",
+    "Dusclops",
+    "Dusknoir"
+   ],
+   "boost": {
+    "Ghost": 1.5
+   },
+   "resist": {
+    "Ghost": 0.5
+   },
+   "items": [
+    "Covert Cloak"
+   ]
+  },
+  {
+   "species": [
+    "Dusknoir"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Loaded Dice": [
+  {}
+ ],
+ "King's Rock": [
+  {
+   "species": [
+    "Slowking"
+   ],
+   "abilities": [
+    "Analytic",
+    "Neuroforce"
+   ],
+   "stab": [
+    "Rock"
+   ],
+   "items": [
+    "Rocky Helmet"
+   ]
+  }
+ ],
+ "Silver Powder": [
+  {
+   "species": [
+    "Dustox"
+   ],
+   "abilities": [
+    "Poisonous",
+    "Shield Dust"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Talisman": [
+  {
+   "species": [
+    "Stantler"
+   ],
+   "boost": {
+    "Ghost": 1.5,
+    "Fairy": 1.5
+   },
+   "resist": {
+    "Ghost": 0.5,
+    "Fairy": 0.5
+   },
+   "abilities": [
+    "Cursed Body",
+    "Magic Guard",
+    "Good Fortune"
+   ]
+  }
+ ],
+ "Arcane Orb": [
+  {
+   "species": [
+    "Spellsprout",
+    "Weepinspell",
+    "Victreebrew",
+    "Carnivoid"
+   ],
+   "abilities": [
+    "Energy Shield",
+    "Magic Guard"
+   ],
+   "stab": [
+    "Ghost",
+    "Dark"
+   ]
+  }
+ ],
+ "Chipped Tooth": [
+  {
+   "species": [
+    "Seviper",
+    "Snubbull",
+    "Granbull"
+   ],
+   "abilities": [
+    "Strong Jaw"
+   ]
+  },
+  {
+   "species": [
+    "Granbull"
+   ],
+   "abilities": [
+    "Mold Breaker"
+   ],
+   "stab": [
+    "Dark",
+    "Steel"
+   ]
+  },
+  {
+   "species": [
+    "Krabby",
+    "Kingler"
+   ],
+   "abilities": [
+    "Battle Armor",
+    "Iron Barbs"
+   ]
+  }
+ ],
+ "Shiny Scale": [
+  {
+   "species": [
+    "Spinarak",
+    "Ariados",
+    "Bagon",
+    "Shelgon",
+    "Salamence",
+    "Salamence-Mega"
+   ],
+   "boost": {
+    "Dragon": 1.5
+   },
+   "abilities": [
+    "Magic Bounce"
+   ]
+  },
+  {
+   "species": [
+    "Spinarak",
+    "Ariados"
+   ],
+   "resist": {
+    "Dragon": 0.25
+   }
+  }
+ ],
+ "Buried Seal": [
+  {
+   "species": [
+    "Litleo",
+    "Pyroar",
+    "Golett",
+    "Golurk"
+   ],
+   "abilities": [
+    "Sand Force",
+    "Magic Guard"
+   ],
+   "boost": {
+    "Ghost": 1.5
+   }
+  }
+ ],
+ "Detonator": [
+  {
+   "species": [
+    "Togepi",
+    "Togetic",
+    "Togekiss"
+   ],
+   "abilities": [
+    "Huge Power",
+    "Rapid Fire",
+    "Incinerate",
+    "No Guard",
+    "Aftermath"
+   ]
+  }
+ ],
+ "Metal Coat": [
+  {
+   "species": [
+    "Registeel",
+    "Scizor",
+    "Scizor-Mega",
+    "Steelix",
+    "Steelix-Mega"
+   ],
+   "abilities": [
+    "Full Metal Body"
+   ]
+  }
+ ],
+ "Light Ball": [
+  {
+   "species": [
+    "Pikachu*"
+   ],
+   "stats": [
+    {
+     "stat": "at",
+     "mult": 1.5
+    },
+    {
+     "stat": "sa",
+     "mult": 1.5
+    }
+   ],
+   "abilities": [
+    "Magic Guard"
+   ]
+  },
+  {
+   "species": [
+    "Growlithe",
+    "Arcanine"
+   ],
+   "abilities": [
+    "Showstopper"
+   ]
+  }
+ ],
+ "Soft Sand": [
+  {
+   "species": [
+    "Sandygast",
+    "Palossand"
+   ],
+   "abilities": [
+    "Regenerator"
+   ]
+  }
+ ],
+ "Hard Stone": [
+  {
+   "species": [
+    "Regirock",
+    "Onix"
+   ],
+   "items": [
+    "Clear Amulet",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Miracle Seed": [
+  {
+   "species": [
+    "Sunkern",
+    "Sunflora"
+   ],
+   "abilities": [
+    "Grassy Guard"
+   ],
+   "stats": [
+    {
+     "stat": "sd",
+     "mult": 1.5,
+     "weather": [
+      "Sun",
+      "Harsh Sunshine"
+     ]
+    }
+   ],
+   "weatherHeal": {
+    "Sun": 6,
+    "Harsh Sunshine": 6
+   }
+  }
+ ],
+ "Black Glasses": [
+  {
+   "species": [
+    "Sandile",
+    "Krokorok",
+    "Krookodile"
+   ],
+   "abilities": [
+    "Moxie",
+    "Tinted Lens",
+    "Stakeout"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Chi Bracelet": [
+  {
+   "boost": {
+    "Fighting": 1.2
+   }
+  },
+  {
+   "species": [
+    "Mienfoo",
+    "Mienshao"
+   ],
+   "ate": "Dragon",
+   "abilities": [
+    "Technician"
+   ],
+   "stab": [
+    "Psychic"
+   ],
+   "resist": {
+    "Psychic": 0.5
+   }
+  }
+ ],
+ "Magnet": [
+  {
+   "species": [
+    "Magnemite",
+    "Magneton",
+    "Magnezone",
+    "Nosepass",
+    "Probopass"
+   ],
+   "boost": {
+    "Steel": 1.5
+   }
+  }
+ ],
+ "Mystic Water": [
+  {
+   "species": [
+    "Phione",
+    "Manaphy"
+   ],
+   "abilities": [
+    "Refraction"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Sharp Beak": [
+  {
+   "species": [
+    "Spearow",
+    "Fearow"
+   ],
+   "abilities": [
+    "Teravolt",
+    "Stakeout"
+   ],
+   "items": [
+    "Scope Lens"
+   ]
+  }
+ ],
+ "Poison Barb": [
+  {
+   "species": [
+    "Samurott",
+    "Seadra"
+   ],
+   "abilities": [
+    "Poisonous"
+   ],
+   "items": [
+    "Rocky Helmet",
+    "Loaded Dice"
+   ]
+  }
+ ],
+ "Never-Melt Ice": [
+  {
+   "species": [
+    "Regice",
+    "Bergmite",
+    "Avalugg"
+   ],
+   "items": [
+    "Clear Amulet",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Spell Tag": [
+  {
+   "species": [
+    "Froslass"
+   ],
+   "abilities": [
+    "Cursed Body",
+    "Ice Body"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Kaleidoscope": [
+  {
+   "boost": {
+    "Psychic": 1.2
+   }
+  },
+  {
+   "species": [
+    "Bruxish"
+   ],
+   "abilities": [
+    "Refraction"
+   ]
+  },
+  {
+   "species": [
+    "Lurantis",
+    "Lurantis-Totem"
+   ],
+   "stab": [
+    "Bug"
+   ],
+   "abilities": [
+    "Tangled Feet",
+    "Filter",
+    "Tinted Lens"
+   ],
+   "items": [
+    "Scope Lens"
+   ]
+  }
+ ],
+ "Charcoal": [
+  {
+   "species": [
+    "Ursaring"
+   ],
+   "abilities": [
+    "Flare Boost",
+    "Turboblaze"
+   ],
+   "selfStatus": "brn"
+  }
+ ],
+ "Dragon Fang": [
+  {
+   "species": [
+    "Axew",
+    "Fraxure",
+    "Haxorus"
+   ],
+   "vsSteel": {
+    "Dragon": 4
+   },
+   "abilities": [
+    "Mold Breaker"
+   ],
+   "moveBoost": {
+    "Guillotine": 1.5
+   }
+  }
+ ],
+ "Silk Scarf": [
+  {
+   "species": [
+    "Furfrou"
+   ],
+   "abilities": [
+    "Adaptability"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Shell Bell": [
+  {
+   "species": [
+    "Lapras"
+   ],
+   "abilities": [
+    "Oblivious"
+   ],
+   "stab": [
+    "Rock",
+    "Ground"
+   ]
+  }
+ ],
+ "Rusty Anchor": [
+  {
+   "species": [
+    "Dhelmise"
+   ],
+   "addType": "Steel"
+  }
+ ],
+ "Pendulum": [
+  {
+   "species": [
+    "Hypno"
+   ],
+   "abilities": [
+    "Soporific"
+   ]
+  }
+ ],
+ "Star Gauntlet": [
+  {
+   "species": [
+    "Pignite",
+    "Emboar",
+    "Ledyba",
+    "Ledian"
+   ],
+   "abilities": [
+    "Iron Fist"
+   ]
+  }
+ ],
+ "Strange Souvenir": [
+  {
+   "species": [
+    "Natu",
+    "Xatu",
+    "Yungoos",
+    "Gumshoos",
+    "Gumshoos-Totem"
+   ],
+   "abilities": [
+    "Solar Power"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Burnt Leek": [
+  {
+   "species": [
+    "Farfetch’d"
+   ],
+   "alwaysCrit": true,
+   "items": [
+    "Focus Sash"
+   ]
+  }
+ ],
+ "Mother's Egg": [
+  {
+   "species": [
+    "Chansey"
+   ],
+   "abilities": [
+    "Parental Bond"
+   ]
+  }
+ ],
+ "Eternal Helmet": [
+  {
+   "species": [
+    "Noctowl"
+   ],
+   "stab": [
+    "Ghost",
+    "Psychic"
+   ],
+   "resist": {
+    "Ghost": 0.5,
+    "Psychic": 0.5
+   },
+   "abilities": [
+    "Justified",
+    "Good Fortune"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Ultra Space Dust": [
+  {
+   "species": [
+    "Ditto"
+   ],
+   "items": [
+    "Quick Powder"
+   ],
+   "stats": [
+    {
+     "stat": "sa",
+     "mult": 1.5
+    }
+   ]
+  }
+ ],
+ "Toxic Vanity": [
+  {
+   "species": [
+    "Unfezant"
+   ],
+   "ate": "Fairy",
+   "abilities": [
+    "Moxie",
+    "Infected"
+   ],
+   "selfStatus": "tox"
+  }
+ ],
+ "Metronome": [
+  {
+   "species": [
+    "Chatot",
+    "Kricketot",
+    "Kricketune"
+   ],
+   "metronomeStep": 0.35
+  }
+ ],
+ "Pig Iron": [
+  {
+   "species": [
+    "Spoink",
+    "Grumpig"
+   ],
+   "ate": "Fire",
+   "abilities": [
+    "Filter"
+   ],
+   "items": [
+    "Loaded Dice",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Icy Rock": [
+  {
+   "species": [
+    "Totodile",
+    "Croconaw",
+    "Feraligatr"
+   ],
+   "abilities": [
+    "Ice Body"
+   ],
+   "items": [
+    "Covert Cloak"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Smooth Rock": [
+  {
+   "species": [
+    "Dwebble",
+    "Crustle"
+   ],
+   "abilities": [
+    "Headstrong"
+   ]
+  },
+  {
+   "species": [
+    "Dwebble",
+    "Crustle"
+   ],
+   "weatherOnly": [
+    "Sand"
+   ],
+   "items": [
+    "Clear Amulet"
+   ]
+  }
+ ],
+ "Heat Rock": [
+  {
+   "species": [
+    "Roggenrola",
+    "Boldore",
+    "Gigalith"
+   ],
+   "resist": {
+    "Fire": 0.25
+   },
+   "items": [
+    "Covert Cloak"
+   ],
+   "weatherHeal": {
+    "Sun": 6,
+    "Harsh Sunshine": 6
+   }
+  }
+ ],
+ "Damp Rock": [
+  {
+   "species": [
+    "Relicanth"
+   ],
+   "abilities": [
+    "Headstrong",
+    "Rain Dish"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Rotten Egg": [
+  {
+   "species": [
+    "Blissey"
+   ],
+   "abilities": [
+    "Merciless",
+    "Poisonous",
+    "Liquid Ooze"
+   ]
+  }
+ ],
+ "Prickly Pear": [
+  {
+   "species": [
+    "Cacnea",
+    "Cacturne",
+    "Maractus"
+   ],
+   "items": [
+    "Rocky Helmet"
+   ],
+   "critImmune": true
+  },
+  {
+   "species": [
+    "Cacnea",
+    "Cacturne",
+    "Maractus"
+   ],
+   "weatherOnly": [
+    "Sand"
+   ],
+   "items": [
+    "Clear Amulet"
+   ]
+  }
+ ],
+ "Magmarizer": [
+  {
+   "species": [
+    "Magmortar"
+   ],
+   "abilities": [
+    "Turboblaze",
+    "Flash Fire"
+   ]
+  }
+ ],
+ "Electirizer": [
+  {
+   "species": [
+    "Electivire"
+   ],
+   "abilities": [
+    "Teravolt",
+    "Motor Drive"
+   ]
+  }
+ ],
+ "Trash Bag": [
+  {
+   "species": [
+    "Trubbish",
+    "Garbodor",
+    "Grimer-Alola",
+    "Muk-Alola"
+   ],
+   "abilities": [
+    "Poisonous",
+    "Liquid Ooze",
+    "Aftermath"
+   ],
+   "items": [
+    "Black Sludge",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Graham Cracker": [
+  {
+   "species": [
+    "Grimer",
+    "Muk"
+   ],
+   "items": [
+    "Leftovers",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Scaly Hood": [
+  {
+   "species": [
+    "Scraggy",
+    "Scrafty"
+   ],
+   "critImmune": true,
+   "abilities": [
+    "Magic Guard"
+   ],
+   "items": [
+    "Covert Cloak"
+   ],
+   "resist": {
+    "Fairy": 0.25,
+    "Poison": 0.25
+   },
+   "selfStatus": "psn"
+  }
+ ],
+ "Cracked Compass": [
+  {
+   "species": [
+    "Machoke"
+   ],
+   "boost": {
+    "Grass": 1.5
+   },
+   "items": [
+    "Wide Lens",
+    "Covert Cloak"
+   ],
+   "resist": {
+    "Bug": 0.5,
+    "Poison": 0.5,
+    "Grass": 0.5
+   }
+  }
+ ],
+ "Desert Cloak": [
+  {
+   "species": [
+    "Throh"
+   ],
+   "resist": {
+    "Fire": 0.5
+   },
+   "abilities": [
+    "Sand Force"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Arctic Coat": [
+  {
+   "species": [
+    "Sawk"
+   ],
+   "abilities": [
+    "Ice Body",
+    "Refrigerate"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Rich Mulch": [
+  {
+   "species": [
+    "Chikorita",
+    "Bayleef",
+    "Meganium"
+   ],
+   "items": [
+    "Big Root"
+   ]
+  }
+ ],
+ "Cryo-Jelly": [
+  {
+   "species": [
+    "Combee",
+    "Vespiquen"
+   ],
+   "stats": [
+    {
+     "stat": "df",
+     "mult": 1.5,
+     "weather": [
+      "Hail"
+     ]
+    }
+   ],
+   "stab": [
+    "Ice"
+   ],
+   "abilities": [
+    "Ice Body"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Coconut": [
+  {
+   "species": [
+    "Passimian",
+    "Exeggutor",
+    "Exeggutor-Alola"
+   ],
+   "boost": {
+    "Grass": 1.5
+   },
+   "critImmune": true,
+   "abilities": [
+    "Headstrong"
+   ]
+  }
+ ],
+ "Spoiled Milk": [
+  {
+   "abilities": [
+    "Infected"
+   ]
+  },
+  {
+   "species": [
+    "Miltank"
+   ],
+   "abilities": [
+    "Poison Heal",
+    "Regenerator"
+   ],
+   "stab": [
+    "Poison"
+   ],
+   "resist": {
+    "Poison": 0.5
+   },
+   "selfStatus": "psn"
+  }
+ ],
+ "Root Fossil": [
+  {
+   "species": [
+    "Lileep",
+    "Cradily"
+   ],
+   "abilities": [
+    "Rain Dish",
+    "Suction Cups"
+   ],
+   "items": [
+    "Big Root"
+   ]
+  }
+ ],
+ "Leaf Fan": [
+  {
+   "species": [
+    "Oranguru",
+    "Shiftry"
+   ],
+   "boost": {
+    "Grass": 1.5,
+    "Flying": 1.5
+   },
+   "abilities": [
+    "Grassy Guard"
+   ]
+  },
+  {
+   "species": [
+    "Shiftry"
+   ],
+   "items": [
+    "Scope Lens"
+   ]
+  },
+  {
+   "species": [
+    "Oranguru"
+   ],
+   "abilities": [
+    "Analytic"
+   ]
+  }
+ ],
+ "Wooden Log": [
+  {
+   "species": [
+    "Komala",
+    "Timburr"
+   ],
+   "boost": {
+    "Grass": 1.5
+   },
+   "abilities": [
+    "Grassy Guard"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  },
+  {
+   "species": [
+    "Komala"
+   ],
+   "abilities": [
+    "Headstrong",
+    "Filter"
+   ]
+  }
+ ],
+ "Sandy Stinger": [
+  {
+   "species": [
+    "Skorupi",
+    "Drapion"
+   ],
+   "boost": {
+    "Poison": 1.5
+   },
+   "resist": {
+    "Poison": 0.5
+   },
+   "abilities": [
+    "Sand Force",
+    "Stakeout"
+   ],
+   "items": [
+    "Scope Lens"
+   ],
+   "selfStatus": "tox"
+  }
+ ],
+ "Concrete Pillar": [
+  {
+   "species": [
+    "Conkeldurr"
+   ],
+   "boost": {
+    "Rock": 1.5
+   },
+   "abilities": [
+    "Beatdown"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Liepard Pelt": [
+  {
+   "species": [
+    "Machamp",
+    "Liepard"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  },
+  {
+   "species": [
+    "Liepard"
+   ],
+   "abilities": [
+    "Fur Coat"
+   ]
+  },
+  {
+   "species": [
+    "Machamp"
+   ],
+   "abilities": [
+    "Justified"
+   ]
+  }
+ ],
+ "Skull Fossil": [
+  {
+   "species": [
+    "Cranidos",
+    "Rampardos"
+   ],
+   "abilities": [
+    "Battle Armor",
+    "Headstrong"
+   ]
+  }
+ ],
+ "Poison Ivy": [
+  {
+   "species": [
+    "Snivy",
+    "Servine",
+    "Serperior"
+   ],
+   "abilities": [
+    "Poisonous",
+    "Poison Heal"
+   ],
+   "stab": [
+    "Poison"
+   ],
+   "resist": {
+    "Poison": 0.25
+   },
+   "selfStatus": "psn"
+  }
+ ],
+ "Solar Panel": [
+  {
+   "species": [
+    "Butterfree"
+   ],
+   "stats": [
+    {
+     "stat": "sa",
+     "mult": 1.5,
+     "weather": [
+      "Sun",
+      "Harsh Sunshine"
+     ]
+    }
+   ]
+  }
+ ],
+ "Frozen Crown": [
+  {
+   "species": [
+    "Tyrantrum",
+    "Slaking"
+   ],
+   "critImmune": true,
+   "abilities": [
+    "Mold Breaker"
+   ]
+  }
+ ],
+ "Armor Fossil": [
+  {
+   "species": [
+    "Shieldon",
+    "Bastiodon"
+   ],
+   "abilities": [
+    "Unaware",
+    "Headstrong"
+   ],
+   "items": [
+    "Covert Cloak",
+    "Rocky Helmet"
+   ]
+  }
+ ],
+ "Beast Ball": [
+  {
+   "species": [
+    "Electrode"
+   ],
+   "abilities": [
+    "Static"
+   ],
+   "stab": [
+    "Electric"
+   ]
+  }
+ ],
+ "Dream Ball": [
+  {
+   "species": [
+    "Voltorb"
+   ],
+   "abilities": [
+    "Soporific",
+    "Good Fortune"
+   ]
+  }
+ ],
+ "Bubble-Tron": [
+  {
+   "species": [
+    "Wailmer",
+    "Wailord",
+    "Pyukumuku",
+    "Octillery",
+    "Qwilfish",
+    "Corsola"
+   ],
+   "abilities": [
+    "Full Metal Body",
+    "Rain Dish"
+   ]
+  }
+ ],
+ "Rainbow Charm": [
+  {
+   "species": [
+    "Sentret",
+    "Furret"
+   ],
+   "abilities": [
+    "Resilient",
+    "Showstopper",
+    "Solar Power",
+    "Rain Dish"
+   ]
+  }
+ ],
+ "Frozen Claw": [
+  {
+   "species": [
+    "Sandslash-Alola",
+    "Beartic",
+    "Sneasel",
+    "Weavile"
+   ],
+   "ate": "Ice",
+   "items": [
+    "Scope Lens"
+   ]
+  },
+  {
+   "species": [
+    "Sandslash-Alola"
+   ],
+   "abilities": [
+    "Iron Barbs"
+   ]
+  }
+ ],
+ "Toxic Claw": [
+  {
+   "species": [
+    "Gligar",
+    "Gliscor",
+    "Sandslash",
+    "Scolipede"
+   ],
+   "boost": {
+    "Bug": 1.5
+   },
+   "items": [
+    "Scope Lens"
+   ]
+  },
+  {
+   "species": [
+    "Gligar",
+    "Gliscor"
+   ],
+   "abilities": [
+    "Poisonous"
+   ]
+  },
+  {
+   "species": [
+    "Sandslash",
+    "Scolipede"
+   ],
+   "items": [
+    "Rocky Helmet"
+   ]
+  }
+ ],
+ "Frosty Spoon": [
+  {
+   "species": [
+    "Kadabra",
+    "Alakazam",
+    "Alakazam-Mega"
+   ],
+   "stats": [
+    {
+     "stat": "sd",
+     "mult": 1.5,
+     "weather": [
+      "Hail"
+     ]
+    }
+   ],
+   "weatherHeal": {
+    "Hail": 6
+   }
+  }
+ ],
+ "Spare Key": [
+  {
+   "species": [
+    "Klefki"
+   ],
+   "abilities": [
+    "Magician",
+    "Skill Link"
+   ]
+  }
+ ],
+ "Odd Keystone": [
+  {
+   "species": [
+    "Spiritomb"
+   ],
+   "abilities": [
+    "Energy Shield",
+    "Cursed Body",
+    "Magic Guard"
+   ]
+  }
+ ],
+ "Absorb Bulb": [
+  {
+   "species": [
+    "Petilil",
+    "Lilligant"
+   ],
+   "abilities": [
+    "Storm Drain",
+    "Rain Dish"
+   ],
+   "items": [
+    "Big Root"
+   ]
+  }
+ ],
+ "Cell Battery": [
+  {
+   "species": [
+    "Cyndaquil",
+    "Quilava",
+    "Typhlosion"
+   ],
+   "boost": {
+    "Fire": 1.5,
+    "Ice": 1.5,
+    "Electric": 1.5
+   },
+   "abilities": [
+    "Incinerate"
+   ],
+   "resist": {
+    "Electric": 0.5
+   }
+  }
+ ],
+ "Buried Idol": [
+  {
+   "species": [
+    "Sigilyph",
+    "Darmanitan-Zen",
+    "Baltoy",
+    "Claydol"
+   ],
+   "abilities": [
+    "Sandy Shield",
+    "Magic Guard"
+   ],
+   "stab": [
+    "Rock"
+   ]
+  }
+ ],
+ "Old Amber": [
+  {
+   "species": [
+    "Aerodactyl",
+    "Aerodactyl-Mega"
+   ],
+   "abilities": [
+    "Galvanize",
+    "Headstrong",
+    "Battle Armor"
+   ]
+  }
+ ],
+ "Fruit Crown": [
+  {
+   "species": [
+    "Tsareena"
+   ],
+   "abilities": [
+    "Merciless",
+    "Stakeout"
+   ],
+   "stab": [
+    "Dark",
+    "Fairy"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Crown of Madness": [
+  {
+   "species": [
+    "Golduck"
+   ],
+   "abilities": [
+    "Magic Bounce",
+    "Neuroforce"
+   ],
+   "stab": [
+    "Psychic"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Sharp Bone": [
+  {
+   "species": [
+    "Kabuto",
+    "Kabutops",
+    "Goldeen",
+    "Seaking"
+   ],
+   "items": [
+    "Rocky Helmet",
+    "Big Root",
+    "Scope Lens"
+   ],
+   "critImmune": true
+  }
+ ],
+ "Old Insulation": [
+  {
+   "species": [
+    "Cinccino"
+   ],
+   "abilities": [
+    "Poison Heal",
+    "Poisonous"
+   ],
+   "stab": [
+    "Poison"
+   ],
+   "resist": {
+    "Fire": 0.5,
+    "Ice": 0.5,
+    "Electric": 0.5,
+    "Water": 0.5,
+    "Poison": 0.5
+   },
+   "selfStatus": "tox"
+  }
+ ],
+ "Sail Fossil": [
+  {
+   "species": [
+    "Primora"
+   ],
+   "stab": [
+    "Grass",
+    "Water",
+    "Ice"
+   ],
+   "stats": [
+    {
+     "stat": "df",
+     "mult": 2,
+     "weather": [
+      "Rain",
+      "Heavy Rain",
+      "Hail"
+     ],
+     "terrain": [
+      "Grassy"
+     ]
+    }
+   ]
+  }
+ ],
+ "Plume Fossil": [
+  {
+   "species": [
+    "Archen",
+    "Archeops"
+   ],
+   "abilities": [
+    "Gale Wings",
+    "Headstrong",
+    "Infected"
+   ]
+  }
+ ],
+ "Treasure Chest": [
+  {
+   "species": [
+    "Omanyte",
+    "Omastar",
+    "Yamask",
+    "Cofagrigus"
+   ],
+   "stab": [
+    "Rock"
+   ],
+   "abilities": [
+    "Refraction"
+   ],
+   "items": [
+    "Scope Lens"
+   ]
+  }
+ ],
+ "Claw Fossil": [
+  {
+   "species": [
+    "Anorith",
+    "Armaldo"
+   ],
+   "vsSteel": {
+    "Bug": 4
+   },
+   "abilities": [
+    "Battle Armor"
+   ],
+   "stab": [
+    "Water"
+   ],
+   "resist": {
+    "Water": 0.5
+   },
+   "items": [
+    "Scope Lens"
+   ]
+  }
+ ],
+ "Cover Fossil": [
+  {
+   "species": [
+    "Tirtouga",
+    "Carracosta"
+   ],
+   "abilities": [
+    "Solid Rock"
+   ],
+   "items": [
+    "Rocky Helmet",
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Putrid Skull": [
+  {
+   "species": [
+    "Druddigon"
+   ],
+   "abilities": [
+    "Battle Armor",
+    "Rough Skin"
+   ]
+  }
+ ],
+ "Jaw Fossil": [
+  {
+   "species": [
+    "Tyrunt"
+   ],
+   "abilities": [
+    "Mold Breaker",
+    "Battle Armor"
+   ]
+  }
+ ],
+ "Pyro Pendant": [
+  {
+   "species": [
+    "Ekans",
+    "Arbok"
+   ],
+   "abilities": [
+    "Flare Heal"
+   ],
+   "stab": [
+    "Fire"
+   ],
+   "resist": {
+    "Fire": 0.5
+   },
+   "selfStatus": "brn"
+  }
+ ],
+ "Steel Beam": [
+  {
+   "species": [
+    "Gurdurr"
+   ],
+   "boost": {
+    "Steel": 1.5
+   },
+   "abilities": [
+    "Headstrong"
+   ],
+   "items": [
+    "Covert Cloak"
+   ]
+  }
+ ],
+ "Fairy Flower": [
+  {
+   "boost": {
+    "Fairy": 1.2
+   }
+  },
+  {
+   "species": [
+    "Comfey",
+    "Flabebe",
+    "Floette",
+    "Florges",
+    "Cutiefly",
+    "Ribombee"
+   ],
+   "resist": {
+    "Grass": 0.5
+   },
+   "abilities": [
+    "Regenerator"
+   ],
+   "items": [
+    "Big Root"
+   ]
+  }
+ ],
+ "Luminous Moss": [
+  {
+   "species": [
+    "Hippopotas",
+    "Hippowdon"
+   ],
+   "stab": [
+    "Grass",
+    "Water"
+   ],
+   "abilities": [
+    "Grassy Guard",
+    "Rain Dish"
+   ]
+  }
+ ],
+ "Snowball": [
+  {
+   "species": [
+    "Lillipup",
+    "Herdier",
+    "Stoutland"
+   ],
+   "abilities": [
+    "Refrigerate",
+    "Ice Body"
+   ],
+   "items": [
+    "Metronome"
+   ],
+   "metronomeStep": 0.2
+  }
+ ],
+ "Aurora Crystal": [
+  {
+   "species": [
+    "Venonat",
+    "Venomoth",
+    "Aurorus"
+   ],
+   "abilities": [
+    "Resilient",
+    "Magic Guard"
+   ]
+  }
+ ],
+ "Gift Bag": [
+  {
+   "species": [
+    "Delibird"
+   ],
+   "ate": "Ice",
+   "abilities": [
+    "Good Fortune"
+   ],
+   "items": [
+    "Leftovers",
+    "Loaded Dice",
+    "Wide Lens"
+   ]
+  }
+ ],
+ "Hard Scale": [
+  {
+   "species": [
+    "Wimpod",
+    "Golisopod"
+   ],
+   "abilities": [
+    "Multiscale",
+    "Magic Guard"
+   ],
+   "items": [
+    "Protective Pads",
+    "Scope Lens"
+   ]
+  }
+ ],
+ "Clanging Scale": [
+  {
+   "species": [
+    "Jangmo-o",
+    "Hakamo-o",
+    "Kommo-o"
+   ],
+   "stab": [
+    "Fighting"
+   ],
+   "abilities": [
+    "Amplifier"
+   ]
+  }
+ ]
+}

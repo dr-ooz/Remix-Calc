@@ -345,12 +345,31 @@ function autosetTerrain(ability, i) {
 	}
 }
 
+// Remix: an item can change the default number of hits (Loaded Dice, Spare Key)
+$(".item").bind("change", function () {
+	var pokeInfo = $(this).closest(".poke-info");
+	pokeInfo.find(".move-hits").each(function () {
+		var range = $(this).data("multihit");
+		if (range) $(this).val(remixDefaultHits(pokeInfo, range));
+	});
+});
+
 $("#p1 .item").bind("keyup change", function () {
 	autosetStatus("#p1", $(this).val());
 });
 
 var lastManualStatus = {"#p1": "Healthy"};
 var lastAutoStatus = {"#p1": "Healthy"};
+// Remix: status a Remix item gives its own holder (remix-data/item_effects.json "selfStatus")
+function remixItemSelfStatus(p, item) {
+	var rules = (typeof REMIX_ITEM_EFFECTS !== "undefined" && REMIX_ITEM_EFFECTS[item]) || [];
+	var species = typeof remixPokeName === "function" ? remixPokeName($(p)) : "";
+	var names = {brn: "Burned", psn: "Poisoned", tox: "Badly Poisoned"};
+	for (var i = 0; i < rules.length; i++) {
+		if (rules[i].selfStatus && (!rules[i].species || rules[i].species.indexOf(species) !== -1)) return names[rules[i].selfStatus];
+	}
+	return "";
+}
 function autosetStatus(p, item) {
 	var currentStatus = $(p + " .status").val();
 	if (currentStatus !== lastAutoStatus[p]) {
@@ -363,6 +382,11 @@ function autosetStatus(p, item) {
 	} else if (item === "Toxic Orb") {
 		lastAutoStatus[p] = "Badly Poisoned";
 		$(p + " .status").val("Badly Poisoned");
+		$(p + " .status").change();
+	} else if (remixItemSelfStatus(p, item)) {
+		var st = remixItemSelfStatus(p, item);
+		lastAutoStatus[p] = st;
+		$(p + " .status").val(st);
 		$(p + " .status").change();
 	} else {
 		lastAutoStatus[p] = "Healthy";
@@ -868,6 +892,9 @@ function createPokemon(pokeInfo) {
 
 		var ability = pokeInfo.find(".ability").val();
 		var item = pokeInfo.find(".item").val();
+		// Remix: unticked item box = item knocked off / used up; unticked ability box = ability suppressed
+		if (pokeInfo.find(".remix-item-on").length && !pokeInfo.find(".remix-item-on").is(":checked")) item = "";
+		if (pokeInfo.find(".remix-ability-on").length && !pokeInfo.find(".remix-ability-on").is(":checked")) ability = "";
 		var isDynamaxed = pokeInfo.find(".max").prop("checked");
 		var teraType = pokeInfo.find(".teraToggle").is(":checked") ? pokeInfo.find(".teraType").val() : undefined;
 		pokeInfo.isDynamaxed = isDynamaxed;
@@ -1469,6 +1496,16 @@ $("#mainResult").click(function () {
 function remixDefaultHits(pokeInfo, range) {
 	var ab = pokeInfo.find(".ability").val();
 	var hits = (pokeInfo.attr("id") === "p2" || ab === 'Skill Link' || ab === 'Masterpiece') ? 5 : 2;
+	// Remix items: Loaded Dice (or an item that includes it) = at least 4 hits; Spare Key (Klefki) = 5
+	var item = pokeInfo.find(".item").val();
+	var species = typeof remixPokeName === "function" ? remixPokeName(pokeInfo) : "";
+	var itemRules = (typeof REMIX_ITEM_EFFECTS !== "undefined" && REMIX_ITEM_EFFECTS[item]) || [];
+	var ruleHas = function (r, what) {
+		return (!r.species || r.species.indexOf(species) !== -1) &&
+			((r.items || []).indexOf(what) !== -1 || (r.abilities || []).indexOf(what) !== -1);
+	};
+	if (item === "Loaded Dice" || itemRules.some(function (r) { return ruleHas(r, "Loaded Dice"); })) hits = Math.max(hits, 4);
+	if (itemRules.some(function (r) { return ruleHas(r, "Skill Link"); })) hits = 5;
 	if (Array.isArray(range)) hits = Math.max(range[0], Math.min(range[1], hits));
 	return hits;
 }

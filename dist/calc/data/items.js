@@ -65,6 +65,7 @@ var __values = (this && this.__values) || function(o) {
 var e_1, _a, e_2, _b;
 exports.__esModule = true;
 
+var remix_items_1 = require("./remix_items");
 var util_1 = require("../util");
 var RBY = [];
 var GSC = [
@@ -614,7 +615,9 @@ var BERRIES = {
     'Wiki Berry': { t: 'Rock', p: 110 },
     'Yache Berry': { t: 'Ice', p: 110 }
 };
-exports.ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
+var REMIX_GAME_ITEM_SET = new Set(remix_items_1.REMIX_GAME_ITEMS);
+var REMIX_SM = Array.from(new Set(SM.filter(function (i) { return REMIX_GAME_ITEM_SET.has(i) && !remix_items_1.REMIX_REMOVED_ITEMS.includes(i); }).concat(Object.keys(remix_items_1.REMIX_ITEM_EFFECTS)))).sort();
+exports.ITEMS = [[], RBY, GSC, ADV, DPP, BW, XY, REMIX_SM, SS, SV];
 var Items = (function () {
     function Items(gen) {
         this.gen = gen;

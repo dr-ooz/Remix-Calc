@@ -2,6 +2,17 @@ import * as I from './data/interface';
 import {Stats} from './stats';
 import {toID, extend, assignWithout} from './util';
 import {State} from './state';
+import {REMIX_ITEM_EFFECTS} from './data/remix_items';
+
+// Remix: merged effects of a held Remix item (see remix-data/item_effects.json)
+export interface RemixItemFx {
+  abilities: string[]; items: string[]; boost: {[t: string]: number}; resist: {[t: string]: number};
+  stab: string[]; ate: string; addType: string; vsSteel: {[t: string]: number}; moveBoost: {[m: string]: number};
+  stats: Array<{stat: string; mult: number; weather?: string[]; terrain?: string[]}>;
+  critImmune: boolean; alwaysCrit: boolean; weatherHeal: {[w: string]: number}; metronomeStep: number;
+  weatherItems: Array<{weather: string[]; items: string[]}>;
+}
+const REMIX_FX_CACHE = new Map<string, RemixItemFx>();
 
 const STATS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'] as I.StatID[];
 const SPC = new Set(['spc']);
@@ -124,9 +135,45 @@ export class Pokemon implements State.Pokemon {
   }
 
   hasAbility(...abilities: string[]) {
-    if (!this.ability) return false;
-    if (abilities.includes(this.ability)) return true;
-    return this.remixGrantedAbilities().some(a => abilities.includes(a));
+    if (this.ability && abilities.includes(this.ability)) return true;
+    if (this.remixGrantedAbilities().some(a => abilities.includes(a))) return true;
+    // abilities from a Remix item (Mold Breaker never ignores these: they're item effects)
+    return this.remixItemFx().abilities.some(a => abilities.includes(a));
+  }
+
+  // Remix (gen 7): everything the held item does for this species, merged from its rules.
+  remixItemFx(): RemixItemFx {
+    const key = this.gen.num + '|' + this.name + '|' + (this.item || '') + '|' + (this.ability || '');
+    const cached = REMIX_FX_CACHE.get(key);
+    if (cached) return cached;
+    const fx: RemixItemFx = {
+      abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
+      moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
+      weatherItems: [],
+    };
+    const rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability as string)
+      ? REMIX_ITEM_EFFECTS[this.item] : undefined;
+    for (const r of rules || []) {
+      if (r.species && !r.species.some((sp: string) => sp.endsWith('*')
+        ? this.name.startsWith(sp.slice(0, -1)) : sp === this.name)) continue;
+      if (r.weatherOnly) { fx.weatherItems.push({weather: r.weatherOnly, items: r.items || []}); continue; }
+      fx.abilities.push(...(r.abilities || []));
+      fx.items.push(...(r.items || []));
+      fx.stab.push(...(r.stab || []));
+      fx.stats.push(...(r.stats || []));
+      Object.assign(fx.boost, r.boost || {});
+      Object.assign(fx.resist, r.resist || {});
+      Object.assign(fx.vsSteel, r.vsSteel || {});
+      Object.assign(fx.moveBoost, r.moveBoost || {});
+      Object.assign(fx.weatherHeal, r.weatherHeal || {});
+      if (r.ate) fx.ate = r.ate;
+      if (r.addType) fx.addType = r.addType;
+      if (r.critImmune) fx.critImmune = true;
+      if (r.alwaysCrit) fx.alwaysCrit = true;
+      if (r.metronomeStep) fx.metronomeStep = r.metronomeStep;
+    }
+    REMIX_FX_CACHE.set(key, fx);
+    return fx;
   }
 
   // Remix (gen 7): abilities that also give the effects of other abilities.
@@ -155,7 +202,9 @@ export class Pokemon implements State.Pokemon {
   }
 
   hasItem(...items: string[]) {
-    return !!(this.item && items.includes(this.item));
+    if (this.item && items.includes(this.item)) return true;
+    // Remix: items whose effects a Remix item includes (e.g. Comet Shard = Life Orb for Minior)
+    return this.remixItemFx().items.some(i => items.includes(i));
   }
 
   hasStatus(...statuses: I.StatusName[]) {

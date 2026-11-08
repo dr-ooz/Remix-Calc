@@ -126,10 +126,11 @@ export function getRecovery(
   const ignoresShellBell =
     gen.num === 3 && move.named('Doom Desire', 'Future Sight');
   if (attacker.hasItem('Shell Bell') && !ignoresShellBell) {
-    const max = Math.round(defender.maxHP() / 5);
+    const share = gen.num === 7 ? 4 : 5; // Remix: Shell Bell heals 25% of damage dealt
+    const max = Math.round(defender.maxHP() / share);
     for (let i = 0; i < minD.length; i++) {
-      recovery[0] += Math.min(Math.round(minD[i] * move.hits / 5), max);
-      recovery[1] += Math.min(Math.round(maxD[i] * move.hits / 5), max);
+      recovery[0] += Math.min(Math.round(minD[i] * move.hits / share), max);
+      recovery[1] += Math.min(Math.round(maxD[i] * move.hits / share), max);
     }
   }
 
@@ -144,7 +145,8 @@ export function getRecovery(
       const range = [minD[i], maxD[i]];
       for (const j in recovery) {
         let drained = Math.round(range[j] * percentHealed);
-        if (attacker.hasItem('Big Root')) drained = Math.trunc(drained * 8192 / 4096);
+        // Remix: Big Root +50% drain
+        if (attacker.hasItem('Big Root')) drained = Math.trunc(drained * (gen.num === 7 ? 6144 : 8192) / 4096);
         recovery[j] += Math.min(drained * move.hits, max);
       }
     }
@@ -546,6 +548,12 @@ function getEndOfTurn(
     }
   }
 
+  // Remix items that heal in weather (Miracle Seed, Heat Rock, Frosty Spoon...)
+  if (gen.num === 7 && field.weather && defender.remixItemFx().weatherHeal[field.weather]) {
+    damage += Math.floor(defender.maxHP() / defender.remixItemFx().weatherHeal[field.weather]);
+    texts.push(defender.item + ' recovery');
+  }
+
   const loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
   if (defender.hasItem('Leftovers') && !loseItem) {
     // Remix: Appetite doubles Leftovers
@@ -553,7 +561,7 @@ function getEndOfTurn(
     texts.push('Leftovers recovery');
   } else if (defender.hasItem('Black Sludge') && !loseItem) {
     if (defender.hasType('Poison')) {
-      damage += Math.floor(defender.maxHP() / 8);
+      damage += Math.floor(defender.maxHP() / 8); // Remix: 1/8 (12%) too
       texts.push('Black Sludge recovery');
     } else if (!defender.hasAbility('Magic Guard', 'Klutz')) {
       damage -= Math.floor(defender.maxHP() / 8);
@@ -574,7 +582,7 @@ function getEndOfTurn(
 
   if (field.attackerSide.isSeeded && !attacker.hasAbility('Magic Guard')) {
     let recovery = Math.floor(attacker.maxHP() / (gen.num >= 2 ? 8 : 16));
-    if (defender.hasItem('Big Root')) recovery = Math.trunc(recovery * 8192 / 4096);
+    if (defender.hasItem('Big Root')) recovery = Math.trunc(recovery * (gen.num === 7 ? 6144 : 8192) / 4096);
     if (attacker.hasAbility('Liquid Ooze')) {
       damage -= recovery;
       texts.push('Liquid Ooze damage');

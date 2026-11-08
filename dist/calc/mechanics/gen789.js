@@ -111,12 +111,13 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
             defender.ability = "";
         }
     }
-    var remixCritImmune = gen.num === 7 && (defender.hasAbility("Oblivious", "Scribble", "Schooling") ||
+    var remixCritImmune = gen.num === 7 && (defender.hasAbility("Oblivious", "Scribble", "Schooling", "Good Fortune") ||
+        defender.remixItemFx().critImmune ||
         defender.named("Darmanitan-Zen"));
     var isCritical = !defender.hasAbility("Battle Armor", "Shell Armor") &&
         !remixCritImmune &&
         !field.defenderSide.isLuckyChant &&
-        (move.isCrit ||
+        (move.isCrit || attacker.remixItemFx().alwaysCrit ||
             (attacker.hasAbility("Merciless") &&
                 (gen.num === 7 ? !!defender.status : defender.hasStatus("psn", "tox")))) &&
         move.timesUsed === 1;
@@ -239,6 +240,10 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
             type = attacker.types[0];
             desc.attackerAbility = attacker.ability;
         }
+        else if ((isRemixAte = gen.num === 7 && normal && !!attacker.remixItemFx().ate)) {
+            type = attacker.remixItemFx().ate;
+            desc.attackerItem = attacker.item;
+        }
         else if ((isNormalize = attacker.hasAbility("Normalize"))) {
             type = "Normal";
         }
@@ -283,6 +288,11 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     var typeEffectiveness = type1Effectiveness * type2Effectiveness;
     if (defender.teraType) {
         typeEffectiveness = (0, util_2.getMoveEffectiveness)(gen, move, defender.teraType, isGhostRevealed, field.isGravity, isRingTarget);
+    }
+    var remixAddType = defender.remixItemFx().addType;
+    if (remixAddType && !defender.teraType && !defender.types.includes(remixAddType)) {
+        typeEffectiveness *= (0, util_2.getMoveEffectiveness)(gen, move, remixAddType, isGhostRevealed, field.isGravity, isRingTarget);
+        desc.defenderItem = defender.item;
     }
     if (typeEffectiveness === 0 &&
         move.hasType("Ground") &&
@@ -483,7 +493,9 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         desc.isCritical = isCritical;
     }
     var stabMod = 4096;
-    if (attacker.hasOriginalType(move.type)) {
+    var remixItemStab = attacker.remixItemFx().stab.includes(move.type) ||
+        attacker.remixItemFx().addType === move.type;
+    if (attacker.hasOriginalType(move.type) || remixItemStab) {
         stabMod += 2048;
     }
     else if (attacker.hasAbility("Protean", "Libero", "Versatility") &&
@@ -525,7 +537,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         var childDefender = gen.num === 7 ? defender.clone() : defender;
         (0, util_2.checkMultihitBoost)(gen, child, childDefender, move, field, desc);
         if (gen.num === 7)
-            remixAfterFirstHit(gen, child, childDefender, move);
+            remixAfterFirstHit(gen, child, childDefender, move, field);
         childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
             .damage;
         desc.attackerAbility = attacker.ability;
@@ -535,7 +547,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         child.ability = "Beatdown (Second Hit)";
         var childDefender = defender.clone();
         (0, util_2.checkMultihitBoost)(gen, child, childDefender, move, field, desc);
-        remixAfterFirstHit(gen, child, childDefender, move);
+        remixAfterFirstHit(gen, child, childDefender, move, field);
         childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
             .damage;
         desc.attackerAbility = attacker.ability;
@@ -594,7 +606,7 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         var hitDefender = defender.clone();
         for (var h = 1; h < move.hits; h++) {
             (0, util_2.checkMultihitBoost)(gen, hitAttacker, hitDefender, move, field, desc);
-            if (remixFx.perHitDrop && remixCanLowerStats(hitAttacker, hitDefender, remixFx.perHitDrop)) {
+            if (remixFx.perHitDrop && remixCanLowerStats(hitAttacker, hitDefender, remixFx.perHitDrop, field)) {
                 remixApplyBoosts(gen, hitDefender, remixFx.perHitDrop);
             }
             var laterHit = move.clone();
@@ -614,8 +626,20 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
     return result;
 }
 exports.calculateSMSSSV = calculateSMSSSV;
-function remixCanLowerStats(attacker, defender, boosts) {
+function remixStatCondition(st, field) {
+    if (!st.weather && !st.terrain)
+        return true;
+    return !!((st.weather && field.weather && st.weather.includes(field.weather)) ||
+        (st.terrain && field.terrain && st.terrain.includes(field.terrain)));
+}
+function remixCanLowerStats(attacker, defender, boosts, field) {
     if (attacker.hasAbility("Sheer Force"))
+        return false;
+    if (defender.hasItem("Covert Cloak", "Clear Amulet"))
+        return false;
+    if (field && defender.remixItemFx().weatherItems.some(function (w) {
+        return field.weather && w.weather.includes(field.weather) && w.items.includes("Clear Amulet");
+    }))
         return false;
     if (defender.hasAbility("Clear Body", "Full Metal Body", "Titanic", "Flower Veil", "Shield Dust"))
         return false;
@@ -635,9 +659,9 @@ function remixApplyBoosts(gen, pokemon, boosts) {
         pokemon.stats[s] = (0, util_2.getModifiedStat)(pokemon.rawStats[s], pokemon.boosts[s], gen);
     }
 }
-function remixAfterFirstHit(gen, attacker, defender, move) {
+function remixAfterFirstHit(gen, attacker, defender, move, field) {
     var fx = move.remix || {};
-    if (fx.targetDrop && remixCanLowerStats(attacker, defender, fx.targetDrop)) {
+    if (fx.targetDrop && remixCanLowerStats(attacker, defender, fx.targetDrop, field)) {
         remixApplyBoosts(gen, defender, fx.targetDrop);
     }
     if (fx.selfBoost && !attacker.hasAbility("Sheer Force")) {
@@ -1158,6 +1182,14 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;
     }
+    {
+        var fx = attacker.remixItemFx();
+        var pow = (fx.boost[move.type] || 1) * (fx.moveBoost[move.name] || 1);
+        if (pow !== 1) {
+            bpMods.push(Math.round(4096 * pow));
+            desc.attackerItem = attacker.item;
+        }
+    }
     if (attacker.hasItem("Punching Glove") && move.flags.punch) {
         bpMods.push(4506);
         desc.attackerItem = attacker.item;
@@ -1176,12 +1208,16 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         desc.attackerAbility = attacker.ability;
         desc.alliesFainted = attacker.alliesFainted;
     }
-    if (attacker.hasItem("".concat(move.type, " Gem"))) {
+    if (gen.num === 7 && attacker.hasItem("Normal Gem") && move.hasType("Normal")) {
+        bpMods.push(6144);
+        desc.attackerItem = attacker.item;
+    }
+    else if (gen.num !== 7 && attacker.hasItem("".concat(move.type, " Gem"))) {
         bpMods.push(5325);
         desc.attackerItem = attacker.item;
     }
     else if (attacker.hasItem("Dragon Fang") && move.hasType("Dragon")) {
-        bpMods.push(5325);
+        bpMods.push(gen.num === 7 ? 4915 : 5325);
         desc.attackerItem = attacker.item;
     }
     else if ((attacker.hasItem("Adamant Orb") &&
@@ -1265,6 +1301,7 @@ function calculateAttackSMSSSV(gen, attacker, defender, move, field, desc, isCri
 }
 exports.calculateAttackSMSSSV = calculateAttackSMSSSV;
 function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
+    var e_4, _a;
     var atMods = [];
     if (gen.num === 7 && move.category !== "Status") {
         var phys = move.category === "Physical";
@@ -1280,6 +1317,22 @@ function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
         else if (!phys && field.attackerSide.isFlowerGift && field.hasWeather("Sun", "Harsh Sunshine")) {
             atMods.push(6144);
             desc.isFlowerGiftAttacker = true;
+        }
+        try {
+            for (var _b = __values(attacker.remixItemFx().stats), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var st = _c.value;
+                if (st.stat === (phys ? "at" : "sa") && remixStatCondition(st, field)) {
+                    atMods.push(Math.round(4096 * st.mult));
+                    desc.attackerItem = attacker.item;
+                }
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b["return"])) _a.call(_b);
+            }
+            finally { if (e_4) throw e_4.error; }
         }
         if (attacker.hasAbility("Steelworker") && move.hasType("Fire")) {
             atMods.push(6144);
@@ -1413,7 +1466,7 @@ function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
         (attacker.hasItem("Deep Sea Tooth") &&
             attacker.named("Clamperl") &&
             move.category === "Special") ||
-        (attacker.hasItem("Light Ball") &&
+        (gen.num !== 7 && attacker.hasItem("Light Ball") &&
             attacker.name.includes("Pikachu") &&
             !move.isZ)) {
         atMods.push(8192);
@@ -1465,11 +1518,28 @@ function calculateDefenseSMSSSV(gen, attacker, defender, move, field, desc, isCr
 }
 exports.calculateDefenseSMSSSV = calculateDefenseSMSSSV;
 function calculateDfModsSMSSSV(gen, attacker, defender, move, field, desc, isCritical, hitsPhysical) {
-    var _a;
+    var e_5, _a;
+    var _b;
     if (isCritical === void 0) { isCritical = false; }
     if (hitsPhysical === void 0) { hitsPhysical = false; }
     var dfMods = [];
     if (gen.num === 7) {
+        try {
+            for (var _c = __values(defender.remixItemFx().stats), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var st = _d.value;
+                if (st.stat === (hitsPhysical ? "df" : "sd") && remixStatCondition(st, field)) {
+                    dfMods.push(Math.round(4096 * st.mult));
+                    desc.defenderItem = defender.item;
+                }
+            }
+        }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        finally {
+            try {
+                if (_d && !_d.done && (_a = _c["return"])) _a.call(_c);
+            }
+            finally { if (e_5) throw e_5.error; }
+        }
         var cloak = defender.hasAbility("Climate Cloak") && /^(Burmy|Wormadam)/.test(defender.name)
             ? (/-Sandy$/.test(defender.name) ? "Sand" : /-(Trash|Snow)$/.test(defender.name) ? "Hail" : "Grassy")
             : "";
@@ -1539,7 +1609,7 @@ function calculateDfModsSMSSSV(gen, attacker, defender, move, field, desc, isCri
         }
     }
     if ((defender.hasItem("Eviolite") &&
-        ((_a = gen.species.get((0, util_1.toID)(defender.name))) === null || _a === void 0 ? void 0 : _a.nfe)) ||
+        ((_b = gen.species.get((0, util_1.toID)(defender.name))) === null || _b === void 0 ? void 0 : _b.nfe)) ||
         (!hitsPhysical && defender.hasItem("Assault Vest"))) {
         dfMods.push(6144);
         desc.defenderItem = defender.item;
@@ -1605,6 +1675,18 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         finalMods.push(2048);
         desc.defenderAbility = defender.ability;
     }
+    if (gen.num === 7) {
+        var dfx = defender.remixItemFx();
+        if (dfx.resist[move.type]) {
+            finalMods.push(Math.round(4096 * dfx.resist[move.type]));
+            desc.defenderItem = defender.item;
+        }
+        var vs = attacker.remixItemFx().vsSteel[move.type];
+        if (vs && defender.hasType("Steel")) {
+            finalMods.push(Math.round(4096 * vs));
+            desc.attackerItem = attacker.item;
+        }
+    }
     if (gen.num === 7 && ((defender.hasAbility("Rock-Solid") && move.hasType("Rock", "Ground", "Steel", "Fighting")) ||
         (defender.hasAbility("Permafrost") && move.hasType("Ice") && !defender.hasType("Ice")) ||
         (defender.hasAbility("Neurotoxin") && move.hasType("Psychic")))) {
@@ -1648,14 +1730,11 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         desc.attackerItem = attacker.item;
     }
     else if (attacker.hasItem("Metronome") &&
-        move.timesUsedWithMetronome >= 1) {
+        move.timesUsedWithMetronome >= 1 &&
+        (gen.num !== 7 || attacker.remixItemFx().metronomeStep > 0)) {
         var timesUsedWithMetronome = Math.floor(move.timesUsedWithMetronome);
-        if (timesUsedWithMetronome <= 4) {
-            finalMods.push(4096 + timesUsedWithMetronome * 819);
-        }
-        else {
-            finalMods.push(8192);
-        }
+        var step = gen.num === 7 ? Math.round(4096 * attacker.remixItemFx().metronomeStep) : 819;
+        finalMods.push(Math.min(8192, 4096 + timesUsedWithMetronome * step));
         desc.attackerItem = attacker.item;
     }
     if (move.hasType((0, items_1.getBerryResistType)(defender.item)) &&

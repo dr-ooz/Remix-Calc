@@ -65,10 +65,11 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
     var text = '';
     var ignoresShellBell = gen.num === 3 && move.named('Doom Desire', 'Future Sight');
     if (attacker.hasItem('Shell Bell') && !ignoresShellBell) {
-        var max = Math.round(defender.maxHP() / 5);
+        var share = gen.num === 7 ? 4 : 5;
+        var max = Math.round(defender.maxHP() / share);
         for (var i = 0; i < minD.length; i++) {
-            recovery[0] += Math.min(Math.round(minD[i] * move.hits / 5), max);
-            recovery[1] += Math.min(Math.round(maxD[i] * move.hits / 5), max);
+            recovery[0] += Math.min(Math.round(minD[i] * move.hits / share), max);
+            recovery[1] += Math.min(Math.round(maxD[i] * move.hits / share), max);
         }
     }
     if (move.named('G-Max Finale')) {
@@ -82,7 +83,7 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
             for (var j in recovery) {
                 var drained = Math.round(range[j] * percentHealed);
                 if (attacker.hasItem('Big Root'))
-                    drained = Math.trunc(drained * 8192 / 4096);
+                    drained = Math.trunc(drained * (gen.num === 7 ? 6144 : 8192) / 4096);
                 recovery[j] += Math.min(drained * move.hits, max);
             }
         }
@@ -400,6 +401,10 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
             texts.push('hail damage');
         }
     }
+    if (gen.num === 7 && field.weather && defender.remixItemFx().weatherHeal[field.weather]) {
+        damage += Math.floor(defender.maxHP() / defender.remixItemFx().weatherHeal[field.weather]);
+        texts.push(defender.item + ' recovery');
+    }
     var loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
     if (defender.hasItem('Leftovers') && !loseItem) {
         damage += Math.floor(defender.maxHP() / (gen.num === 7 && defender.hasAbility('Appetite') ? 8 : 16));
@@ -428,7 +433,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     if (field.attackerSide.isSeeded && !attacker.hasAbility('Magic Guard')) {
         var recovery = Math.floor(attacker.maxHP() / (gen.num >= 2 ? 8 : 16));
         if (defender.hasItem('Big Root'))
-            recovery = Math.trunc(recovery * 8192 / 4096);
+            recovery = Math.trunc(recovery * (gen.num === 7 ? 6144 : 8192) / 4096);
         if (attacker.hasAbility('Liquid Ooze')) {
             damage -= recovery;
             texts.push('Liquid Ooze damage');

@@ -1,5 +1,40 @@
 import * as I from './data/interface';
 import { State } from './state';
+export interface RemixItemFx {
+    abilities: string[];
+    items: string[];
+    boost: {
+        [t: string]: number;
+    };
+    resist: {
+        [t: string]: number;
+    };
+    stab: string[];
+    ate: string;
+    addType: string;
+    vsSteel: {
+        [t: string]: number;
+    };
+    moveBoost: {
+        [m: string]: number;
+    };
+    stats: Array<{
+        stat: string;
+        mult: number;
+        weather?: string[];
+        terrain?: string[];
+    }>;
+    critImmune: boolean;
+    alwaysCrit: boolean;
+    weatherHeal: {
+        [w: string]: number;
+    };
+    metronomeStep: number;
+    weatherItems: Array<{
+        weather: string[];
+        items: string[];
+    }>;
+}
 export declare class Pokemon implements State.Pokemon {
     gen: I.Generation;
     name: I.SpeciesName;
@@ -41,6 +76,7 @@ export declare class Pokemon implements State.Pokemon {
     maxHP(original?: boolean): number;
     curHP(original?: boolean): number;
     hasAbility(...abilities: string[]): boolean;
+    remixItemFx(): RemixItemFx;
     remixGrantedAbilities(): string[];
     hasItem(...items: string[]): boolean;
     hasStatus(...statuses: I.StatusName[]): boolean;
