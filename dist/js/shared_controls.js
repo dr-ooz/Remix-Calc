@@ -225,11 +225,14 @@ $(".percent-hp").keyup(function () {
 });
 
 $(".ability").bind("keyup change", function () {
-	$(this).closest(".poke-info").find(".move-hits").val($(this).val() === 'Skill Link' ? 5 : 3);
+	var remixPoke = $(this).closest(".poke-info");
+	remixPoke.find(".move-hits").each(function () {
+		$(this).val(remixDefaultHits(remixPoke, $(this).data("multihit")));
+	});
 
 	var ability = $(this).closest(".poke-info").find(".ability").val();
 
-	var TOGGLE_ABILITIES = ['Flash Fire', 'Intimidate', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout', 'Interstellar', 'Evoboost'];
+	var TOGGLE_ABILITIES = ['Flash Fire', 'Intimidate', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout'];
 
 	if (TOGGLE_ABILITIES.indexOf(ability) >= 0) {
 		$(this).closest(".poke-info").find(".abilityToggle").show();
@@ -247,8 +250,10 @@ $(".ability").bind("keyup change", function () {
 });
 
 $("#p1 .ability").bind("keyup change", function () {
-	autosetWeather($(this).val(), 0);
-	autosetTerrain($(this).val(), 0);
+	var pokeInfo = $(this).closest(".poke-info");
+	autosetWeather(remixFieldAbility(pokeInfo, $(this).val()), 0);
+	autosetTerrain(remixFieldAbility(pokeInfo, $(this).val(), true), 0);
+	remixAutoSide(pokeInfo, $(this).val(), 0);
 });
 
 var lastManualWeather = "";
@@ -436,8 +441,8 @@ $(".move-selector").change(function () {
 		moveGroupObj.children(".stat-drops").hide();
 		moveGroupObj.children(".move-hits").show();
 		var pokemon = $(this).closest(".poke-info");
-		var moveHits = (pokemon.find(".ability").val() === 'Skill Link') ? 5 : 3;
-		moveGroupObj.children(".move-hits").val(moveHits);
+		moveGroupObj.children(".move-hits").data("multihit", move.multihit);
+		moveGroupObj.children(".move-hits").val(remixDefaultHits(pokemon, move.multihit));
 	} else if (dropsStats) {
 		moveGroupObj.children(".move-hits").hide();
 		moveGroupObj.children(".stat-drops").show();
@@ -1358,9 +1363,14 @@ function loadDefaultLists() {
 			for (var i = 0; i < options.length; i++) {
 				var option = options[i];
 				var pokeName = option.pokemon.toUpperCase();
-				if (!query.term || query.term.toUpperCase().split(" ").every(function (term) {
-					return pokeName.indexOf(term) === 0 || pokeName.indexOf("-" + term) >= 0 || pokeName.indexOf(" " + term) >= 0;
-				})) {
+				// Remix: old (pre-rename) names also find the Pokemon, e.g. "bellsprout" -> Spellsprout
+				var oldName = (typeof REMIX_OLD_NAME !== "undefined" && REMIX_OLD_NAME[option.pokemon] || "").toUpperCase();
+				var nameMatches = function (name) {
+					return query.term.toUpperCase().split(" ").every(function (term) {
+						return name.indexOf(term) === 0 || name.indexOf("-" + term) >= 0 || name.indexOf(" " + term) >= 0;
+					});
+				};
+				if (!query.term || nameMatches(pokeName) || (oldName && nameMatches(oldName))) {
 					if ($("#randoms").prop("checked")) {
 						if (option.id) results.push(option);
 					} else {
@@ -1423,7 +1433,8 @@ function loadCustomList(id) {
 
 $(document).ready(function () {
 	var params = new URLSearchParams(window.location.search);
-	var g = GENERATION[params.get('gen')] || 9;
+	// Remix: the calc is Gen 7 only (Remix data), whatever the address says
+	var g = 7;
 	$("#gen" + g).prop("checked", true);
 	$("#gen" + g).change();
 	$("#percentage").prop("checked", true);
@@ -1451,4 +1462,57 @@ $("#mainResult").click(function () {
 			document.getElementById('tooltipText').style.visibility = 'hidden';
 		}, 2000);
 	});
+});
+
+// Remix: multi-hit default = 2 hits on the player's side (p1), 5 hits on the enemy side (p2);
+// Skill Link always 5. Clamped to the move's own hit range.
+function remixDefaultHits(pokeInfo, range) {
+	var ab = pokeInfo.find(".ability").val();
+	var hits = (pokeInfo.attr("id") === "p2" || ab === 'Skill Link' || ab === 'Masterpiece') ? 5 : 2;
+	if (Array.isArray(range)) hits = Math.max(range[0], Math.min(range[1], hits));
+	return hits;
+}
+
+// ---- Remix: abilities that auto-set field toggles ----
+function remixPokeName(pokeInfo) {
+	var setName = pokeInfo.find("input.set-selector").val() || "";
+	if (setName.indexOf("(") === -1) return setName;
+	var pokemonName = setName.substring(0, setName.indexOf(" ("));
+	var species = pokedex[pokemonName];
+	if (!species) return pokemonName;
+	return (species.otherFormes || (species.baseSpecies && species.baseSpecies !== pokemonName)) ? pokeInfo.find(".forme").val() : pokemonName;
+}
+// Ability whose weather/terrain this Pokemon sets (bundled abilities give their parts' weather/terrain).
+function remixFieldAbility(pokeInfo, ability, terrain) {
+	if (ability === "Hibernation") return terrain ? ability : "Snow Warning";
+	if (ability === "Seasonal Spirit") {
+		var name = remixPokeName(pokeInfo) || "";
+		if (/-Winter$/.test(name)) return terrain ? ability : "Snow Warning";
+		if (!/-(Summer|Autumn)$/.test(name)) return terrain ? "Grassy Surge" : ability; // Spring
+	}
+	return ability;
+}
+// Good Fortune / Parental Bond turn on Lucky Chant for their side; Lunar Aura turns on Lunar Aura.
+// Only undoes what it turned on itself.
+var remixAutoOn = [{}, {}];
+function remixAutoSide(pokeInfo, ability, i) {
+	var side = i === 0 ? "L" : "R";
+	var wanted = {
+		luckyChant: ability === "Good Fortune" || ability === "Parental Bond",
+		lunarAura: ability === "Lunar Aura"
+	};
+	for (var key in wanted) {
+		var box = $("#" + key + side);
+		if (wanted[key]) {
+			if (!box.prop("checked")) remixAutoOn[i][key] = true;
+			box.prop("checked", true);
+		} else if (remixAutoOn[i][key]) {
+			box.prop("checked", false);
+			remixAutoOn[i][key] = false;
+		}
+	}
+}
+// Season / cloak forms change what Seasonal Spirit does: re-run the ability hooks on forme change.
+$(".forme").change(function () {
+	$(this).closest(".poke-info").find(".ability").trigger("change");
 });

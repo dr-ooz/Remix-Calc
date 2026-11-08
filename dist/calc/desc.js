@@ -30,6 +30,13 @@ function display(gen, attacker, defender, move, field, damage, rawDesc, notation
     var maxDisplay = toDisplay(notation, max, defender.maxHP());
     var desc = buildDescription(rawDesc, attacker, defender);
     var damageText = "".concat(min, "-").concat(max, " (").concat(minDisplay, " - ").concat(maxDisplay).concat(notation, ")");
+    if (rawDesc.remixHits && rawDesc.remixHits.length > 1) {
+        var hits_1 = rawDesc.remixHits.map(function (h) {
+            return "".concat(h[0], "-").concat(h[1], " [").concat(toDisplay(notation, h[0], defender.maxHP()), "-").concat(toDisplay(notation, h[1], defender.maxHP())).concat(notation, "]");
+        });
+        var same = hits_1.every(function (h) { return h === hits_1[0]; });
+        damageText += same ? " (per hit: ".concat(hits_1[0], " x").concat(hits_1.length, ")") : " (per hit: ".concat(hits_1.join(' / '), ")");
+    }
     if (move.category === 'Status' && !move.named('Nature Power'))
         return "".concat(desc, ": ").concat(damageText);
     var koChanceText = getKOChance(gen, attacker, defender, move, field, damage, err).text;
@@ -352,18 +359,22 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     var damage = 0;
     var texts = [];
     if (field.hasWeather('Sun', 'Harsh Sunshine')) {
-        if (defender.hasAbility('Dry Skin', 'Solar Power')) {
+        if (defender.hasAbility('Dry Skin') || (gen.num !== 7 && defender.hasAbility('Solar Power'))) {
             damage -= Math.floor(defender.maxHP() / 8);
             texts.push(defender.ability + ' damage');
         }
     }
     else if (field.hasWeather('Rain', 'Heavy Rain')) {
-        if (defender.hasAbility('Dry Skin')) {
+        if (gen.num === 7 && defender.hasAbility('Hydration')) {
+            damage += Math.floor(defender.maxHP() / 6);
+            texts.push('Hydration recovery');
+        }
+        else if (defender.hasAbility('Dry Skin')) {
             damage += Math.floor(defender.maxHP() / 8);
             texts.push('Dry Skin recovery');
         }
         else if (defender.hasAbility('Rain Dish')) {
-            damage += Math.floor(defender.maxHP() / 16);
+            damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 10 : 16));
             texts.push('Rain Dish recovery');
         }
     }
@@ -376,21 +387,22 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         }
     }
     else if (field.hasWeather('Hail', 'Snow')) {
-        if (defender.hasAbility('Ice Body')) {
-            damage += Math.floor(defender.maxHP() / 16);
+        if (defender.hasAbility('Ice Body', 'Hibernation')) {
+            damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 6 : 16));
             texts.push('Ice Body recovery');
         }
         else if (!defender.hasType('Ice') &&
             !defender.hasAbility('Magic Guard', 'Overcoat', 'Snow Cloak') &&
             !defender.hasItem('Safety Goggles') &&
-            field.hasWeather('Hail')) {
+            field.hasWeather('Hail') &&
+            gen.num !== 7) {
             damage -= Math.floor(defender.maxHP() / 16);
             texts.push('hail damage');
         }
     }
     var loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
     if (defender.hasItem('Leftovers') && !loseItem) {
-        damage += Math.floor(defender.maxHP() / 16);
+        damage += Math.floor(defender.maxHP() / (gen.num === 7 && defender.hasAbility('Appetite') ? 8 : 16));
         texts.push('Leftovers recovery');
     }
     else if (defender.hasItem('Black Sludge') && !loseItem) {
@@ -452,7 +464,11 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         }
     }
     else if (defender.hasStatus('brn')) {
-        if (defender.hasAbility('Heatproof')) {
+        if (gen.num === 7 && defender.hasAbility('Flare Heal')) {
+            damage += Math.floor(defender.maxHP() / 8);
+            texts.push('Flare Heal recovery');
+        }
+        else if (defender.hasAbility('Heatproof')) {
             damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 32 : 16));
             texts.push('reduced burn damage');
         }

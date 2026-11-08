@@ -105,7 +105,37 @@ var Pokemon = (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             abilities[_i] = arguments[_i];
         }
-        return !!(this.ability && abilities.includes(this.ability));
+        if (!this.ability)
+            return false;
+        if (abilities.includes(this.ability))
+            return true;
+        return this.remixGrantedAbilities().some(function (a) { return abilities.includes(a); });
+    };
+    Pokemon.prototype.remixGrantedAbilities = function () {
+        if (this.gen.num !== 7 || !this.ability)
+            return [];
+        var form = this.name.split('-').slice(1).join('-');
+        switch (this.ability) {
+            case 'Neurotoxin': return ['Merciless', 'Poisonous'];
+            case 'Masterpiece': return ['Versatility', 'Technician', 'Skill Link'];
+            case 'Hibernation': return ['Soporific', 'Permafrost', 'Snow Warning'];
+            case 'Scribble': return ['Prankster'];
+            case 'Appetite': return ['Ripen'];
+            case 'Disgusted': return ['Klutz'];
+            case 'Climate Cloak': return ['Shield Dust'];
+            case 'Star Power':
+                return form === 'Meteor' || !form ? ['Levitate'] : ['Levitate', 'Dazzling'];
+            case 'Zen Mode': return this.name === 'Darmanitan-Zen' ? ['Unaware'] : [];
+            case 'Seasonal Spirit':
+                if (form === 'Summer')
+                    return ['Solar Rush', 'Sap Sipper'];
+                if (form === 'Autumn')
+                    return ['Moxie', 'Reckless'];
+                if (form === 'Winter')
+                    return ['Permafrost', 'Snow Warning'];
+                return ['Grassy Surge', 'Flower Veil'];
+            default: return [];
+        }
     };
     Pokemon.prototype.hasItem = function () {
         var items = [];

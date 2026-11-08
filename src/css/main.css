@@ -935,3 +935,57 @@ table.field td:first-child { border-right: 1px solid rgba(160, 140, 190, 0.35); 
 body.dark .visually-hidden:not(:checked) + label[for=mudslide] { color: #d9b48a; }
 body:not(.dark) .visually-hidden:not(:checked) + label[for=mudslide] { color: #8a5a2b; }
 .field-info .rooms-row .btn-quarter { font-size: 0.7em; letter-spacing: -0.3px; }
+.field-info .rooms-row label[for=mudslide], .field-info .rooms-row label[for=gravity] { font-size: 0.8em; letter-spacing: normal; }
+.field-info .rooms-row .btn-quarter { box-sizing: border-box; width: 64px; min-width: 64px; max-width: 64px; }
+.import-export-row button { white-space: nowrap; font-size: 0.78em; padding: 4px 6px; }
+.import-export-row .import-btn { font-size: 0.95em; }
+.import-export-row .export-btn { font-size: 0.9em; }
+.poke-info .status-row { margin-top: 3px; }
+/* Bigger gap between Item and Current HP; Health bar pulled up under Status */
+.poke-info .hp-group { padding-top: 10px; }
+.poke-info .health-label { margin-top: 8px; }
+
+/* ---- Remix: apply damage / heal ---- */
+.remix-apply { border: 1px solid #b9b0c6; background: #f4f0f8; color: #5b4a73; border-radius: 5px; padding: 0 7px; margin-left: 6px; font-size: 11px; font-weight: bold; line-height: 16px; white-space: nowrap; cursor: pointer; transition: background .15s, transform .15s; vertical-align: middle; }
+.remix-apply:hover, .remix-apply.active { background: #e4d9f2; transform: scale(1.04); }
+.remix-heal { border: 1px solid #9cc7a4; background: #eef8f0; color: #2f7a3d; border-radius: 6px; padding: 0 7px; margin-left: 6px; font-size: 11px; line-height: 18px; cursor: pointer; transition: background .15s, transform .15s; }
+.remix-heal:hover { background: #d9f0de; transform: scale(1.06); }
+.remix-dmg-picker { position: absolute; z-index: 1000; min-width: 230px; max-width: 340px; background: #fff; color: #2a2433; border: 1px solid #c9c0d6; border-radius: 10px; padding: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.18); opacity: 0; transform: translateY(-6px) scale(.98); transition: opacity .15s ease, transform .15s ease; font-size: 12px; }
+.remix-dmg-picker.open { opacity: 1; transform: none; }
+.rdp-title { font-weight: bold; margin-bottom: 8px; }
+.rdp-label { margin: 8px 0 4px; opacity: .7; }
+.rdp-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.rdp-btn { border: 1px solid #c9c0d6; background: #f6f3fa; color: inherit; border-radius: 6px; padding: 3px 8px; cursor: pointer; transition: background .12s, transform .12s; }
+.rdp-btn:hover { background: #e7dcf4; transform: translateY(-1px); }
+.rdp-main { flex: 1; display: flex; flex-direction: column; align-items: center; font-weight: bold; }
+.rdp-main small { font-weight: normal; opacity: .75; }
+.rdp-roll { min-width: 34px; padding: 2px 4px; }
+.rdp-custom { margin-top: 8px; }
+.rdp-custom input { flex: 1; min-width: 0; border: 1px solid #c9c0d6; border-radius: 6px; padding: 3px 6px; background: #fff; color: inherit; }
+.remix-hp-float { position: absolute; right: 4px; top: 0; font-weight: bold; pointer-events: none; transition: transform 1s ease-out, opacity 1s ease-out; }
+.remix-hp-float.hurt { color: #d23c3c; }
+.remix-hp-float.heal { color: #2f9a45; }
+.remix-hp-float.go { transform: translateY(-22px); opacity: 0; }
+.hpbar { transition: background .4s ease; }
+body.dark .remix-apply { background: #2b2435; border-color: #4a4058; color: #d9c9f0; }
+body.dark .remix-apply:hover, body.dark .remix-apply.active { background: #3a3048; }
+body.dark .remix-heal { background: #1f3326; border-color: #3d6b4a; color: #9fe0ad; }
+body.dark .remix-heal:hover { background: #29452f; }
+body.dark .remix-dmg-picker { background: #241e2d; color: #e6e1ec; border-color: #4a4058; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+body.dark .rdp-btn, body.dark .rdp-custom input { background: #2e2739; border-color: #4a4058; }
+body.dark .rdp-btn:hover { background: #3c3249; }
+
+/* ---- Remix: enemy team box = same look as the player's box, mirrored; x greys a Pokemon out ---- */
+#p2 .trainer-poks .enemy-slot { position: relative; display: inline-block; width: calc(100% / var(--per-row, 3) - 10px); margin: 5px; }
+#p2 .trainer-poks .enemy-slot .trainer-pok { width: 100% !important; margin: 0; image-rendering: pixelated;
+	transition: filter .25s ease, opacity .25s ease; }
+#p2 .trainer-poks .enemy-slot.fainted .trainer-pok { filter: grayscale(1); opacity: 0.35; }
+#p2 .enemy-faint { display: none; position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; padding: 0; border: none; border-radius: 50%;
+	background: #c0392b; color: #fff; font-weight: bold; line-height: 18px; cursor: pointer; z-index: 2; }
+#p2 .enemy-slot:hover .enemy-faint { display: block; }
+#p2 .enemy-slot.fainted .enemy-faint { display: block; background: #6b6377; }
+
+/* ---- Remix: remembered HP ---- */
+.percent-hp { transition: background-color .3s ease; border-radius: 4px; }
+.poke-info .remix-mini-hp { position: absolute; display: block; width: auto; left: 12%; right: 12%; bottom: 3px; height: 5px; border-radius: 3px; background: rgba(0,0,0,.45); overflow: hidden; pointer-events: auto; }
+.poke-info .remix-mini-hp i { display: block; height: 100%; border-radius: 3px; transition: width .3s ease; }

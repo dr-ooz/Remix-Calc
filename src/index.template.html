@@ -151,7 +151,7 @@ function toggleTheme() {
 
     <div aria-label="Pok&eacute;mon 1" class="panel" role="region">
         <fieldset class="poke-info" id="p1">
-            <legend align="center">Pok&eacute;mon 1</legend>
+            <legend align="center">Player's Pok&eacute;mon</legend>
             <input type="text" class="set-selector calc-trigger" />
             <span id="importedSetsOptions" style="width:auto; display:none">
                 <div class="imported-sets-row">
@@ -496,7 +496,20 @@ function toggleTheme() {
                     <label for="itemL1">Item</label>
                     <select class="item terrain-trigger calc-trigger" id="itemL1"></select>
                 </div>
-                <div>
+            </div>
+            <div class="info-group gen-specific g9">
+                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
+                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
+                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureL" />
+                    <label class="btn btn-xxwide" for="cureL">Salt Cure</label>
+                </div>
+                <br />
+            </div>
+            <div class="info-group hp-group">
+                <label for="currentHpL1">Current HP</label>
+                <input class="current-hp calc-trigger" id="currentHpL1" value="341" />/<span class="max-hp">341</span> (
+                <input class="percent-hp calc-trigger" value="100" />%)
+                <div class="info-selectors status-row">
                     <label for="statusL1">Status</label>
                     <select class="status calc-trigger" id="statusL1">
                         <option value="Healthy">Healthy</option>
@@ -525,25 +538,10 @@ function toggleTheme() {
                         <option value="15">15/16</option>
                     </select>
                 </div>
-            </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureL" />
-                    <label class="btn btn-xxwide" for="cureL">Salt Cure</label>
-                </div>
-                <br />
-            </div>
-            <div class="info-group">
-                <label for="currentHpL1">Current HP</label>
-                <input class="current-hp calc-trigger" id="currentHpL1" value="341" />/<span class="max-hp">341</span> (
-                <input class="percent-hp calc-trigger" value="100" />%)
 					 <input class="visually-hidden max calc-trigger btn-input" type="checkbox" id="maxL" />
 					 <label class="btn btn-xwide gen-specific g8 hide" for="maxL"
 					 title="Use the corresponding Max Move?">Dynamax</label>
-					 <br />
-                <br />
-                Health <div class="hpbar"></div>
+                <div class="health-label">Health</div> <div class="hpbar"></div>
             </div>
             <div hidden id="criticalHitInstruction">Force this attack to be a critical hit?</div>
             <div hidden id="zMoveInstruction">Make this attack a Z-move?</div>
@@ -1075,7 +1073,7 @@ function toggleTheme() {
     </div>
     <div aria-label="Pok&eacute;mon 2" role="region" class="panel">
         <fieldset class="poke-info" id="p2">
-            <legend align="center">Pok&eacute;mon 2</legend>
+            <legend align="center">Enemy Pok&eacute;mon</legend>
             <input type="text" class="set-selector calc-trigger" />
             <span id="importedSetsOptions" style="width:auto; display:none">
                 <input type="checkbox" id="importedSets" /> Only show imported sets <br />
@@ -1416,7 +1414,20 @@ function toggleTheme() {
                     <label for="itemR1">Item</label>
                     <select class="item terrain-trigger calc-trigger" id="itemR1"></select>
                 </div>
-                <div>
+            </div>
+            <div class="info-group gen-specific g9">
+                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
+                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
+                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureR" />
+                    <label class="btn btn-xxwide" for="cureR">Salt Cure</label>
+                </div>
+                <br />
+            </div>
+            <div class="info-group hp-group">
+                <label for="currentHpR1">Current HP</label>
+                <input class="current-hp calc-trigger" id="currentHpR1" value="341" />/<span class="max-hp">341</span> (
+                <input class="percent-hp calc-trigger" value="100" />%)
+                <div class="info-selectors status-row">
                     <label for="statusR1">Status</label>
                     <select class="status calc-trigger" id="statusR1">
                         <option value="Healthy">Healthy</option>
@@ -1445,25 +1456,10 @@ function toggleTheme() {
                         <option value="15">15/16</option>
                     </select>
                 </div>
-            </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureR" />
-                    <label class="btn btn-xxwide" for="cureR">Salt Cure</label>
-                </div>
-                <br />
-            </div>
-            <div class="info-group">
-                <label for="currentHpR1">Current HP</label>
-                <input class="current-hp calc-trigger" id="currentHpR1" value="341" />/<span class="max-hp">341</span> (
-                <input class="percent-hp calc-trigger" value="100" />%)
 					 <input class="visually-hidden max calc-trigger btn-input" type="checkbox" id="maxR" />
 					 <label class="btn btn-xwide gen-specific g8 hide" for="maxR"
 					 title="Use the corresponding Max Move?">Dynamax</label>
-					 <br />
-                <br />
-                Health <div class="hpbar"></div>
+                <div class="health-label">Health</div> <div class="hpbar"></div>
             </div>
             <div class="move1">
                 <select class="move-selector calc-trigger small-select"></select>
@@ -1618,6 +1614,8 @@ function toggleTheme() {
     </script>
     <script type="text/javascript" src="./calc/util.js?"></script>
     <script type="text/javascript" src="./calc/stats.js?"></script>
+    <script type="text/javascript" src="./calc/data/remix_species_renames.js?"></script>
+    <script type="text/javascript" src="./js/remix_species_renames.js?"></script>
     <script type="text/javascript" src="./calc/data/species.js?"></script>
 	 <script type="text/javascript" src="./js/data/sets/gen9.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?"></script>
@@ -1630,6 +1628,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/data/sets/gen1.js?"></script>
     <script type="text/javascript" src="./calc/data/types.js?"></script>
     <script type="text/javascript" src="./calc/data/natures.js?"></script>
+    <script type="text/javascript" src="./calc/data/remix_abilities.js?"></script>
     <script type="text/javascript" src="./calc/data/abilities.js?"></script>
     <script type="text/javascript" src="./calc/data/remix_moves.js?"></script>
     <script type="text/javascript" src="./calc/data/moves.js?"></script>
@@ -1664,10 +1663,13 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/remix_typecolors.js?"></script>
     <script type="text/javascript" src="./js/remix_layout.js?"></script>
     <script type="text/javascript" src="./js/remix_kotext.js?"></script>
+    <script type="text/javascript" src="./js/remix_applydamage.js?"></script>
+    <script type="text/javascript" src="./js/remix_faint.js?"></script>
+    <script type="text/javascript" src="./js/remix_hpmemory.js?"></script>
     <script type="text/javascript" src="./js/remix_typechart.js?"></script>
 </div>
 
-<div class="credits">Original Calc created by Honko and maintained by Austin and Kris. Sweltering Sun Remix Calc by Dooz, based on DSG's original Sweltering Sun calc.
+<div class="credits">Original Calc created by Honko and maintained by Austin and Kris. Sweltering Sun Remix Calc by Dooz.
     <ul><li><a href="https://github.com/dr-ooz/Remix-Calc/graphs/contributors" target="_blank">Contributors</a></li>
     <li><a href="https://github.com/dr-ooz/Remix-Calc/issues" target="_blank">Bug Reports</a></li>
     <li><a href="https://github.com/dr-ooz/Remix-Calc" target="_blank">GitHub repository</a></li></ul>

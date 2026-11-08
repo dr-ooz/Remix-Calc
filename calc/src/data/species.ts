@@ -1,5 +1,6 @@
 ﻿import * as I from "./interface";
 import { toID, extend, DeepPartial, assignWithout } from "../util";
+import { REMIX_SPECIES_RENAMES } from "./remix_species_renames";
 
 export interface SpeciesData {
   readonly types: [I.TypeName] | [I.TypeName, I.TypeName];
@@ -10106,12 +10107,58 @@ const SM_PATCH: { [name: string]: DeepPartial<SpeciesData> } = {
 
 const SM: { [name: string]: SpeciesData } = extend(true, {}, XY, SM_PATCH);
 
+// Sweltering Sun Remix: cosmetic forms the calc needs for form-based abilities
+// (Seasonal Spirit = Deerling/Sawsbuck season, Climate Cloak = Burmy cloak). Same stats as the base form.
+const REMIX_COSMETIC_FORMS: Array<[string, string[]]> = [
+  ["Deerling", ["Summer", "Autumn", "Winter"]],
+  ["Sawsbuck", ["Summer", "Autumn", "Winter"]],
+  ["Burmy", ["Sandy", "Trash"]],
+];
+for (const [base, forms] of REMIX_COSMETIC_FORMS) {
+  const b = SM[base] as any;
+  b.otherFormes = forms.map(f => `${base}-${f}`);
+  for (const f of forms) {
+    const form: any = extend(true, {}, b);
+    delete form.otherFormes;
+    form.baseSpecies = base;
+    SM[`${base}-${f}`] = form;
+  }
+}
+
 delete SM["Pikachu-Cosplay"];
 delete SM["Pikachu-Rock-Star"];
 delete SM["Pikachu-Belle"];
 delete SM["Pikachu-PhD"];
 delete SM["Pikachu-Pop-Star"];
 delete SM["Pikachu-Libre"];
+
+// Sweltering Sun Remix: species renames/removals (remix-data/species_renames.json).
+// A renamed form whose name no longer shares its base's name becomes its own species.
+{
+  const stem = (n: string) => n.split("-")[0];
+  const {remove, rename} = REMIX_SPECIES_RENAMES;
+  const newName = (n: string) => rename[n] || n;
+  for (const name of remove) delete SM[name];
+  const old = Object.assign({}, SM);
+  for (const name of Object.keys(SM)) delete SM[name];
+  for (const name of Object.keys(old)) SM[newName(name)] = old[name];
+  for (const name of Object.keys(SM)) {
+    const d = SM[name] as any;
+    if (d.baseSpecies) {
+      const base = newName(d.baseSpecies);
+      if (!SM[base] || base === name || stem(base) !== stem(name)) delete d.baseSpecies;
+      else d.baseSpecies = base;
+    }
+  }
+  for (const name of Object.keys(SM)) {
+    const d = SM[name] as any;
+    if (!d.otherFormes) continue;
+    const forms = (d.otherFormes as string[]).map(newName)
+      .filter(f => SM[f] && (SM[f] as any).baseSpecies === name);
+    if (forms.length) d.otherFormes = forms;
+    else delete d.otherFormes;
+  }
+}
 
 const SS_PATCH: { [name: string]: DeepPartial<SpeciesData> } = {
   "Aegislash-Blade": { bs: { at: 140, sa: 140 } },

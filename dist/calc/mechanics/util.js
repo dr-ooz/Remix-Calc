@@ -167,7 +167,7 @@ function getFinalSpeed(gen, pokemon, field, side) {
     }
     speed = OF32(pokeRound((speed * chainMods(speedMods, 410, 131172)) / 4096));
     if (pokemon.hasStatus('par') && !pokemon.hasAbility('Quick Feet')) {
-        speed = Math.floor(OF32(speed * (gen.num < 7 ? 25 : 50)) / 100);
+        speed = Math.floor(OF32(speed * (gen.num <= 7 ? 25 : 50)) / 100);
     }
     speed = Math.min(gen.num <= 2 ? 999 : 10000, speed);
     return Math.max(0, speed);
@@ -328,7 +328,7 @@ function checkMultihitBoost(gen, attacker, defender, move, field, desc, usedWhit
             desc.defenderAbility = defender.ability;
         }
     }
-    else if (move.named('Power-Up Punch')) {
+    else if (gen.num !== 7 && move.named('Power-Up Punch')) {
         attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6);
         attacker.stats.atk = getModifiedStat(attacker.rawStats.atk, attacker.boosts.atk, gen);
     }
@@ -512,7 +512,10 @@ function getStatDescriptionText(gen, pokemon, stat, natureName) {
 }
 exports.getStatDescriptionText = getStatDescriptionText;
 function handleFixedDamageMoves(attacker, move) {
-    if (move.named('Seismic Toss', 'Soul Absorb')) {
+    if (move.remix && move.remix.fixedDamage) {
+        return move.remix.fixedDamage;
+    }
+    else if (move.named('Seismic Toss', 'Soul Absorb')) {
         return attacker.level;
     }
     else if (move.named('Dragon Burst')) {

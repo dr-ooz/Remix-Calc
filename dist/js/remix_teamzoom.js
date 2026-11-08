@@ -112,3 +112,47 @@ $(function () {
 		refresh();
 	}, 0);
 });
+
+// Delete buttons: two-click confirm on the page (browser pop-up dialogs can be blocked),
+// and the team box updates right away.
+function remixConfirmClick(btn, label, action) {
+	if (btn.data("armed")) {
+		clearTimeout(btn.data("armed"));
+		btn.data("armed", null).text(label);
+		action();
+		return;
+	}
+	btn.text("Click again to confirm");
+	btn.data("armed", setTimeout(function () { btn.data("armed", null).text(label); }, 3000));
+}
+
+function remixRemoveAllImportedSets() {
+	var customsets = {};
+	try { customsets = JSON.parse(localStorage.customsets || "{}"); } catch (e) {}
+	Object.keys(customsets).forEach(function (name) {
+		Object.keys(customsets[name]).forEach(function (setName) {
+			["SETDEX_SV", "SETDEX_SS", "SETDEX_SM", "SETDEX_XY", "SETDEX_BW", "SETDEX_DPP",
+				"SETDEX_ADV", "SETDEX_GSC", "SETDEX_RBY"].forEach(function (dex) {
+				if (window[dex] && window[dex][name]) delete window[dex][name][setName];
+			});
+		});
+	});
+	try { localStorage.removeItem("customsets"); localStorage.removeItem("remixTeamOrder"); } catch (e) {}
+	if (typeof get_box === "function") get_box();
+}
+
+$(function () {
+	var thisBtn = $("#clearThisSet"), allBtn = $("#clearSets");
+	thisBtn.off("click").on("click", function () {
+		var chosen = $("#p1 .select2-chosen").first().text();
+		if (chosen.indexOf("(") === -1 || chosen.indexOf("Blank Set") !== -1) {
+			thisBtn.text("Pick an imported set first");
+			setTimeout(function () { thisBtn.text("Delete this Set"); }, 2000);
+			return;
+		}
+		remixConfirmClick(thisBtn, "Delete this Set", function () { remixRemoveImportedSet(chosen); });
+	});
+	allBtn.off("click").on("click", function () {
+		remixConfirmClick(allBtn, "Delete ALL Sets", remixRemoveAllImportedSets);
+	});
+});

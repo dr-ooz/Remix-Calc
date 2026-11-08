@@ -43,8 +43,8 @@ $(function () {
 		if (!exportL.length || !importBtn.length) return;
 		var oldRow = exportL.closest("tr");
 		var row = $('<div class="import-export-row"></div>');
-		exportL.addClass("export-btn").html("Export<br>Mon 1").attr("title", "Export Pokemon 1's set");
-		exportR.addClass("export-btn").html("Export<br>Mon 2").attr("title", "Export Pokemon 2's set");
+		exportL.addClass("export-btn").html("Export<br>Player").attr("title", "Export the Player's Pokemon set");
+		exportR.addClass("export-btn").html("Export<br>Enemy").attr("title", "Export the Enemy Pokemon set");
 		importBtn.addClass("import-btn").html("Import Sets<br>From PkHex");
 		row.append(exportL, importBtn, exportR);
 		$("#import-1_wrapper").append(row);

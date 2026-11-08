@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>Pok&eacute;mon Damage Calculator</title>
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="./css/main.css?c7905da0" />
+    <link type="text/css" rel="stylesheet" href="./css/main.css?998697b9" />
     <!--<link type="text/css" rel="stylesheet" href="./css/dynamic.css?5a1643ef" /> -->
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -151,7 +151,7 @@ function toggleTheme() {
 
     <div aria-label="Pok&eacute;mon 1" class="panel" role="region">
         <fieldset class="poke-info" id="p1">
-            <legend align="center">Pok&eacute;mon 1</legend>
+            <legend align="center">Player's Pok&eacute;mon</legend>
             <input type="text" class="set-selector calc-trigger" />
             <span id="importedSetsOptions" style="width:auto; display:none">
                 <div class="imported-sets-row">
@@ -496,7 +496,20 @@ function toggleTheme() {
                     <label for="itemL1">Item</label>
                     <select class="item terrain-trigger calc-trigger" id="itemL1"></select>
                 </div>
-                <div>
+            </div>
+            <div class="info-group gen-specific g9">
+                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
+                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
+                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureL" />
+                    <label class="btn btn-xxwide" for="cureL">Salt Cure</label>
+                </div>
+                <br />
+            </div>
+            <div class="info-group hp-group">
+                <label for="currentHpL1">Current HP</label>
+                <input class="current-hp calc-trigger" id="currentHpL1" value="341" />/<span class="max-hp">341</span> (
+                <input class="percent-hp calc-trigger" value="100" />%)
+                <div class="info-selectors status-row">
                     <label for="statusL1">Status</label>
                     <select class="status calc-trigger" id="statusL1">
                         <option value="Healthy">Healthy</option>
@@ -525,25 +538,10 @@ function toggleTheme() {
                         <option value="15">15/16</option>
                     </select>
                 </div>
-            </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureL" />
-                    <label class="btn btn-xxwide" for="cureL">Salt Cure</label>
-                </div>
-                <br />
-            </div>
-            <div class="info-group">
-                <label for="currentHpL1">Current HP</label>
-                <input class="current-hp calc-trigger" id="currentHpL1" value="341" />/<span class="max-hp">341</span> (
-                <input class="percent-hp calc-trigger" value="100" />%)
 					 <input class="visually-hidden max calc-trigger btn-input" type="checkbox" id="maxL" />
 					 <label class="btn btn-xwide gen-specific g8 hide" for="maxL"
 					 title="Use the corresponding Max Move?">Dynamax</label>
-					 <br />
-                <br />
-                Health <div class="hpbar"></div>
+                <div class="health-label">Health</div> <div class="hpbar"></div>
             </div>
             <div hidden id="criticalHitInstruction">Force this attack to be a critical hit?</div>
             <div hidden id="zMoveInstruction">Make this attack a Z-move?</div>
@@ -1075,7 +1073,7 @@ function toggleTheme() {
     </div>
     <div aria-label="Pok&eacute;mon 2" role="region" class="panel">
         <fieldset class="poke-info" id="p2">
-            <legend align="center">Pok&eacute;mon 2</legend>
+            <legend align="center">Enemy Pok&eacute;mon</legend>
             <input type="text" class="set-selector calc-trigger" />
             <span id="importedSetsOptions" style="width:auto; display:none">
                 <input type="checkbox" id="importedSets" /> Only show imported sets <br />
@@ -1416,7 +1414,20 @@ function toggleTheme() {
                     <label for="itemR1">Item</label>
                     <select class="item terrain-trigger calc-trigger" id="itemR1"></select>
                 </div>
-                <div>
+            </div>
+            <div class="info-group gen-specific g9">
+                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
+                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
+                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureR" />
+                    <label class="btn btn-xxwide" for="cureR">Salt Cure</label>
+                </div>
+                <br />
+            </div>
+            <div class="info-group hp-group">
+                <label for="currentHpR1">Current HP</label>
+                <input class="current-hp calc-trigger" id="currentHpR1" value="341" />/<span class="max-hp">341</span> (
+                <input class="percent-hp calc-trigger" value="100" />%)
+                <div class="info-selectors status-row">
                     <label for="statusR1">Status</label>
                     <select class="status calc-trigger" id="statusR1">
                         <option value="Healthy">Healthy</option>
@@ -1445,25 +1456,10 @@ function toggleTheme() {
                         <option value="15">15/16</option>
                     </select>
                 </div>
-            </div>
-            <div class="info-group gen-specific g9">
-                <div class="left" title="Has this Pok&eacute;mon been cured with Salt Cure?">
-                    <div hidden id="selectRevealInstruction">Has this Pok&eacute;mon been cured with Salt Cure?</div>
-                    <input aria-describedby="selectRevealInstruction" class="visually-hidden saltcure calc-trigger" type="checkbox" id="cureR" />
-                    <label class="btn btn-xxwide" for="cureR">Salt Cure</label>
-                </div>
-                <br />
-            </div>
-            <div class="info-group">
-                <label for="currentHpR1">Current HP</label>
-                <input class="current-hp calc-trigger" id="currentHpR1" value="341" />/<span class="max-hp">341</span> (
-                <input class="percent-hp calc-trigger" value="100" />%)
 					 <input class="visually-hidden max calc-trigger btn-input" type="checkbox" id="maxR" />
 					 <label class="btn btn-xwide gen-specific g8 hide" for="maxR"
 					 title="Use the corresponding Max Move?">Dynamax</label>
-					 <br />
-                <br />
-                Health <div class="hpbar"></div>
+                <div class="health-label">Health</div> <div class="hpbar"></div>
             </div>
             <div class="move1">
                 <select class="move-selector calc-trigger small-select"></select>
@@ -1618,7 +1614,9 @@ function toggleTheme() {
     </script>
     <script type="text/javascript" src="./calc/util.js?8fa0c7ff"></script>
     <script type="text/javascript" src="./calc/stats.js?9220179f"></script>
-    <script type="text/javascript" src="./calc/data/species.js?bf6a1b0a"></script>
+    <script type="text/javascript" src="./calc/data/remix_species_renames.js?db19e136"></script>
+    <script type="text/javascript" src="./js/remix_species_renames.js?e9267ead"></script>
+    <script type="text/javascript" src="./calc/data/species.js?eed8a302"></script>
 	 <script type="text/javascript" src="./js/data/sets/gen9.js?609860b3"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?3961cb8c"></script>
     <script type="text/javascript" src="./js/data/sets/gen7.js?3ebd714f"></script>
@@ -1630,44 +1628,48 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/data/sets/gen1.js?b97f521d"></script>
     <script type="text/javascript" src="./calc/data/types.js?35449ca5"></script>
     <script type="text/javascript" src="./calc/data/natures.js?04f00dc5"></script>
-    <script type="text/javascript" src="./calc/data/abilities.js?1386689e"></script>
-    <script type="text/javascript" src="./calc/data/remix_moves.js?e5622b54"></script>
+    <script type="text/javascript" src="./calc/data/remix_abilities.js?b22c420f"></script>
+    <script type="text/javascript" src="./calc/data/abilities.js?88012c81"></script>
+    <script type="text/javascript" src="./calc/data/remix_moves.js?ae3f1617"></script>
     <script type="text/javascript" src="./calc/data/moves.js?26490301"></script>
     <script type="text/javascript" src="./calc/data/items.js?6166b606"></script>
     <script type="text/javascript" src="./calc/data/index.js?083d2bc9"></script>
     <script type="text/javascript" src="./calc/move.js?d52a78c2"></script>
-    <script type="text/javascript" src="./calc/pokemon.js?165ba7e1"></script>
+    <script type="text/javascript" src="./calc/pokemon.js?1de236c9"></script>
     <script type="text/javascript" src="./calc/field.js?951ff77b"></script>
     <script type="text/javascript" src="./calc/items.js?47646e68"></script>
-    <script type="text/javascript" src="./calc/mechanics/util.js?79fabb78"></script>
-    <script type="text/javascript" src="./calc/mechanics/gen789.js?32531a4a"></script>
+    <script type="text/javascript" src="./calc/mechanics/util.js?69a13aaf"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?2e9fef5a"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?326e578d"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?a7626c4b"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?070ab0fe"></script>
     <script type="text/javascript" src="./calc/mechanics/gen12.js?5a38a633"></script>
     <script type="text/javascript" src="./calc/calc.js?cd072314"></script>
-    <script type="text/javascript" src="./calc/desc.js?5cde48d3"></script>
+    <script type="text/javascript" src="./calc/desc.js?af21070b"></script>
     <script type="text/javascript" src="./calc/result.js?d5c7552b"></script>
     <script type="text/javascript" src="./calc/adaptable.js?afeb3759"></script>
     <script type="text/javascript" src="./calc/index.js?2377cbc8"></script>
     <script type="text/javascript" src="./js/remix_species_data.js?49f1d22a"></script>
     <script type="text/javascript" src="./js/remix_hidden.js?b8007480"></script>
-    <script type="text/javascript" src="./js/shared_controls.js?d1e894a5"></script>
-    <script type="text/javascript" src="./js/index_randoms_controls.js?9457fe14"></script>
-    <script type="text/javascript" src="./js/moveset_import.js?311ba138"></script>
-    <script type="text/javascript" src="./js/showdown_hooks.js?6b3a85b0"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?fdb821c5"></script>
+    <script type="text/javascript" src="./js/index_randoms_controls.js?b5f02f86"></script>
+    <script type="text/javascript" src="./js/moveset_import.js?d5119830"></script>
+    <script type="text/javascript" src="./js/showdown_hooks.js?6edfe6d3"></script>
     <script type="text/javascript" src="./js/sprite_version.js?3aafac6f"></script>
     <script type="text/javascript" src="./js/sprite_colors.js?96348966"></script>
-    <script type="text/javascript" src="./js/remix_minisprite.js?6213762f"></script>
+    <script type="text/javascript" src="./js/remix_minisprite.js?8f984ad5"></script>
     <script type="text/javascript" src="./js/remix_forms.js?abd9f4b9"></script>
-    <script type="text/javascript" src="./js/remix_teamzoom.js?fdb19f27"></script>
+    <script type="text/javascript" src="./js/remix_teamzoom.js?dc74c75e"></script>
     <script type="text/javascript" src="./js/remix_typecolors.js?046c495e"></script>
-    <script type="text/javascript" src="./js/remix_layout.js?3390819a"></script>
-    <script type="text/javascript" src="./js/remix_kotext.js?37dac70b"></script>
+    <script type="text/javascript" src="./js/remix_layout.js?cd5dc1ed"></script>
+    <script type="text/javascript" src="./js/remix_kotext.js?34d1df64"></script>
+    <script type="text/javascript" src="./js/remix_applydamage.js?1a56fc41"></script>
+    <script type="text/javascript" src="./js/remix_faint.js?725e4bc5"></script>
+    <script type="text/javascript" src="./js/remix_hpmemory.js?8304fb95"></script>
     <script type="text/javascript" src="./js/remix_typechart.js?29f5e349"></script>
 </div>
 
-<div class="credits">Original Calc created by Honko and maintained by Austin and Kris. Sweltering Sun Remix Calc by Dooz, based on DSG's original Sweltering Sun calc.
+<div class="credits">Original Calc created by Honko and maintained by Austin and Kris. Sweltering Sun Remix Calc by Dooz.
     <ul><li><a href="https://github.com/dr-ooz/Remix-Calc/graphs/contributors" target="_blank">Contributors</a></li>
     <li><a href="https://github.com/dr-ooz/Remix-Calc/issues" target="_blank">Bug Reports</a></li>
     <li><a href="https://github.com/dr-ooz/Remix-Calc" target="_blank">GitHub repository</a></li></ul>

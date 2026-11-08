@@ -147,11 +147,17 @@ export function calculateSMSSSV(
 
   // Merciless does not ignore Shell Armor, damage dealt to a poisoned Pokemon with Shell Armor
   // will not be a critical hit (UltiMario)
+  // Remix (gen 7): Oblivious / Scribble / Schooling / Zen form can't be crit; Merciless = any status
+  const remixCritImmune = gen.num === 7 && (
+    defender.hasAbility("Oblivious", "Scribble", "Schooling") ||
+    defender.named("Darmanitan-Zen"));
   const isCritical =
     !defender.hasAbility("Battle Armor", "Shell Armor") &&
+    !remixCritImmune &&
     !field.defenderSide.isLuckyChant && // Remix: Lucky Chant blocks crits on that side
     (move.isCrit ||
-      (attacker.hasAbility("Merciless") && defender.hasStatus("psn", "tox"))) &&
+      (attacker.hasAbility("Merciless") &&
+        (gen.num === 7 ? !!defender.status : defender.hasStatus("psn", "tox")))) &&
     move.timesUsed === 1;
 
   let type = move.type;
@@ -236,6 +242,7 @@ export function calculateSMSSSV(
   let isGalvanize = false;
   let isLiquidVoice = false;
   let isNormalize = false;
+  let isRemixAte = false;
   const noTypeChange =
     move.named(
       "Revelation Dance",
@@ -265,6 +272,17 @@ export function calculateSMSSSV(
       type = "Fairy";
     } else if ((isRefrigerate = attacker.hasAbility("Refrigerate") && normal)) {
       type = "Ice";
+    } else if ((isRemixAte = gen.num === 7 && attacker.hasAbility("Incinerate") && normal)) {
+      type = "Fire"; // Remix: Incinerate = Normal -> Fire, 1.2x
+    } else if ((isRemixAte = gen.num === 7 && attacker.hasAbility("RKS System") && normal)) {
+      type = attacker.types[0]; // Remix: Normal moves match its Memory type, 1.2x
+    } else if (gen.num === 7 && normal && attacker.hasAbility("Star Power") &&
+      !attacker.named("Minior-Meteor") && attacker.types[1]) {
+      type = attacker.types[1]; // Remix: core Minior's Normal moves match its core type
+      desc.attackerAbility = attacker.ability;
+    } else if (gen.num === 7 && normal && attacker.hasAbility("Amplifier") && !!move.flags.sound) {
+      type = attacker.types[0]; // Remix: Normal sound moves match its type
+      desc.attackerAbility = attacker.ability;
     } else if ((isNormalize = attacker.hasAbility("Normalize"))) {
       // Boosts any type
       type = "Normal";
@@ -274,7 +292,8 @@ export function calculateSMSSSV(
       isPixilate ||
       isRefrigerate ||
       isAerilate ||
-      isNormalize
+      isNormalize ||
+      isRemixAte
     ) {
       desc.attackerAbility = attacker.ability;
       hasAteAbilityTypeChange = true;
@@ -298,6 +317,19 @@ export function calculateSMSSSV(
   ) {
     move.priority = 1;
     desc.attackerAbility = attacker.ability;
+  }
+
+  // Remix (gen 7): Corrosion Poison moves hit Steel/Rock/Ground super-effectively, Neurotoxin hits Psychic
+  if (gen.num === 7 && move.hasType("Poison")) {
+    const extraSE = [
+      ...(attacker.hasAbility("Corrosion") ? ["Steel", "Rock", "Ground"] : []),
+      ...(attacker.hasAbility("Neurotoxin") ? ["Psychic"] : []),
+    ];
+    if (extraSE.length) {
+      const remix: any = {...(move.remix || {})};
+      remix.superEffectiveVs = [...(remix.superEffectiveVs || []), ...extraSE];
+      (move as any).remix = remix;
+    }
   }
 
   const isGhostRevealed =
@@ -408,7 +440,12 @@ export function calculateSMSSSV(
       defender.hasAbility("Queenly Majesty", "Dazzling", "Armor Tail")) ||
     (move.hasType("Ground") && defender.hasAbility("Earth Eater")) ||
     (move.flags.wind && defender.hasAbility("Wind Rider")) ||
-    (move.hasType("Fairy") && !isPixilate && defender.hasAbility("Sinister"))
+    (move.hasType("Fairy") && !isPixilate && defender.hasAbility("Sinister")) ||
+    (gen.num === 7 && (
+      (move.hasType("Dark") && defender.hasAbility("Ethereal")) ||
+      (move.hasType("Fire") && defender.hasAbility("Unmeltable")) ||
+      (move.hasType("Water") && defender.hasAbility("Hydration")) ||
+      (move.priority > 0 && defender.hasAbility("Swiftness", "Elegance"))))
   ) {
     desc.defenderAbility = defender.ability;
     return result;
@@ -449,7 +486,7 @@ export function calculateSMSSSV(
   if (fixedDamage) {
     if (
       attacker.hasAbility("Parental Bond") ||
-      attacker.hasAbility("Expertise")
+      attacker.hasAbility("Beatdown")
     ) {
       result.damage = [fixedDamage, fixedDamage];
       desc.attackerAbility = attacker.ability;
@@ -585,7 +622,7 @@ export function calculateSMSSSV(
 
   if (
     attacker.hasAbility("Parental Bond (Child)") ||
-    attacker.hasAbility("Expertise (Second Hit)")
+    attacker.hasAbility("Beatdown (Second Hit)")
   ) {
     baseDamage = pokeRound(OF32(baseDamage * 1024) / 4096);
   }
@@ -647,7 +684,7 @@ export function calculateSMSSSV(
     stabMod += 2048;
     desc.attackerTera = teraType;
   }
-  if (attacker.hasAbility("Adaptability") && attacker.hasType(move.type)) {
+  if (attacker.hasAbility("Adaptability", "Titan's Core") && attacker.hasType(move.type)) {
     stabMod += teraType && attacker.hasOriginalType(teraType) ? 1024 : 2048;
     desc.attackerAbility = attacker.ability;
   }
@@ -656,6 +693,7 @@ export function calculateSMSSSV(
     attacker.hasStatus("brn") &&
     move.category === "Physical" &&
     !attacker.hasAbility("Guts") &&
+    !(gen.num === 7 && attacker.hasAbility("Marvel Scale", "Quick Feet", "Flare Heal")) &&
     !move.named("Facade");
   desc.isBurned = applyBurn;
   const finalMods = calculateFinalModsSMSSSV(
@@ -682,25 +720,34 @@ export function calculateSMSSSV(
   const finalMod = chainMods(finalMods, 41, 131072);
 
   let childDamage: number[] | undefined;
-  if (attacker.hasAbility("Parental Bond") && move.hits === 1 && !isSpread) {
+  // Remix: Parental Bond adds no 2nd hit to 2-turn charge moves (Beatdown still does).
+  const remixFx: any = (move as any).remix || {};
+  const parentalBondHits = !(gen.num === 7 && remixFx.chargeTurn);
+  if (attacker.hasAbility("Parental Bond") && move.hits === 1 && !isSpread && parentalBondHits &&
+    !(move as any).remixLaterHit) {
     const child = attacker.clone();
     child.ability = "Parental Bond (Child)" as AbilityName;
-    checkMultihitBoost(gen, child, defender, move, field, desc);
-    childDamage = calculateSMSSSV(gen, child, defender, move, field)
+    const childDefender = gen.num === 7 ? defender.clone() : defender;
+    checkMultihitBoost(gen, child, childDefender, move, field, desc);
+    if (gen.num === 7) remixAfterFirstHit(gen, child, childDefender, move);
+    childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
       .damage as number[];
     desc.attackerAbility = attacker.ability;
   }
 
-  if (attacker.hasAbility("Expertise") && move.hits === 1 && !isSpread) {
+  // (remixLaterHit = one hit of a real multi-hit move: no extra 2nd hit there)
+  if (attacker.hasAbility("Beatdown") && move.hits === 1 && !isSpread && !(move as any).remixLaterHit) {
     const child = attacker.clone();
-    child.ability = "Expertise (Second Hit)" as AbilityName;
-    checkMultihitBoost(gen, child, defender, move, field, desc);
-    childDamage = calculateSMSSSV(gen, child, defender, move, field)
+    child.ability = "Beatdown (Second Hit)" as AbilityName;
+    const childDefender = defender.clone();
+    checkMultihitBoost(gen, child, childDefender, move, field, desc);
+    remixAfterFirstHit(gen, child, childDefender, move);
+    childDamage = calculateSMSSSV(gen, child, childDefender, move, field)
       .damage as number[];
     desc.attackerAbility = attacker.ability;
   }
 
-  let damage = [];
+  let damage: number[] = [];
   for (let i = 0; i < 16; i++) {
     damage[i] = getFinalDamage(
       baseDamage,
@@ -772,11 +819,96 @@ export function calculateSMSSSV(
     ? defender.boosts[attackStat]
     : attacker.boosts[attackStat];
 
+  // Remix: per-hit damage. Later hits of a multi-hit move skip Multiscale / Energy Shield and see
+  // Defense drops (Vine Lashes etc.) and Stamina / Weak Armor from earlier hits.
+  if (gen.num === 7 && childDamage) {
+    desc.remixHits = [[damage[0], damage[15]], [childDamage[0], childDamage[15]]];
+  } else if (gen.num === 7 && move.hits > 1 && !(move as any).remixLaterHit) {
+    const hitDamages: number[][] = [damage];
+    const hitAttacker = attacker.clone();
+    const hitDefender = defender.clone();
+    for (let h = 1; h < move.hits; h++) {
+      checkMultihitBoost(gen, hitAttacker, hitDefender, move, field, desc);
+      if (remixFx.perHitDrop && remixCanLowerStats(hitAttacker, hitDefender, remixFx.perHitDrop)) {
+        remixApplyBoosts(gen, hitDefender, remixFx.perHitDrop);
+      }
+      const laterHit = move.clone();
+      laterHit.hits = 1;
+      (laterHit as any).remixLaterHit = true;
+      hitDamages.push(calculateSMSSSV(
+        gen, hitAttacker.clone(), hitDefender.clone(), laterHit, field).damage as number[]);
+    }
+    desc.remixHits = hitDamages.map(d => [d[0], d[d.length - 1]]);
+    const allSame = hitDamages.every(d => d.every((v, i) => v === damage[i]));
+    if (!allSame) {
+      // Hits differ: report the combined total as one "hit" so it isn't multiplied again.
+      damage = remixCombineHits(hitDamages);
+      desc.remixHitsCombined = move.hits;
+      move.hits = 1;
+    }
+  }
+
   result.damage = childDamage ? [damage, childDamage] : damage;
 
   // #endregion
 
   return result;
+}
+
+// ---- Remix helpers for hits after the first ----
+
+// Can the move's added effect lower the defender's stats? (items like Covert Cloak: not yet)
+function remixCanLowerStats(attacker: Pokemon, defender: Pokemon, boosts: {[stat: string]: number}) {
+  if (attacker.hasAbility("Sheer Force")) return false;
+  if (defender.hasAbility("Clear Body", "Full Metal Body", "Titanic", "Flower Veil", "Shield Dust")) return false;
+  if (boosts.def && defender.hasAbility("Big Pecks")) return false;
+  return true;
+}
+
+function remixApplyBoosts(gen: Generation, pokemon: Pokemon, boosts: {[stat: string]: number}) {
+  for (const stat in boosts) {
+    const s = stat as StatID;
+    let n = boosts[stat];
+    if (pokemon.hasAbility("Simple")) n *= 2;
+    if (pokemon.hasAbility("Contrary")) n = -n;
+    pokemon.boosts[s] = Math.max(-6, Math.min(6, pokemon.boosts[s] + n));
+    pokemon.stats[s] = getModifiedStat(pokemon.rawStats[s], pokemon.boosts[s], gen);
+  }
+}
+
+// Parental Bond / Beatdown: the 2nd hit sees the 1st hit's guaranteed drops and the user's boosts.
+function remixAfterFirstHit(gen: Generation, attacker: Pokemon, defender: Pokemon, move: Move) {
+  const fx: any = (move as any).remix || {};
+  if (fx.targetDrop && remixCanLowerStats(attacker, defender, fx.targetDrop)) {
+    remixApplyBoosts(gen, defender, fx.targetDrop);
+  }
+  if (fx.selfBoost && !attacker.hasAbility("Sheer Force")) {
+    remixApplyBoosts(gen, attacker, fx.selfBoost);
+  }
+}
+
+// Exact damage distribution of several different hits, cut down to 16 rolls (lowest and highest exact).
+function remixCombineHits(hits: number[][]) {
+  let dist = new Map<number, number>([[0, 1]]);
+  for (const h of hits) {
+    const next = new Map<number, number>();
+    dist.forEach((count, total) => {
+      for (const d of h) next.set(total + d, (next.get(total + d) || 0) + count);
+    });
+    dist = next;
+  }
+  const values = Array.from(dist.keys()).sort((a, b) => a - b);
+  const totalCount = Array.from(dist.values()).reduce((a, b) => a + b, 0);
+  const out: number[] = [];
+  for (let i = 0; i < 16; i++) {
+    const target = i === 0 ? 0 : i === 15 ? totalCount - 1 : ((i + 0.5) / 16) * totalCount;
+    let seen = 0;
+    for (const v of values) {
+      seen += dist.get(v)!;
+      if (seen > target) { out.push(v); break; }
+    }
+  }
+  return out;
 }
 
 export function calculateBasePowerSMSSSV(
@@ -877,7 +1009,7 @@ export function calculateBasePowerSMSSSV(
       basePower =
         move.bp *
         (defender.hasAbility("Parental Bond (Child)") ||
-        defender.hasAbility("Expertise (Second Hit)")
+        defender.hasAbility("Beatdown (Second Hit)")
           ? 2
           : 1);
       // NOTE: desc.attackerAbility = 'Parental Bond' will already reflect this boost
@@ -1233,7 +1365,7 @@ export function calculateBPModsSMSSSV(
   }
   if (isGrounded(defender, field)) {
     if (
-      (field.hasTerrain("Misty") && move.hasType("Dragon")) ||
+      (gen.num !== 7 && field.hasTerrain("Misty") && move.hasType("Dragon")) || // Remix: no Dragon cut
       (field.hasTerrain("Grassy") && move.named("Bulldoze", "Earthquake"))
     ) {
       bpMods.push(2048);
@@ -1246,12 +1378,20 @@ export function calculateBPModsSMSSSV(
   // Use BasePower after moves with custom BP to determine if Technician should boost
   if (
     (attacker.hasAbility("Technician") && basePower <= 60) ||
-    (attacker.hasAbility("Flare Boost") &&
+    (gen.num !== 7 && attacker.hasAbility("Flare Boost") &&
       attacker.hasStatus("brn") &&
       move.category === "Special") ||
-    (attacker.hasAbility("Toxic Boost") &&
+    (gen.num !== 7 && attacker.hasAbility("Toxic Boost") &&
       attacker.hasStatus("psn", "tox") &&
       move.category === "Physical") ||
+    // Remix (gen 7) 1.5x power boosts
+    (gen.num === 7 && (
+      (attacker.hasAbility("Toxic Boost") && move.hasType("Poison")) ||
+      (attacker.hasAbility("Titanic") && move.hasType("Ice", "Rock", "Steel")) ||
+      (attacker.hasAbility("Levitate") && move.hasType("Flying")) ||
+      (attacker.hasAbility("Sand Force") && field.hasWeather("Sand")) ||
+      (attacker.hasAbility("Seasonal Spirit") && move.hasType(
+        ({Summer: "Grass", Autumn: "Fighting", Winter: "Ice"} as any)[attacker.name.split("-")[1]] || "Fairy")))) ||
     (attacker.hasAbility("Mega Launcher") && move.flags.pulse) ||
     (attacker.hasAbility("Strong Jaw") && move.flags.bite) ||
     (attacker.hasAbility("Steely Spirit") && move.hasType("Steel")) ||
@@ -1292,7 +1432,7 @@ export function calculateBPModsSMSSSV(
     (attacker.hasAbility("Sheer Force") &&
       (move.secondaries || move.named("Jet Punch", "Order Up")) &&
       !move.isMax) ||
-    (attacker.hasAbility("Sand Force") &&
+    (gen.num !== 7 && attacker.hasAbility("Sand Force") &&
       field.hasWeather("Sand") &&
       move.hasType("Rock", "Ground", "Steel")) ||
     (attacker.hasAbility("Analytic") &&
@@ -1337,9 +1477,17 @@ export function calculateBPModsSMSSSV(
   if (
     (attacker.hasAbility("Reckless") && (move.recoil || move.hasCrashDamage)) ||
     (attacker.hasAbility("Iron Fist") && move.flags.punch) ||
-    (attacker.hasAbility("Amplifier") && move.flags.sound)
+    (gen.num !== 7 && attacker.hasAbility("Amplifier") && move.flags.sound)
   ) {
     bpMods.push(4915);
+    desc.attackerAbility = attacker.ability;
+  }
+
+  // Remix (gen 7) 1.3x: Corrosion Poison moves, Amplifier sound moves
+  if (gen.num === 7 && (
+    (attacker.hasAbility("Corrosion") && move.hasType("Poison")) ||
+    (attacker.hasAbility("Amplifier") && move.flags.sound))) {
+    bpMods.push(5325);
     desc.attackerAbility = attacker.ability;
   }
 
@@ -1491,6 +1639,38 @@ export function calculateAtModsSMSSSV(
 ) {
   const atMods = [];
 
+  // Remix (gen 7) attack changes (the matching vanilla lines below are switched off for gen 7)
+  if (gen.num === 7 && move.category !== "Status") {
+    const phys = move.category === "Physical";
+    if (
+      (attacker.hasAbility("Guts") && attacker.status) ||
+      (attacker.hasAbility("Flare Boost") && attacker.hasStatus("brn")) ||
+      (attacker.hasAbility("Solar Power") && field.hasWeather("Sun", "Harsh Sunshine")) ||
+      (phys && attacker.hasAbility("Toxic Boost") && attacker.hasStatus("psn", "tox")) ||
+      (!phys && attacker.named("Cherrim") && attacker.hasAbility("Flower Gift") &&
+        field.hasWeather("Sun", "Harsh Sunshine"))
+    ) {
+      atMods.push(6144);
+      desc.attackerAbility = attacker.ability;
+    } else if (!phys && field.attackerSide.isFlowerGift && field.hasWeather("Sun", "Harsh Sunshine")) {
+      atMods.push(6144);
+      desc.isFlowerGiftAttacker = true;
+    }
+    if (attacker.hasAbility("Steelworker") && move.hasType("Fire")) {
+      atMods.push(6144);
+      desc.attackerAbility = attacker.ability;
+    }
+    if (attacker.hasAbility("Infected") && attacker.curHP() <= attacker.maxHP() / 2) {
+      atMods.push(2048);
+      desc.attackerAbility = attacker.ability;
+    }
+    if ((defender.hasAbility("Titanic") && move.hasType("Ice")) ||
+      (defender.hasAbility("Hydration") && move.hasType("Fire"))) {
+      atMods.push(2048);
+      desc.defenderAbility = defender.ability;
+    }
+  }
+
   // Slow Start also halves damage with special Z-moves
   if (
     (attacker.hasAbility("Slow Start") &&
@@ -1503,10 +1683,10 @@ export function calculateAtModsSMSSSV(
     atMods.push(2048);
     desc.attackerAbility = attacker.ability;
   } else if (
-    (attacker.hasAbility("Solar Power") &&
+    (gen.num !== 7 && attacker.hasAbility("Solar Power") &&
       field.hasWeather("Sun", "Harsh Sunshine") &&
       move.category === "Special") ||
-    (attacker.named("Cherrim") &&
+    (gen.num !== 7 && attacker.named("Cherrim") &&
       attacker.hasAbility("Flower Gift") &&
       field.hasWeather("Sun", "Harsh Sunshine") &&
       move.category === "Physical") ||
@@ -1519,6 +1699,7 @@ export function calculateAtModsSMSSSV(
     desc.attackerAbility = attacker.ability;
     desc.weather = field.weather;
   } else if (
+    gen.num !== 7 &&
     field.attackerSide.isFlowerGift &&
     field.hasWeather("Sun", "Harsh Sunshine") &&
     move.category === "Physical"
@@ -1527,7 +1708,7 @@ export function calculateAtModsSMSSSV(
     desc.weather = field.weather;
     desc.isFlowerGiftAttacker = true;
   } else if (
-    (attacker.hasAbility("Guts") &&
+    (gen.num !== 7 && attacker.hasAbility("Guts") &&
       attacker.status &&
       move.category === "Physical") ||
     (attacker.curHP() <= attacker.maxHP() / 3 &&
@@ -1701,7 +1882,9 @@ export function calculateDefenseSMSSSV(
     defense = pokeRound((defense * 3) / 2);
     desc.weather = field.weather;
   }
-  if (field.hasWeather("Snow") && defender.hasType("Ice") && hitsPhysical) {
+  // Remix (gen 7): Snow (Hail) gives Ice types 1.5x Defense
+  if ((field.hasWeather("Snow") || (gen.num === 7 && field.hasWeather("Hail"))) &&
+    defender.hasType("Ice") && hitsPhysical) {
     defense = pokeRound((defense * 3) / 2);
     desc.weather = field.weather;
   }
@@ -1733,7 +1916,28 @@ export function calculateDfModsSMSSSV(
   hitsPhysical = false
 ) {
   const dfMods = [];
-  if (defender.hasAbility("Marvel Scale") && defender.status && hitsPhysical) {
+  // Remix (gen 7) defense changes
+  if (gen.num === 7) {
+    const cloak = defender.hasAbility("Climate Cloak") && /^(Burmy|Wormadam)/.test(defender.name)
+      ? (/-Sandy$/.test(defender.name) ? "Sand" : /-(Trash|Snow)$/.test(defender.name) ? "Hail" : "Grassy")
+      : "";
+    if (
+      (hitsPhysical && defender.hasAbility("Marvel Scale") && defender.status) ||
+      (hitsPhysical && defender.hasAbility("Sandy Shield") && field.hasWeather("Sand")) ||
+      (!hitsPhysical && defender.hasAbility("Radiant Fur", "Permafrost"))
+    ) {
+      dfMods.push(8192);
+      desc.defenderAbility = defender.ability;
+    } else if (
+      (!hitsPhysical && defender.hasAbility("Rain Dish") && field.hasWeather("Rain", "Heavy Rain")) ||
+      (cloak === "Grassy" && field.hasTerrain("Grassy")) ||
+      (cloak && cloak !== "Grassy" && field.hasWeather(cloak as any))
+    ) {
+      dfMods.push(6144);
+      desc.defenderAbility = defender.ability;
+    }
+  }
+  if (gen.num !== 7 && defender.hasAbility("Marvel Scale") && defender.status && hitsPhysical) {
     dfMods.push(6144);
     desc.defenderAbility = defender.ability;
   } else if (
@@ -1884,14 +2088,28 @@ export function calculateFinalModsSMSSSV(
       (!field.defenderSide.spikes || defender.hasType("Flying"))) ||
       defender.hasItem("Heavy-Duty Boots")) &&
     !attacker.hasAbility("Parental Bond (Child)") &&
-    !attacker.hasAbility("Expertise (Second Hit)")
+    !attacker.hasAbility("Beatdown (Second Hit)") &&
+    !(move as any).remixLaterHit
   ) {
     finalMods.push(2048);
     desc.defenderAbility = defender.ability;
   }
 
+  // Remix (gen 7): 1/4 damage from listed types
+  if (gen.num === 7 && (
+    (defender.hasAbility("Rock-Solid") && move.hasType("Rock", "Ground", "Steel", "Fighting")) ||
+    (defender.hasAbility("Permafrost") && move.hasType("Ice") && !defender.hasType("Ice")) ||
+    (defender.hasAbility("Neurotoxin") && move.hasType("Psychic")))) {
+    finalMods.push(1024);
+    desc.defenderAbility = defender.ability;
+  }
+  if (gen.num === 7 && defender.hasAbility("Amplifier") && move.flags.sound) {
+    finalMods.push(2048);
+    desc.defenderAbility = defender.ability;
+  }
+
   if (
-    defender.hasAbility("Fluffy") &&
+    defender.hasAbility("Fluffy", "Steel Wool") &&
     move.flags.contact &&
     !attacker.hasAbility("Long Reach")
   ) {
@@ -1918,7 +2136,7 @@ export function calculateFinalModsSMSSSV(
     desc.isFriendGuard = true;
   }
 
-  if (defender.hasAbility("Fluffy") && move.hasType("Fire")) {
+  if (defender.hasAbility("Fluffy", "Steel Wool") && move.hasType("Fire")) {
     finalMods.push(8192);
     desc.defenderAbility = defender.ability;
   }

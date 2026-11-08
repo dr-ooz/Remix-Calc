@@ -41,6 +41,7 @@ var e_1, _a, e_2, _b;
 exports.__esModule = true;
 
 var util_1 = require("../util");
+var remix_abilities_1 = require("./remix_abilities");
 var RBY = [];
 var GSC = [];
 var ADV = [
@@ -362,7 +363,7 @@ var SV = SS.concat([
     "Wind Rider",
     "Zero to Hero",
 ]);
-exports.ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
+exports.ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, remix_abilities_1.REMIX_ABILITIES, SS, SV];
 var Abilities = (function () {
     function Abilities(gen) {
         this.gen = gen;

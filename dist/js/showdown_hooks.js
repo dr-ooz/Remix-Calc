@@ -408,22 +408,20 @@ function loadDefaultLists() {
 				var option = options[i];
 				// var pokeName = option.pokemon.toUpperCase();
 				var fullName = option.text.toUpperCase();
-				if (
-					!query.term ||
-					query.term
-						.toUpperCase()
-						.split(" ")
-						.every(function (term) {
-							// return pokeName.indexOf(term) === 0 || pokeName.indexOf("-" + term) >= 0;
-							return (
-								fullName.indexOf(term) === 0 ||
-								fullName.indexOf("-" + term) >= 0 ||
-								fullName.indexOf(" " + term) >= 0 ||
-								fullName.indexOf("(" + term) >= 0
-							);
-							// return fullName.indexOf(term) === 0 || fullName.indexOf("-" + term) >= 0 || fullName.indexOf("(" + term) >= 0;
-						})
-				) {
+				// Remix: old (pre-rename) names also find the Pokemon, e.g. "bellsprout" -> Spellsprout
+				var oldName = typeof REMIX_OLD_NAME !== "undefined" && REMIX_OLD_NAME[option.pokemon];
+				var oldFullName = oldName ? (oldName + option.text.substring(option.pokemon.length)).toUpperCase() : "";
+				var nameMatches = function (name) {
+					return query.term.toUpperCase().split(" ").every(function (term) {
+						return (
+							name.indexOf(term) === 0 ||
+							name.indexOf("-" + term) >= 0 ||
+							name.indexOf(" " + term) >= 0 ||
+							name.indexOf("(" + term) >= 0
+						);
+					});
+				};
+				if (!query.term || nameMatches(fullName) || (oldFullName && nameMatches(oldFullName))) {
 					if ($("#randoms").prop("checked")) {
 						if (option.id) results.push(option);
 					} else {

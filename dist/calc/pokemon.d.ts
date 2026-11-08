@@ -41,6 +41,7 @@ export declare class Pokemon implements State.Pokemon {
     maxHP(original?: boolean): number;
     curHP(original?: boolean): number;
     hasAbility(...abilities: string[]): boolean;
+    remixGrantedAbilities(): string[];
     hasItem(...items: string[]): boolean;
     hasStatus(...statuses: I.StatusName[]): boolean;
     hasType(...types: I.TypeName[]): boolean;

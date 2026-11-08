@@ -118,7 +118,13 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 200,
         "willCrit": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "spa": 1
+            },
+            "chargeTurn": true
+        }
     },
     "Swords Dance": {
         "bp": 0,
@@ -179,7 +185,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 140,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Vine Lashes": {
         "bp": 35,
@@ -188,7 +199,12 @@ exports.REMIX_MOVES = {
         "zp": 160,
         "multihit": 2,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "perHitDrop": {
+                "def": -1
+            }
+        }
     },
     "Step-On": {
         "bp": 65,
@@ -212,7 +228,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 170,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "High Jump Kick": {
         "bp": 130,
@@ -412,6 +433,7 @@ exports.REMIX_MOVES = {
         "bp": 65,
         "type": "Psychic",
         "category": "Special",
+        "zp": 130,
         "priority": 4,
         "secondaries": true
     },
@@ -436,7 +458,12 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 90,
         "target": "allAdjacentFoes",
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -2
+            }
+        }
     },
     "Ignite": {
         "bp": 45,
@@ -469,7 +496,12 @@ exports.REMIX_MOVES = {
         "type": "Water",
         "category": "Special",
         "zp": 170,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Surf": {
         "bp": 95,
@@ -588,7 +620,12 @@ exports.REMIX_MOVES = {
             100
         ],
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Siphon": {
         "bp": 45,
@@ -656,7 +693,11 @@ exports.REMIX_MOVES = {
         "zp": 160,
         "secondaries": true,
         "remix": {
-            "useHigherStat": true
+            "useHigherStat": true,
+            "selfBoost": {
+                "atk": 1,
+                "spa": 1
+            }
         }
     },
     "String Shot": {
@@ -669,7 +710,10 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 150,
-        "multihit": 3
+        "multihit": 3,
+        "remix": {
+            "noVanilla": true
+        }
     },
     "Fire Spin": {
         "bp": 60,
@@ -1020,7 +1064,11 @@ exports.REMIX_MOVES = {
         "makesContact": true,
         "secondaries": true,
         "remix": {
-            "matchUserType": true
+            "matchUserType": true,
+            "selfBoost": {
+                "atk": 1
+            },
+            "chargeTurn": true
         }
     },
     "Burning Barrage": {
@@ -1122,7 +1170,13 @@ exports.REMIX_MOVES = {
         "zp": 200,
         "willCrit": true,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "atk": 1
+            },
+            "chargeTurn": true
+        }
     },
     "Mewgenics": {
         "bp": 0,
@@ -1641,7 +1695,12 @@ exports.REMIX_MOVES = {
         "zp": 140,
         "multihit": 2,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "perHitDrop": {
+                "def": -1
+            }
+        }
     },
     "Mesmer-Eyes": {
         "bp": 0,
@@ -1912,7 +1971,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 130,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Whirlpool": {
         "bp": 60,
@@ -1965,7 +2029,12 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 200,
         "willCrit": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -2
+            }
+        }
     },
     "Swallow": {
         "bp": 0,
@@ -2129,7 +2198,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 130,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Yawn": {
         "bp": 0,
@@ -2396,7 +2470,12 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 130,
         "target": "allAdjacentFoes",
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Grass Whistle": {
         "bp": 0,
@@ -3053,7 +3132,12 @@ exports.REMIX_MOVES = {
         "type": "Dragon",
         "category": "Special",
         "zp": 160,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Dragon Rush": {
         "bp": 125,
@@ -3097,7 +3181,12 @@ exports.REMIX_MOVES = {
         "type": "Fighting",
         "category": "Special",
         "zp": 170,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Energy Ball": {
         "bp": 90,
@@ -3326,7 +3415,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 170,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Rock Wrecker": {
         "bp": 130,
@@ -3432,7 +3526,12 @@ exports.REMIX_MOVES = {
         "type": "Electric",
         "category": "Special",
         "zp": 90,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "spa": 1
+            }
+        }
     },
     "Wood Hammer": {
         "bp": 120,
@@ -3506,7 +3605,12 @@ exports.REMIX_MOVES = {
             30,
             100
         ],
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Subspace Tear": {
         "bp": 75,
@@ -4026,7 +4130,12 @@ exports.REMIX_MOVES = {
         "zp": 180,
         "multihit": 2,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "perHitDrop": {
+                "def": -1
+            }
+        }
     },
     "Befuddle": {
         "bp": 45,
@@ -4118,7 +4227,12 @@ exports.REMIX_MOVES = {
         "type": "Psychic",
         "category": "Special",
         "zp": 170,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Tail Slap": {
         "bp": 30,
@@ -4230,7 +4344,11 @@ exports.REMIX_MOVES = {
         "zp": 160,
         "secondaries": true,
         "remix": {
-            "useHigherStat": true
+            "useHigherStat": true,
+            "selfBoost": {
+                "atk": 1,
+                "spa": 1
+            }
         }
     },
     "Focus Punch": {
@@ -4240,7 +4358,13 @@ exports.REMIX_MOVES = {
         "zp": 200,
         "willCrit": true,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "atk": 1
+            },
+            "chargeTurn": true
+        }
     },
     "Electro Shot": {
         "bp": 120,
@@ -4248,7 +4372,13 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 200,
         "willCrit": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "spa": 1
+            },
+            "chargeTurn": true
+        }
     },
     "Dismal Cry": {
         "bp": 65,
@@ -4343,8 +4473,15 @@ exports.REMIX_MOVES = {
         "bp": 0,
         "type": "Ghost",
         "category": "Special",
+        "zp": 100,
         "priority": 4,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "fixedDamage": 1,
+            "neutralVs": [
+                "Normal"
+            ]
+        }
     },
     "Battle Cry": {
         "bp": 0,
@@ -4591,7 +4728,13 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 200,
         "willCrit": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "spa": 1
+            },
+            "chargeTurn": true
+        }
     },
     "Recharge": {
         "bp": 0,
@@ -4666,7 +4809,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 90,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "atk": 1
+            }
+        }
     },
     "Twilight Cannon": {
         "bp": 130,
@@ -4924,7 +5072,12 @@ exports.REMIX_MOVES = {
         "category": "Special",
         "zp": 160,
         "target": "allAdjacentFoes",
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "selfBoost": {
+                "spa": 1
+            }
+        }
     },
     "Ice Hammer": {
         "bp": 120,
@@ -5045,7 +5198,12 @@ exports.REMIX_MOVES = {
             100
         ],
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Fire Lash": {
         "bp": 35,
@@ -5163,7 +5321,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 160,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Night Burst": {
         "bp": 45,
@@ -5275,7 +5438,12 @@ exports.REMIX_MOVES = {
         "type": "Fairy",
         "category": "Special",
         "zp": 170,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "spd": -1
+            }
+        }
     },
     "Psychic Fangs": {
         "bp": 85,
@@ -5325,7 +5493,12 @@ exports.REMIX_MOVES = {
         "category": "Physical",
         "zp": 130,
         "makesContact": true,
-        "secondaries": true
+        "secondaries": true,
+        "remix": {
+            "targetDrop": {
+                "def": -1
+            }
+        }
     },
     "Radiant Outburst": {
         "bp": 130,

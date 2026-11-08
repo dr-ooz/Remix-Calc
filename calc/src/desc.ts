@@ -49,6 +49,8 @@ export interface RawDesc {
   terrain?: Terrain;
   weather?: Weather;
   isDefenderDynamaxed?: boolean;
+  remixHits?: number[][]; // Remix: [min, max] of each hit
+  remixHitsCombined?: number; // Remix: hits already added together (damage = total of N hits)
 }
 
 export function display(
@@ -70,7 +72,14 @@ export function display(
   const maxDisplay = toDisplay(notation, max, defender.maxHP());
 
   const desc = buildDescription(rawDesc, attacker, defender);
-  const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`;
+  let damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`;
+  // Remix: damage of each hit, e.g. "(per hit: 40-48 [10.1-12%] / 10-12 [2.5-3%])" or "(per hit: 20-24 [5-6%] x3)"
+  if (rawDesc.remixHits && rawDesc.remixHits.length > 1) {
+    const hits = rawDesc.remixHits.map(h =>
+      `${h[0]}-${h[1]} [${toDisplay(notation, h[0], defender.maxHP())}-${toDisplay(notation, h[1], defender.maxHP())}${notation}]`);
+    const same = hits.every(h => h === hits[0]);
+    damageText += same ? ` (per hit: ${hits[0]} x${hits.length})` : ` (per hit: ${hits.join(' / ')})`;
+  }
 
   if (move.category === 'Status' && !move.named('Nature Power')) return `${desc}: ${damageText}`;
   const koChanceText = getKOChance(gen, attacker, defender, move, field, damage, err).text;
@@ -496,16 +505,20 @@ function getEndOfTurn(
   const texts = [];
 
   if (field.hasWeather('Sun', 'Harsh Sunshine')) {
-    if (defender.hasAbility('Dry Skin', 'Solar Power')) {
+    // Remix (gen 7): Solar Power no longer costs HP
+    if (defender.hasAbility('Dry Skin') || (gen.num !== 7 && defender.hasAbility('Solar Power'))) {
       damage -= Math.floor(defender.maxHP() / 8);
       texts.push(defender.ability + ' damage');
     }
   } else if (field.hasWeather('Rain', 'Heavy Rain')) {
-    if (defender.hasAbility('Dry Skin')) {
+    if (gen.num === 7 && defender.hasAbility('Hydration')) {
+      damage += Math.floor(defender.maxHP() / 6); // Remix: Hydration (old Dry Skin) heals 1/6
+      texts.push('Hydration recovery');
+    } else if (defender.hasAbility('Dry Skin')) {
       damage += Math.floor(defender.maxHP() / 8);
       texts.push('Dry Skin recovery');
     } else if (defender.hasAbility('Rain Dish')) {
-      damage += Math.floor(defender.maxHP() / 16);
+      damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 10 : 16)); // Remix: 10%
       texts.push('Rain Dish recovery');
     }
   } else if (field.hasWeather('Sand')) {
@@ -518,14 +531,15 @@ function getEndOfTurn(
       texts.push('sandstorm damage');
     }
   } else if (field.hasWeather('Hail', 'Snow')) {
-    if (defender.hasAbility('Ice Body')) {
-      damage += Math.floor(defender.maxHP() / 16);
+    if (defender.hasAbility('Ice Body', 'Hibernation')) {
+      damage += Math.floor(defender.maxHP() / (gen.num === 7 ? 6 : 16)); // Remix: 1/6 in snow
       texts.push('Ice Body recovery');
     } else if (
       !defender.hasType('Ice') &&
       !defender.hasAbility('Magic Guard', 'Overcoat', 'Snow Cloak') &&
       !defender.hasItem('Safety Goggles') &&
-      field.hasWeather('Hail')
+      field.hasWeather('Hail') &&
+      gen.num !== 7 // Remix: Snow has no chip damage
     ) {
       damage -= Math.floor(defender.maxHP() / 16);
       texts.push('hail damage');
@@ -534,7 +548,8 @@ function getEndOfTurn(
 
   const loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
   if (defender.hasItem('Leftovers') && !loseItem) {
-    damage += Math.floor(defender.maxHP() / 16);
+    // Remix: Appetite doubles Leftovers
+    damage += Math.floor(defender.maxHP() / (gen.num === 7 && defender.hasAbility('Appetite') ? 8 : 16));
     texts.push('Leftovers recovery');
   } else if (defender.hasItem('Black Sludge') && !loseItem) {
     if (defender.hasType('Poison')) {
@@ -593,7 +608,10 @@ function getEndOfTurn(
       texts.push('toxic damage');
     }
   } else if (defender.hasStatus('brn')) {
-    if (defender.hasAbility('Heatproof')) {
+    if (gen.num === 7 && defender.hasAbility('Flare Heal')) {
+      damage += Math.floor(defender.maxHP() / 8); // Remix: burn heals 1/8 instead (like Poison Heal)
+      texts.push('Flare Heal recovery');
+    } else if (defender.hasAbility('Heatproof')) {
       damage -= Math.floor(defender.maxHP() / (gen.num > 6 ? 32 : 16));
       texts.push('reduced burn damage');
     } else if (!defender.hasAbility('Magic Guard')) {

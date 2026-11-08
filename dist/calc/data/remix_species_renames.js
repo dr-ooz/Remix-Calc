@@ -1,0 +1,52 @@
+"use strict";
+exports.__esModule = true;
+
+exports.REMIX_SPECIES_RENAMES = {
+    "remove": [
+        "Meowth",
+        "Rattata-Alola",
+        "Audino",
+        "Raticate-Alola",
+        "Mewtwo-Mega-X"
+    ],
+    "rename": {
+        "Geodude": "Georupt",
+        "Geodude-Alola": "Geodude",
+        "Meowth-Alola": "Meowth",
+        "Pidgeotto": "Avicero",
+        "Audino-Mega": "Vitabeat",
+        "Illumise": "Fluibeat",
+        "Volbeat": "Jolbeat",
+        "Spewpa": "Pupulse",
+        "Scatterbug": "Miltick",
+        "Diglett": "Wackitt",
+        "Diglett-Alola": "Diglett",
+        "Nidoran-F": "Lunare",
+        "Shuckle": "Bounsour",
+        "Bellsprout": "Spellsprout",
+        "Weepinbell": "Weepinspell",
+        "Carnivine": "Carnivoid",
+        "Victreebel": "Victreebrew",
+        "Weedle": "Pindle",
+        "Kakuna": "Herakuna",
+        "Panpour": "Paneeni",
+        "Pansear": "Chimpeace",
+        "Pansage": "Chimpower",
+        "Clamperl": "Tapu Bibi",
+        "Klang": "Achroma",
+        "Shellos": "Neurego",
+        "Shellos-East": "Shellos",
+        "Silcoon": "Chrysalyx",
+        "Kecleon": "Guzzleon",
+        "Meloetta": "Meloetta-Techno",
+        "Persian-Alola": "Persian-Mega",
+        "Raticate-Alola-Totem": "Raticate-Mega",
+        "Amaura": "Primora",
+        "Mewtwo-Mega-Y": "Mewtwo-Mega",
+        "Burmy": "Burmy-Plant",
+        "Burmy-Trash": "Burmy-Snow",
+        "Wormadam": "Wormadam-Plant",
+        "Wormadam-Trash": "Wormadam-Snow"
+    }
+};
+//# sourceMappingURL=remix_species_renames.js.map

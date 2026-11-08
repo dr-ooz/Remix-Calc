@@ -26,6 +26,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -51,21 +62,11 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-var e_1, _a;
+var e_1, _a, e_2, _b, e_3, _c, e_4, _d, e_5, _e, e_6, _f, e_7, _g;
 exports.__esModule = true;
 
 var util_1 = require("../util");
+var remix_species_renames_1 = require("./remix_species_renames");
 var RBY = {
     Abra: {
         types: ["Psychic"],
@@ -10131,12 +10132,140 @@ var SM_PATCH = {
     }
 };
 var SM = (0, util_1.extend)(true, {}, XY, SM_PATCH);
+var REMIX_COSMETIC_FORMS = [
+    ["Deerling", ["Summer", "Autumn", "Winter"]],
+    ["Sawsbuck", ["Summer", "Autumn", "Winter"]],
+    ["Burmy", ["Sandy", "Trash"]],
+];
+var _loop_1 = function (base, forms) {
+    var e_8, _s;
+    var b = SM[base];
+    b.otherFormes = forms.map(function (f) { return "".concat(base, "-").concat(f); });
+    try {
+        for (var forms_1 = (e_8 = void 0, __values(forms)), forms_1_1 = forms_1.next(); !forms_1_1.done; forms_1_1 = forms_1.next()) {
+            var f = forms_1_1.value;
+            var form = (0, util_1.extend)(true, {}, b);
+            delete form.otherFormes;
+            form.baseSpecies = base;
+            SM["".concat(base, "-").concat(f)] = form;
+        }
+    }
+    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    finally {
+        try {
+            if (forms_1_1 && !forms_1_1.done && (_s = forms_1["return"])) _s.call(forms_1);
+        }
+        finally { if (e_8) throw e_8.error; }
+    }
+};
+try {
+    for (var REMIX_COSMETIC_FORMS_1 = __values(REMIX_COSMETIC_FORMS), REMIX_COSMETIC_FORMS_1_1 = REMIX_COSMETIC_FORMS_1.next(); !REMIX_COSMETIC_FORMS_1_1.done; REMIX_COSMETIC_FORMS_1_1 = REMIX_COSMETIC_FORMS_1.next()) {
+        var _h = __read(REMIX_COSMETIC_FORMS_1_1.value, 2), base = _h[0], forms = _h[1];
+        _loop_1(base, forms);
+    }
+}
+catch (e_1_1) { e_1 = { error: e_1_1 }; }
+finally {
+    try {
+        if (REMIX_COSMETIC_FORMS_1_1 && !REMIX_COSMETIC_FORMS_1_1.done && (_a = REMIX_COSMETIC_FORMS_1["return"])) _a.call(REMIX_COSMETIC_FORMS_1);
+    }
+    finally { if (e_1) throw e_1.error; }
+}
 delete SM["Pikachu-Cosplay"];
 delete SM["Pikachu-Rock-Star"];
 delete SM["Pikachu-Belle"];
 delete SM["Pikachu-PhD"];
 delete SM["Pikachu-Pop-Star"];
 delete SM["Pikachu-Libre"];
+{
+    var stem = function (n) { return n.split("-")[0]; };
+    var remove = remix_species_renames_1.REMIX_SPECIES_RENAMES.remove, rename_1 = remix_species_renames_1.REMIX_SPECIES_RENAMES.rename;
+    var newName = function (n) { return rename_1[n] || n; };
+    try {
+        for (var remove_1 = __values(remove), remove_1_1 = remove_1.next(); !remove_1_1.done; remove_1_1 = remove_1.next()) {
+            var name_1 = remove_1_1.value;
+            delete SM[name_1];
+        }
+    }
+    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+    finally {
+        try {
+            if (remove_1_1 && !remove_1_1.done && (_b = remove_1["return"])) _b.call(remove_1);
+        }
+        finally { if (e_2) throw e_2.error; }
+    }
+    var old = Object.assign({}, SM);
+    try {
+        for (var _j = __values(Object.keys(SM)), _k = _j.next(); !_k.done; _k = _j.next()) {
+            var name_2 = _k.value;
+            delete SM[name_2];
+        }
+    }
+    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+    finally {
+        try {
+            if (_k && !_k.done && (_c = _j["return"])) _c.call(_j);
+        }
+        finally { if (e_3) throw e_3.error; }
+    }
+    try {
+        for (var _l = __values(Object.keys(old)), _m = _l.next(); !_m.done; _m = _l.next()) {
+            var name_3 = _m.value;
+            SM[newName(name_3)] = old[name_3];
+        }
+    }
+    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+    finally {
+        try {
+            if (_m && !_m.done && (_d = _l["return"])) _d.call(_l);
+        }
+        finally { if (e_4) throw e_4.error; }
+    }
+    try {
+        for (var _o = __values(Object.keys(SM)), _p = _o.next(); !_p.done; _p = _o.next()) {
+            var name_4 = _p.value;
+            var d = SM[name_4];
+            if (d.baseSpecies) {
+                var base = newName(d.baseSpecies);
+                if (!SM[base] || base === name_4 || stem(base) !== stem(name_4))
+                    delete d.baseSpecies;
+                else
+                    d.baseSpecies = base;
+            }
+        }
+    }
+    catch (e_5_1) { e_5 = { error: e_5_1 }; }
+    finally {
+        try {
+            if (_p && !_p.done && (_e = _o["return"])) _e.call(_o);
+        }
+        finally { if (e_5) throw e_5.error; }
+    }
+    var _loop_2 = function (name_5) {
+        var d = SM[name_5];
+        if (!d.otherFormes)
+            return "continue";
+        var forms = d.otherFormes.map(newName)
+            .filter(function (f) { return SM[f] && SM[f].baseSpecies === name_5; });
+        if (forms.length)
+            d.otherFormes = forms;
+        else
+            delete d.otherFormes;
+    };
+    try {
+        for (var _q = __values(Object.keys(SM)), _r = _q.next(); !_r.done; _r = _q.next()) {
+            var name_5 = _r.value;
+            _loop_2(name_5);
+        }
+    }
+    catch (e_6_1) { e_6 = { error: e_6_1 }; }
+    finally {
+        try {
+            if (_r && !_r.done && (_f = _q["return"])) _f.call(_q);
+        }
+        finally { if (e_6) throw e_6.error; }
+    }
+}
 var SS_PATCH = {
     "Aegislash-Blade": { bs: { at: 140, sa: 140 } },
     "Aegislash-Shield": { bs: { df: 140, sd: 140 } },
@@ -12534,11 +12663,11 @@ try {
         gen++;
     }
 }
-catch (e_1_1) { e_1 = { error: e_1_1 }; }
+catch (e_7_1) { e_7 = { error: e_7_1 }; }
 finally {
     try {
-        if (SPECIES_1_1 && !SPECIES_1_1.done && (_a = SPECIES_1["return"])) _a.call(SPECIES_1);
+        if (SPECIES_1_1 && !SPECIES_1_1.done && (_g = SPECIES_1["return"])) _g.call(SPECIES_1);
     }
-    finally { if (e_1) throw e_1.error; }
+    finally { if (e_7) throw e_7.error; }
 }
 //# sourceMappingURL=species.js.map

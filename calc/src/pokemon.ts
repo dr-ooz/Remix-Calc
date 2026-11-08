@@ -124,7 +124,34 @@ export class Pokemon implements State.Pokemon {
   }
 
   hasAbility(...abilities: string[]) {
-    return !!(this.ability && abilities.includes(this.ability));
+    if (!this.ability) return false;
+    if (abilities.includes(this.ability)) return true;
+    return this.remixGrantedAbilities().some(a => abilities.includes(a));
+  }
+
+  // Remix (gen 7): abilities that also give the effects of other abilities.
+  remixGrantedAbilities(): string[] {
+    if (this.gen.num !== 7 || !this.ability) return [];
+    const form = this.name.split('-').slice(1).join('-');
+    switch (this.ability as string) {
+    case 'Neurotoxin': return ['Merciless', 'Poisonous'];
+    case 'Masterpiece': return ['Versatility', 'Technician', 'Skill Link'];
+    case 'Hibernation': return ['Soporific', 'Permafrost', 'Snow Warning'];
+    case 'Scribble': return ['Prankster'];
+    case 'Appetite': return ['Ripen'];
+    case 'Disgusted': return ['Klutz'];
+    case 'Climate Cloak': return ['Shield Dust'];
+    case 'Star Power':
+      // Shell (Meteor) form floats; core forms also get Dazzling
+      return form === 'Meteor' || !form ? ['Levitate'] : ['Levitate', 'Dazzling'];
+    case 'Zen Mode': return this.name === 'Darmanitan-Zen' ? ['Unaware'] : [];
+    case 'Seasonal Spirit':
+      if (form === 'Summer') return ['Solar Rush', 'Sap Sipper'];
+      if (form === 'Autumn') return ['Moxie', 'Reckless'];
+      if (form === 'Winter') return ['Permafrost', 'Snow Warning'];
+      return ['Grassy Surge', 'Flower Veil']; // Spring = base form
+    default: return [];
+    }
   }
 
   hasItem(...items: string[]) {

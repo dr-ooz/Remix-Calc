@@ -87,7 +87,7 @@ function serialize(array, separator) {
 
 function getAbility(row) {
 	var ability = row[1] ? row[1].trim() : "";
-	if (calc.ABILITIES[9].indexOf(ability) !== -1) return ability;
+	if (calc.ABILITIES[7].indexOf(ability) !== -1) return ability;
 }
 
 function getTeraType(row) {

@@ -131,7 +131,8 @@ export function getFinalSpeed(gen: Generation, pokemon: Pokemon, field: Field, s
 
   speed = OF32(pokeRound((speed * chainMods(speedMods, 410, 131172)) / 4096));
   if (pokemon.hasStatus('par') && !pokemon.hasAbility('Quick Feet')) {
-    speed = Math.floor(OF32(speed * (gen.num < 7 ? 25 : 50)) / 100);
+    // Remix (gen 7): paralysis = -75% speed, like gen 5
+    speed = Math.floor(OF32(speed * (gen.num <= 7 ? 25 : 50)) / 100);
   }
 
   speed = Math.min(gen.num <= 2 ? 999 : 10000, speed);
@@ -305,7 +306,7 @@ export function checkMultihitBoost(
     }
     // BUG: Technically Sitrus/Figy Berry + Unburden can also affect the defender's speed, but
     // this goes far beyond what we care to implement (especially once Gluttony is considered) now
-  } else if (move.named('Power-Up Punch')) {
+  } else if (gen.num !== 7 && move.named('Power-Up Punch')) { // Remix: via move_effects selfBoost
     attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6);
     attacker.stats.atk = getModifiedStat(attacker.rawStats.atk, attacker.boosts.atk, gen);
   }
@@ -513,7 +514,10 @@ export function getStatDescriptionText(
 }
 
 export function handleFixedDamageMoves(attacker: Pokemon, move: Move) {
-  if (move.named('Seismic Toss', 'Soul Absorb')) {
+  // Remix: remix.fixedDamage = exact damage dealt (e.g. Trick-or-Treat = 1)
+  if (move.remix && move.remix.fixedDamage) {
+    return move.remix.fixedDamage;
+  } else if (move.named('Seismic Toss', 'Soul Absorb')) {
     return attacker.level;
   } else if (move.named('Dragon Burst')) {
     return 120;

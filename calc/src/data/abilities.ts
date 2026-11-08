@@ -1,5 +1,6 @@
 import * as I from "./interface";
 import { toID } from "../util";
+import { REMIX_ABILITIES } from "./remix_abilities";
 
 const RBY: string[] = [];
 
@@ -331,7 +332,8 @@ const SV = SS.concat([
   "Zero to Hero",
 ]);
 
-export const ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
+// Sweltering Sun Remix: Gen 7 uses the game's own ability names (generated, see tools/build_remix_species.js).
+export const ABILITIES = [[], RBY, GSC, ADV, DPP, BW, XY, REMIX_ABILITIES, SS, SV];
 
 export class Abilities implements I.Abilities {
   private readonly gen: I.GenerationNum;

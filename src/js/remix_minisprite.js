@@ -1,6 +1,12 @@
 // Shows the minisprite of the Pokemon (and forme) currently selected on each side.
 // Uses the same file naming as the team list in showdown_hooks.js.
+// Renamed Remix species keep using their old sprite file (remix-data/species_renames.json).
+var REMIX_OLD_NAME = {};
+if (typeof REMIX_SPECIES_RENAMES !== "undefined") {
+	for (var remixOld in REMIX_SPECIES_RENAMES.rename) REMIX_OLD_NAME[REMIX_SPECIES_RENAMES.rename[remixOld]] = remixOld;
+}
 function remixSpriteFile(name) {
+	name = REMIX_OLD_NAME[name] || name;
 	return name
 		.toLowerCase()
 		.replace(/[ _]+/g, "-")

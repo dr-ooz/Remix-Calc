@@ -1,6 +1,8 @@
 $("#p2 .ability").bind("keyup change", function () {
-	autosetWeather($(this).val(), 1);
-	autosetTerrain($(this).val(), 1);
+	var pokeInfo = $(this).closest(".poke-info");
+	autosetWeather(remixFieldAbility(pokeInfo, $(this).val()), 1);
+	autosetTerrain(remixFieldAbility(pokeInfo, $(this).val(), true), 1);
+	remixAutoSide(pokeInfo, $(this).val(), 1);
 });
 
 $("#p2 .item").bind("keyup change", function () {

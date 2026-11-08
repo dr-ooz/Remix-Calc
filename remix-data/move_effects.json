@@ -103,7 +103,11 @@
   },
   "Skull Bash": {
     "remix": {
-      "matchUserType": true
+      "matchUserType": true,
+      "selfBoost": {
+        "atk": 1
+      },
+      "chargeTurn": true
     }
   },
   "Snore": {
@@ -424,12 +428,20 @@
   },
   "Fiery Dance": {
     "remix": {
-      "useHigherStat": true
+      "useHigherStat": true,
+      "selfBoost": {
+        "atk": 1,
+        "spa": 1
+      }
     }
   },
   "Petal Dance": {
     "remix": {
-      "useHigherStat": true
+      "useHigherStat": true,
+      "selfBoost": {
+        "atk": 1,
+        "spa": 1
+      }
     }
   },
   "Beak Blast": {
@@ -480,6 +492,227 @@
   "Mud Bomb": {
     "remix": {
       "mudslideBoost": 1.3
+    }
+  },
+  "Trick-or-Treat": {
+    "remix": {
+      "fixedDamage": 1,
+      "neutralVs": [
+        "Normal"
+      ]
+    }
+  },
+  "Dragon Burst": {
+    "remix": {
+      "noVanilla": true
+    }
+  },
+  "Whiplash": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Brick Break": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Aqua Break": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Boulder Bash": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Savage Slam": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Lunge": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Power Whip": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Megaton Kick": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Thrash": {
+    "remix": {
+      "targetDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Metallic Noise": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Dragon Pulse": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Aurora Burst": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Hydro Pump": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Brain Blast": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Brilliant Blast": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Focus Blast": {
+    "remix": {
+      "targetDrop": {
+        "spd": -1
+      }
+    }
+  },
+  "Caustic Acid": {
+    "remix": {
+      "targetDrop": {
+        "spd": -2
+      }
+    }
+  },
+  "Spew Out": {
+    "remix": {
+      "targetDrop": {
+        "spd": -2
+      }
+    }
+  },
+  "Vine Lashes": {
+    "remix": {
+      "perHitDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Dual Chop": {
+    "remix": {
+      "perHitDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Steel Wingbeat": {
+    "remix": {
+      "perHitDrop": {
+        "def": -1
+      }
+    }
+  },
+  "Charge Beam": {
+    "remix": {
+      "selfBoost": {
+        "spa": 1
+      }
+    }
+  },
+  "Bubble Ballad": {
+    "remix": {
+      "selfBoost": {
+        "spa": 1
+      }
+    }
+  },
+  "Power-Up Punch": {
+    "remix": {
+      "selfBoost": {
+        "atk": 1
+      }
+    }
+  },
+  "Sky Attack": {
+    "remix": {
+      "selfBoost": {
+        "atk": 1
+      },
+      "chargeTurn": true
+    }
+  },
+  "Focus Punch": {
+    "remix": {
+      "selfBoost": {
+        "atk": 1
+      },
+      "chargeTurn": true
+    }
+  },
+  "Meteor Beam": {
+    "remix": {
+      "selfBoost": {
+        "spa": 1
+      },
+      "chargeTurn": true
+    }
+  },
+  "Electro Shot": {
+    "remix": {
+      "selfBoost": {
+        "spa": 1
+      },
+      "chargeTurn": true
+    }
+  },
+  "Chloroblast": {
+    "remix": {
+      "selfBoost": {
+        "spa": 1
+      },
+      "chargeTurn": true
     }
   }
 }
