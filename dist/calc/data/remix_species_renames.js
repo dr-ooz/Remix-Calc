@@ -7,7 +7,9 @@ exports.REMIX_SPECIES_RENAMES = {
         "Rattata-Alola",
         "Audino",
         "Raticate-Alola",
-        "Mewtwo-Mega-X"
+        "Mewtwo-Mega-X",
+        "Vivillon-Fancy",
+        "Vivillon-Pokeball"
     ],
     "rename": {
         "Geodude": "Georupt",
@@ -19,8 +21,7 @@ exports.REMIX_SPECIES_RENAMES = {
         "Volbeat": "Jolbeat",
         "Spewpa": "Pupulse",
         "Scatterbug": "Miltick",
-        "Diglett": "Wackitt",
-        "Diglett-Alola": "Diglett",
+        "Diglett-Alola": "Wackitt",
         "Nidoran-F": "Lunare",
         "Shuckle": "Bounsour",
         "Bellsprout": "Spellsprout",
@@ -46,7 +47,14 @@ exports.REMIX_SPECIES_RENAMES = {
         "Burmy": "Burmy-Plant",
         "Burmy-Trash": "Burmy-Snow",
         "Wormadam": "Wormadam-Plant",
-        "Wormadam-Trash": "Wormadam-Snow"
+        "Wormadam-Trash": "Wormadam-Snow",
+        "Minior-Pink": "Minior-Fairy",
+        "Minior-Blue": "Minior-Ice",
+        "Minior-Green": "Minior-Grass",
+        "Minior-Indigo": "Minior-Water",
+        "Minior-Orange": "Minior-Fire",
+        "Minior-Violet": "Minior-Dragon",
+        "Minior-Yellow": "Minior-Electric"
     }
 };
 //# sourceMappingURL=remix_species_renames.js.map

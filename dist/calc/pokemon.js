@@ -166,7 +166,8 @@ var Pokemon = (function () {
         var fx = {
             abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
             moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
-            weatherItems: [], drainPct: 0, drainIfAsleep: false, selfDamagePct: 0
+            weatherItems: [], drainPct: 0, drainIfAsleep: false, selfDamagePct: 0,
+            drainType: '', healPct: 0, appetiteDoubles: false
         };
         var rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability)
             ? remix_items_1.REMIX_ITEM_EFFECTS[this.item] : undefined;
@@ -202,7 +203,12 @@ var Pokemon = (function () {
                 if (r.drainPct) {
                     fx.drainPct = r.drainPct;
                     fx.drainIfAsleep = !!r.drainIfAsleep;
+                    fx.drainType = r.drainType || '';
                 }
+                if (r.healPct)
+                    fx.healPct = r.healPct;
+                if (r.appetiteDoubles)
+                    fx.appetiteDoubles = true;
                 if (r.selfDamagePct)
                     fx.selfDamagePct = r.selfDamagePct;
             }

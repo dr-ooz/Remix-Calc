@@ -12,6 +12,7 @@ export interface RemixItemFx {
   critImmune: boolean; alwaysCrit: boolean; weatherHeal: {[w: string]: number}; metronomeStep: number;
   weatherItems: Array<{weather: string[]; items: string[]}>;
   drainPct: number; drainIfAsleep: boolean; selfDamagePct: number;
+  drainType: string; healPct: number; appetiteDoubles: boolean;
 }
 const REMIX_FX_CACHE = new Map<string, RemixItemFx>();
 
@@ -160,6 +161,7 @@ export class Pokemon implements State.Pokemon {
       abilities: [], items: [], boost: {}, resist: {}, stab: [], ate: '', addType: '', vsSteel: {},
       moveBoost: {}, stats: [], critImmune: false, alwaysCrit: false, weatherHeal: {}, metronomeStep: 0,
       weatherItems: [], drainPct: 0, drainIfAsleep: false, selfDamagePct: 0,
+      drainType: '', healPct: 0, appetiteDoubles: false,
     };
     const rules = this.gen.num === 7 && this.item && !['Klutz', 'Disgusted'].includes(this.ability as string)
       ? REMIX_ITEM_EFFECTS[this.item] : undefined;
@@ -181,7 +183,9 @@ export class Pokemon implements State.Pokemon {
       if (r.critImmune) fx.critImmune = true;
       if (r.alwaysCrit) fx.alwaysCrit = true;
       if (r.metronomeStep) fx.metronomeStep = r.metronomeStep;
-      if (r.drainPct) { fx.drainPct = r.drainPct; fx.drainIfAsleep = !!r.drainIfAsleep; }
+      if (r.drainPct) { fx.drainPct = r.drainPct; fx.drainIfAsleep = !!r.drainIfAsleep; fx.drainType = r.drainType || ''; }
+      if (r.healPct) fx.healPct = r.healPct;
+      if (r.appetiteDoubles) fx.appetiteDoubles = true;
       if (r.selfDamagePct) fx.selfDamagePct = r.selfDamagePct;
     }
     REMIX_FX_CACHE.set(key, fx);

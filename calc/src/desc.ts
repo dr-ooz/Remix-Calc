@@ -109,6 +109,16 @@ export function displayMove(
     ` (${recoveryText})`}${recoilText && ` (${recoilText})`}`;
 }
 
+// Remix: items whose healing doubles when the holder has Appetite (Bounsweet Juice, Frosty Spoon, Graham Cracker)
+function remixAppetite(gen: Generation, p: Pokemon) {
+  return gen.num === 7 && p.remixItemFx().appetiteDoubles && p.hasAbility('Appetite');
+}
+// Remix: Big Root bonus (+50%, +100% when Appetite doubles it), as a x/4096 multiplier
+function remixBigRoot(gen: Generation, p: Pokemon) {
+  if (gen.num !== 7) return 8192;
+  return remixAppetite(gen, p) ? 8192 : 6144;
+}
+
 export function getRecovery(
   gen: Generation,
   attacker: Pokemon,
@@ -147,7 +157,7 @@ export function getRecovery(
       for (const j in recovery) {
         let drained = Math.round(range[j] * percentHealed);
         // Remix: Big Root +50% drain
-        if (attacker.hasItem('Big Root')) drained = Math.trunc(drained * (gen.num === 7 ? 6144 : 8192) / 4096);
+        if (attacker.hasItem('Big Root')) drained = Math.trunc(drained * remixBigRoot(gen, attacker) / 4096);
         recovery[j] += Math.min(drained * move.hits, max);
       }
     }
@@ -155,10 +165,12 @@ export function getRecovery(
 
   // Remix items that heal a share of the damage dealt (Dusknoir, Kingler line, Hypno vs a sleeping target)
   const fx = attacker.remixItemFx();
-  if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose'))) {
+  if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose')) &&
+      (!fx.drainType || move.hasType(fx.drainType as any))) {
+    const pct = fx.drainPct * (remixAppetite(gen, attacker) ? 2 : 1);
     for (let i = 0; i < minD.length; i++) {
-      recovery[0] += Math.min(Math.round(minD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
-      recovery[1] += Math.min(Math.round(maxD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+      recovery[0] += Math.min(Math.round(minD[i] * move.hits * pct / 100), defender.maxHP());
+      recovery[1] += Math.min(Math.round(maxD[i] * move.hits * pct / 100), defender.maxHP());
     }
   }
 
@@ -572,6 +584,11 @@ function getEndOfTurn(
   }
 
   const loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
+  // Remix items that heal a % of max HP every turn (Graham Cracker 6%)
+  if (gen.num === 7 && defender.remixItemFx().healPct && !loseItem) {
+    damage += Math.floor(defender.maxHP() * defender.remixItemFx().healPct * (remixAppetite(gen, defender) ? 2 : 1) / 100);
+    texts.push(defender.item + ' recovery');
+  }
   if (defender.hasItem('Leftovers') && !loseItem) {
     // Remix: Appetite doubles Leftovers
     damage += Math.floor(defender.maxHP() / (gen.num === 7 && defender.hasAbility('Appetite') ? 8 : 16));
@@ -592,7 +609,7 @@ function getEndOfTurn(
   // Remix residual toggles (field panel): Ingrain / Aqua Ring heal 1/16, Bound loses 1/8
   if (gen.num === 7) {
     const side = field.defenderSide as any;
-    const root = defender.hasItem('Big Root') ? 1.5 : 1;
+    const root = defender.hasItem('Big Root') ? remixBigRoot(gen, defender) / 4096 : 1;
     if (side.isIngrain) {
       damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
       texts.push('Ingrain recovery');
@@ -617,7 +634,7 @@ function getEndOfTurn(
 
   if (field.attackerSide.isSeeded && !attacker.hasAbility('Magic Guard')) {
     let recovery = Math.floor(attacker.maxHP() / (gen.num >= 2 ? 8 : 16));
-    if (defender.hasItem('Big Root')) recovery = Math.trunc(recovery * (gen.num === 7 ? 6144 : 8192) / 4096);
+    if (defender.hasItem('Big Root')) recovery = Math.trunc(recovery * remixBigRoot(gen, defender) / 4096);
     if (attacker.hasAbility('Liquid Ooze')) {
       damage -= recovery;
       texts.push('Liquid Ooze damage');

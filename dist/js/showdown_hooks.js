@@ -438,7 +438,7 @@ function loadDefaultLists() {
 			});
 		},
 		initSelection: function (element, callback) {
-			callback(getFirstValidSetOption());
+			callback(getFirstValidSetOption(element));
 		},
 	});
 }
@@ -492,4 +492,10 @@ $(document).ready(function () {
 	// load custom sets and trainer names
 	TR_NAMES = get_trainer_names();
 	get_box();
+	// Remix: the enemy set reopened from last time loads before this runs: build its team box now.
+	var opposing = $("input.set-selector").last().val() || "";
+	if (opposing && opposing.indexOf("Blank Set") === -1 && opposing.indexOf("(") !== -1) {
+		CURRENT_OPPOSING_MONS = get_trainer_poks(get_current_trainer());
+		get_trainer_preview(CURRENT_OPPOSING_MONS);
+	}
 });

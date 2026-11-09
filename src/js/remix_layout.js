@@ -2,8 +2,22 @@
 // each matched block gets the larger of its two natural heights.
 var REMIX_MATCHED_BLOCKS = [".info-group.top", ".team-box"];
 
+// Team boxes scroll only when their sprites are taller than the box limit.
+var REMIX_TEAM_MAX_H = 206;
+function remixTeamScroll() {
+	$("#p1 .player-poks, #p2 .trainer-poks").each(function () {
+		var box = $(this).removeClass("remix-scroll");
+		var slots = box.find("img.trainer-pok");
+		if (!slots.length) return;
+		var top = box.offset().top, bottom = 0;
+		slots.each(function () { bottom = Math.max(bottom, $(this).offset().top + $(this).outerHeight()); });
+		if (bottom - top > REMIX_TEAM_MAX_H + 2) box.addClass("remix-scroll");
+	});
+}
+
 function remixMatchColumns() {
 	$("#p1 .trainer-poks, #p2 .trainer-poks").addClass("team-box");
+	remixTeamScroll();
 	REMIX_MATCHED_BLOCKS.forEach(function (sel) {
 		var a = $("#p1 " + sel).first(), b = $("#p2 " + sel).first();
 		if (!a.length || !b.length) return;
@@ -27,7 +41,7 @@ $(function () {
 		for (var i = 0; i < mutations.length; i++) {
 			var t = mutations[i].target;
 			if (mutations[i].type === "attributes" && t.classList &&
-				(t.classList.contains("team-box") || t.classList.contains("info-group"))) continue;
+				(t.classList.contains("team-box") || t.classList.contains("info-group") || t.classList.contains("player-poks"))) continue;
 			remixMatchSoon();
 			return;
 		}
@@ -43,11 +57,15 @@ $(function () {
 		if (!exportL.length || !importBtn.length) return;
 		var oldRow = exportL.closest("tr");
 		var row = $('<div class="import-export-row"></div>');
-		exportL.addClass("export-btn").html("Export<br>Player").attr("title", "Export the Player's Pokemon set");
-		exportR.addClass("export-btn").html("Export<br>Enemy").attr("title", "Export the Enemy Pokemon set");
+		// [Import Sets From PkHex] [Export Selected] [Export All Sets]. No enemy export: trainer sets are preset.
 		importBtn.addClass("import-btn").html("Import Sets<br>From PkHex");
-		row.append(exportL, importBtn, exportR);
+		exportL.addClass("export-btn").html("Export<br>Selected").attr("title", "Export the Pokemon shown on the Player side");
+		var exportAll = $('<button id="exportAll" class="export-all-btn">Export<br>All Sets</button>')
+			.attr("title", "Export every saved set (your whole team / box)")
+			.on("click", function () { remixExportAllSets(); });
+		row.append(importBtn, exportL, exportAll);
 		$("#import-1_wrapper").append(row);
+		exportR.remove();
 		oldRow.remove();
 		remixMatchSoon();
 	}, 0);

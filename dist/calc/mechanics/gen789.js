@@ -499,6 +499,11 @@ function calculateSMSSSV(gen, attacker, defender, move, field) {
         attacker.remixItemFx().addType === move.type;
     if (attacker.hasOriginalType(move.type) || remixItemStab) {
         stabMod += 2048;
+        if (!attacker.hasOriginalType(move.type) && remixItemStab) {
+            if (desc.remixFinalBP)
+                desc.remixFinalBP = (0, util_2.pokeRound)(desc.remixFinalBP * 1.5);
+            desc.attackerItem = attacker.item;
+        }
     }
     else if (attacker.hasAbility("Protean", "Libero", "Versatility") &&
         !attacker.teraType) {
@@ -1187,6 +1192,10 @@ function calculateBPModsSMSSSV(gen, attacker, defender, move, field, desc, baseP
         bpMods.push(5325);
         desc.attackerAbility = attacker.ability;
     }
+    if (gen.num === 7 && attacker.hasAbility("Steelworker") && move.hasType("Steel", "Fire")) {
+        bpMods.push(6144);
+        desc.attackerAbility = attacker.ability;
+    }
     {
         var fx = attacker.remixItemFx();
         var pow = (fx.boost[move.type] || 1) * (fx.moveBoost[move.name] || 1);
@@ -1339,10 +1348,6 @@ function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
             }
             finally { if (e_4) throw e_4.error; }
         }
-        if (attacker.hasAbility("Steelworker") && move.hasType("Fire")) {
-            atMods.push(6144);
-            desc.attackerAbility = attacker.ability;
-        }
         if (attacker.hasAbility("Infected") && attacker.curHP() <= attacker.maxHP() / 2) {
             atMods.push(2048);
             desc.attackerAbility = attacker.ability;
@@ -1404,7 +1409,7 @@ function calculateAtModsSMSSSV(gen, attacker, defender, move, field, desc) {
         atMods.push(6144);
         desc.attackerAbility = "Flash Fire";
     }
-    else if ((attacker.hasAbility("Steelworker") && move.hasType("Steel")) ||
+    else if ((gen.num !== 7 && attacker.hasAbility("Steelworker") && move.hasType("Steel")) ||
         (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon")) ||
         (attacker.hasAbility("Transistor") && move.hasType("Electric")) ||
         (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))) {
@@ -1727,12 +1732,16 @@ function calculateFinalModsSMSSSV(gen, attacker, defender, move, field, desc, is
         desc.defenderAbility = defender.ability;
     }
     if (attacker.hasItem("Expert Belt") && typeEffectiveness > 1 && !move.isZ) {
-        finalMods.push(5120);
+        finalMods.push(4915);
         desc.attackerItem = attacker.item;
+        if (desc.remixFinalBP)
+            desc.remixFinalBP = (0, util_2.pokeRound)(desc.remixFinalBP * 4915 / 4096);
     }
     else if (attacker.hasItem("Life Orb")) {
         finalMods.push(5324);
         desc.attackerItem = attacker.item;
+        if (desc.remixFinalBP)
+            desc.remixFinalBP = (0, util_2.pokeRound)(desc.remixFinalBP * 5324 / 4096);
     }
     else if (attacker.hasItem("Metronome") &&
         move.timesUsedWithMetronome >= 1 &&

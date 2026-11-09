@@ -62,11 +62,12 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var e_1, _a, e_2, _b, e_3, _c, e_4, _d, e_5, _e, e_6, _f, e_7, _g;
+var e_1, _a, e_2, _b, e_3, _c, e_4, _d, e_5, _e, e_6, _f, e_7, _g, e_8, _h, e_9, _j, e_10, _k, e_11, _l;
 exports.__esModule = true;
 
 var util_1 = require("../util");
 var remix_species_renames_1 = require("./remix_species_renames");
+var remix_personal_1 = require("./remix_personal");
 var RBY = {
     Abra: {
         types: ["Psychic"],
@@ -10138,11 +10139,11 @@ var REMIX_COSMETIC_FORMS = [
     ["Burmy", ["Sandy", "Trash"]],
 ];
 var _loop_1 = function (base, forms) {
-    var e_8, _s;
+    var e_12, _4;
     var b = SM[base];
     b.otherFormes = forms.map(function (f) { return "".concat(base, "-").concat(f); });
     try {
-        for (var forms_1 = (e_8 = void 0, __values(forms)), forms_1_1 = forms_1.next(); !forms_1_1.done; forms_1_1 = forms_1.next()) {
+        for (var forms_1 = (e_12 = void 0, __values(forms)), forms_1_1 = forms_1.next(); !forms_1_1.done; forms_1_1 = forms_1.next()) {
             var f = forms_1_1.value;
             var form = (0, util_1.extend)(true, {}, b);
             delete form.otherFormes;
@@ -10150,17 +10151,17 @@ var _loop_1 = function (base, forms) {
             SM["".concat(base, "-").concat(f)] = form;
         }
     }
-    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    catch (e_12_1) { e_12 = { error: e_12_1 }; }
     finally {
         try {
-            if (forms_1_1 && !forms_1_1.done && (_s = forms_1["return"])) _s.call(forms_1);
+            if (forms_1_1 && !forms_1_1.done && (_4 = forms_1["return"])) _4.call(forms_1);
         }
-        finally { if (e_8) throw e_8.error; }
+        finally { if (e_12) throw e_12.error; }
     }
 };
 try {
     for (var REMIX_COSMETIC_FORMS_1 = __values(REMIX_COSMETIC_FORMS), REMIX_COSMETIC_FORMS_1_1 = REMIX_COSMETIC_FORMS_1.next(); !REMIX_COSMETIC_FORMS_1_1.done; REMIX_COSMETIC_FORMS_1_1 = REMIX_COSMETIC_FORMS_1.next()) {
-        var _h = __read(REMIX_COSMETIC_FORMS_1_1.value, 2), base = _h[0], forms = _h[1];
+        var _m = __read(REMIX_COSMETIC_FORMS_1_1.value, 2), base = _m[0], forms = _m[1];
         _loop_1(base, forms);
     }
 }
@@ -10196,34 +10197,34 @@ delete SM["Pikachu-Libre"];
     }
     var old = Object.assign({}, SM);
     try {
-        for (var _j = __values(Object.keys(SM)), _k = _j.next(); !_k.done; _k = _j.next()) {
-            var name_2 = _k.value;
+        for (var _o = __values(Object.keys(SM)), _p = _o.next(); !_p.done; _p = _o.next()) {
+            var name_2 = _p.value;
             delete SM[name_2];
         }
     }
     catch (e_3_1) { e_3 = { error: e_3_1 }; }
     finally {
         try {
-            if (_k && !_k.done && (_c = _j["return"])) _c.call(_j);
+            if (_p && !_p.done && (_c = _o["return"])) _c.call(_o);
         }
         finally { if (e_3) throw e_3.error; }
     }
     try {
-        for (var _l = __values(Object.keys(old)), _m = _l.next(); !_m.done; _m = _l.next()) {
-            var name_3 = _m.value;
+        for (var _q = __values(Object.keys(old)), _r = _q.next(); !_r.done; _r = _q.next()) {
+            var name_3 = _r.value;
             SM[newName(name_3)] = old[name_3];
         }
     }
     catch (e_4_1) { e_4 = { error: e_4_1 }; }
     finally {
         try {
-            if (_m && !_m.done && (_d = _l["return"])) _d.call(_l);
+            if (_r && !_r.done && (_d = _q["return"])) _d.call(_q);
         }
         finally { if (e_4) throw e_4.error; }
     }
     try {
-        for (var _o = __values(Object.keys(SM)), _p = _o.next(); !_p.done; _p = _o.next()) {
-            var name_4 = _p.value;
+        for (var _s = __values(Object.keys(SM)), _t = _s.next(); !_t.done; _t = _s.next()) {
+            var name_4 = _t.value;
             var d = SM[name_4];
             if (d.baseSpecies) {
                 var base = newName(d.baseSpecies);
@@ -10237,7 +10238,7 @@ delete SM["Pikachu-Libre"];
     catch (e_5_1) { e_5 = { error: e_5_1 }; }
     finally {
         try {
-            if (_p && !_p.done && (_e = _o["return"])) _e.call(_o);
+            if (_t && !_t.done && (_e = _s["return"])) _e.call(_s);
         }
         finally { if (e_5) throw e_5.error; }
     }
@@ -10253,17 +10254,108 @@ delete SM["Pikachu-Libre"];
             delete d.otherFormes;
     };
     try {
-        for (var _q = __values(Object.keys(SM)), _r = _q.next(); !_r.done; _r = _q.next()) {
-            var name_5 = _r.value;
+        for (var _u = __values(Object.keys(SM)), _v = _u.next(); !_v.done; _v = _u.next()) {
+            var name_5 = _v.value;
             _loop_2(name_5);
         }
     }
     catch (e_6_1) { e_6 = { error: e_6_1 }; }
     finally {
         try {
-            if (_r && !_r.done && (_f = _q["return"])) _f.call(_q);
+            if (_v && !_v.done && (_f = _u["return"])) _f.call(_u);
         }
         finally { if (e_6) throw e_6.error; }
+    }
+}
+exports.REMIX_PERSONAL_UNMATCHED = [];
+{
+    var loose = function (n) { return n.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""); };
+    var ALIAS = {
+        "basculinblue": "Basculin-Blue-Striped", "aegislash": "Aegislash-Shield", "zygarde50": "Zygarde",
+        "minior": "Minior-Meteor", "miniorred": "Minior-Pink"
+    };
+    var remove = remix_species_renames_1.REMIX_SPECIES_RENAMES.remove, rename = remix_species_renames_1.REMIX_SPECIES_RENAMES.rename;
+    var renameLoose = {};
+    try {
+        for (var _w = __values(Object.keys(rename)), _x = _w.next(); !_x.done; _x = _w.next()) {
+            var k = _x.value;
+            renameLoose[loose(k)] = rename[k];
+        }
+    }
+    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+    finally {
+        try {
+            if (_x && !_x.done && (_g = _w["return"])) _g.call(_w);
+        }
+        finally { if (e_7) throw e_7.error; }
+    }
+    var removed = new Set(remove.map(loose));
+    var byLoose = {};
+    try {
+        for (var _y = __values(Object.keys(SM)), _z = _y.next(); !_z.done; _z = _y.next()) {
+            var name_6 = _z.value;
+            byLoose[loose(name_6)] = name_6;
+        }
+    }
+    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    finally {
+        try {
+            if (_z && !_z.done && (_h = _y["return"])) _h.call(_y);
+        }
+        finally { if (e_8) throw e_8.error; }
+    }
+    var applied = new Set();
+    try {
+        for (var _0 = __values(Object.keys(remix_personal_1.REMIX_PERSONAL)), _1 = _0.next(); !_1.done; _1 = _0.next()) {
+            var name_7 = _1.value;
+            var calcName = ALIAS[loose(name_7)] || name_7;
+            if (removed.has(loose(calcName)))
+                continue;
+            var target = byLoose[loose(renameLoose[loose(calcName)] || calcName)];
+            if (!target) {
+                exports.REMIX_PERSONAL_UNMATCHED.push(name_7);
+                continue;
+            }
+            var p = remix_personal_1.REMIX_PERSONAL[name_7];
+            var d = SM[target];
+            if (p.types.length)
+                d.types = p.types.slice(0, 2);
+            if (p.bs && p.bs.hp)
+                d.bs = Object.assign({}, d.bs, p.bs);
+            applied.add(target);
+        }
+    }
+    catch (e_9_1) { e_9 = { error: e_9_1 }; }
+    finally {
+        try {
+            if (_1 && !_1.done && (_j = _0["return"])) _j.call(_0);
+        }
+        finally { if (e_9) throw e_9.error; }
+    }
+    var _loop_3 = function (name_8) {
+        var d = SM[name_8];
+        if (applied.has(name_8) || !d.baseSpecies || !applied.has(d.baseSpecies))
+            return "continue";
+        if (!REMIX_COSMETIC_FORMS.some(function (_a) {
+            var _b = __read(_a, 1), base = _b[0];
+            return name_8.startsWith(base + "-");
+        }))
+            return "continue";
+        d.types = SM[d.baseSpecies].types.slice();
+        d.bs = Object.assign({}, SM[d.baseSpecies].bs);
+    };
+    try {
+        for (var _2 = __values(Object.keys(SM)), _3 = _2.next(); !_3.done; _3 = _2.next()) {
+            var name_8 = _3.value;
+            _loop_3(name_8);
+        }
+    }
+    catch (e_10_1) { e_10 = { error: e_10_1 }; }
+    finally {
+        try {
+            if (_3 && !_3.done && (_k = _2["return"])) _k.call(_2);
+        }
+        finally { if (e_10) throw e_10.error; }
     }
 }
 var SS_PATCH = {
@@ -12663,11 +12755,11 @@ try {
         gen++;
     }
 }
-catch (e_7_1) { e_7 = { error: e_7_1 }; }
+catch (e_11_1) { e_11 = { error: e_11_1 }; }
 finally {
     try {
-        if (SPECIES_1_1 && !SPECIES_1_1.done && (_g = SPECIES_1["return"])) _g.call(SPECIES_1);
+        if (SPECIES_1_1 && !SPECIES_1_1.done && (_l = SPECIES_1["return"])) _l.call(SPECIES_1);
     }
-    finally { if (e_7) throw e_7.error; }
+    finally { if (e_11) throw e_11.error; }
 }
 //# sourceMappingURL=species.js.map

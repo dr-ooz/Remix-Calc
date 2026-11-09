@@ -54,6 +54,7 @@ function performCalculations() {
 		remixShowEffectiveStats(p1info, p1);
 		remixShowEffectiveStats(p2info, p2);
 	}
+	if (typeof remixUpdateTypeCharts === "function") remixUpdateTypeCharts(p1, p2, p1field, p2field);
 	var fastestSide = p1.stats.spe > p2.stats.spe ? 0 : p1.stats.spe === p2.stats.spe ? "tie" : 1;
 
 	var result, maxDamage;

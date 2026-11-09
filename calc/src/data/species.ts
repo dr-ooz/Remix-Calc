@@ -1,6 +1,7 @@
 ﻿import * as I from "./interface";
 import { toID, extend, DeepPartial, assignWithout } from "../util";
 import { REMIX_SPECIES_RENAMES } from "./remix_species_renames";
+import { REMIX_PERSONAL } from "./remix_personal";
 
 export interface SpeciesData {
   readonly types: [I.TypeName] | [I.TypeName, I.TypeName];
@@ -10157,6 +10158,46 @@ delete SM["Pikachu-Libre"];
       .filter(f => SM[f] && (SM[f] as any).baseSpecies === name);
     if (forms.length) d.otherFormes = forms;
     else delete d.otherFormes;
+  }
+}
+
+// Sweltering Sun Remix: types + base stats from the game's personal data (remix-data/pokedex.json).
+// The extractor uses the game's original names, so each name goes through the same renames as the calc
+// (Shellos -> Neurego, Shellos-East -> Shellos...) before a loose match (case/spaces/punctuation/accents).
+// Removed species are skipped. Unmatched names are listed in REMIX_PERSONAL_UNMATCHED.
+export const REMIX_PERSONAL_UNMATCHED: string[] = [];
+{
+  const loose = (n: string) => n.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, "");
+  // extractor form name -> calc form name (same Pokemon, different form label)
+  const ALIAS: {[k: string]: string} = {
+    "basculinblue": "Basculin-Blue-Striped", "aegislash": "Aegislash-Shield", "zygarde50": "Zygarde",
+    "minior": "Minior-Meteor", "miniorred": "Minior-Pink",
+  };
+  const {remove, rename} = REMIX_SPECIES_RENAMES;
+  const renameLoose: {[k: string]: string} = {};
+  for (const k of Object.keys(rename)) renameLoose[loose(k)] = rename[k];
+  const removed = new Set(remove.map(loose));
+  const byLoose: {[k: string]: string} = {};
+  for (const name of Object.keys(SM)) byLoose[loose(name)] = name;
+  const applied = new Set<string>();
+  for (const name of Object.keys(REMIX_PERSONAL)) {
+    const calcName = ALIAS[loose(name)] || name;
+    if (removed.has(loose(calcName))) continue;
+    const target = byLoose[loose(renameLoose[loose(calcName)] || calcName)];
+    if (!target) { REMIX_PERSONAL_UNMATCHED.push(name); continue; }
+    const p = REMIX_PERSONAL[name];
+    const d = SM[target] as any;
+    if (p.types.length) d.types = p.types.slice(0, 2);
+    if (p.bs && p.bs.hp) d.bs = Object.assign({}, d.bs, p.bs);
+    applied.add(target);
+  }
+  // Cosmetic forms the calc adds itself (Deerling seasons, Burmy cloaks) follow their base.
+  for (const name of Object.keys(SM)) {
+    const d = SM[name] as any;
+    if (applied.has(name) || !d.baseSpecies || !applied.has(d.baseSpecies)) continue;
+    if (!REMIX_COSMETIC_FORMS.some(([base]) => name.startsWith(base + "-"))) continue;
+    d.types = (SM[d.baseSpecies] as any).types.slice();
+    d.bs = Object.assign({}, (SM[d.baseSpecies] as any).bs);
   }
 }
 

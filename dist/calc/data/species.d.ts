@@ -19,6 +19,7 @@ export interface SpeciesData {
         0: string;
     };
 }
+export declare const REMIX_PERSONAL_UNMATCHED: string[];
 export declare const SPECIES: {
     [name: string]: SpeciesData;
 }[];

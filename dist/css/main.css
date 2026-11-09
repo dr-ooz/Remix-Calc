@@ -334,7 +334,7 @@ th {
 .btn-mid {
 	border-radius: 0;
 }
-.visually-hidden:focus + .btn, /* Add visual indication when focusing on visually hidden elements */
+.visually-hidden:focus-visible + .btn, /* keyboard focus only: a mouse click no longer leaves the button highlighted */
 .btn:hover {
 	z-index: 10;
 	border-color: #777777;
@@ -680,38 +680,38 @@ table.field {
   border: 2px solid #a00000;
 }
 /* ===== Remix dark mode (body.dark; toggled by #theme-toggle) ===== */
-body.dark { background-color: #17141c; color: #e6e1ec; }
+body.dark { background-color: #17141c; color: #fff; }
 body.dark a { color: #c9a6ef; }
 body.dark a:visited { color: #b48be0; }
 body.dark hr { border-color: #3a3344; }
 body.dark fieldset { background-color: #221d2a; border-color: #3a3344; }
-body.dark legend { color: #e6e1ec; }
+body.dark legend { color: #fff; }
 body.dark .credits { color: #a59cb0; }
-body.dark .small-text, body.dark .result-move-header, body.dark .poke-info label, body.dark .info-selectors label { color: #cfc8d8; }
+body.dark .small-text, body.dark .result-move-header, body.dark .poke-info label, body.dark .info-selectors label { color: #fff; }
 
 body.dark input, body.dark select, body.dark textarea, body.dark input[type="number"], body.dark input[type="text"] {
-	background-color: #2b2533; color: #e6e1ec; border: 1px solid #4a4256;
+	background-color: #2b2533; color: #fff; border: 1px solid #4a4256;
 }
 body.dark input:disabled, body.dark select:disabled { background-color: #221d2a; color: #8a8294; }
 
-body.dark .btn { color: #cfc8d8; background: #2e2837; border-color: #4a4256; }
-body.dark .btn:hover { color: #ffffff; background: #3a3246; border-color: #6e5a88; }
-body.dark .visually-hidden:checked + .btn { color: #ffffff; background: #5b2f82; border-color: #8a5ab8; }
+body.dark .btn { color: #fff; background: #2e2837; border-color: #4a4256; }
+body.dark .btn:hover { color: #fff; background: #3a3246; border-color: #6e5a88; }
+body.dark .visually-hidden:checked + .btn { color: #fff; background: #5b2f82; border-color: #8a5ab8; }
 body.dark .visually-hidden:disabled + .btn { color: #6e667a; }
 body.dark .locked-move:checked + .btn { background: #6b5a1e; color: #fff4c2; }
 
-body.dark .button { color: #e6e1ec; background: #2e2837; border-color: #4a4256; }
+body.dark .button { color: #fff; background: #2e2837; border-color: #4a4256; }
 body.dark .button:hover { background: #3a3246; border-color: #6e5a88; }
 
 body.dark #tooltipText { background-color: #000; color: #fff; }
 
 /* select2 dropdowns (searchable pickers) */
 body.dark .select2-container .select2-choice, body.dark .select2-container-multi .select2-choices {
-	background: #2b2533 !important; color: #e6e1ec !important; border-color: #4a4256 !important;
+	background: #2b2533 !important; color: #fff !important; border-color: #4a4256 !important;
 }
 body.dark .select2-container .select2-choice .select2-arrow { background: #2b2533 !important; border-left-color: #4a4256 !important; }
-body.dark .select2-drop, body.dark .select2-drop.select2-drop-above { background: #2b2533; color: #e6e1ec; border-color: #6e5a88; }
-body.dark .select2-search input { background-color: #1f1a26 !important; color: #e6e1ec; border-color: #4a4256; }
+body.dark .select2-drop, body.dark .select2-drop.select2-drop-above { background: #2b2533; color: #fff; border-color: #6e5a88; }
+body.dark .select2-search input { background-color: #1f1a26 !important; color: #fff; border-color: #4a4256; }
 body.dark .select2-results .select2-highlighted { background: #5b2f82; color: #fff; }
 body.dark .select2-results .select2-result-label { color: inherit; }
 body.dark .select2-results li.select2-result-with-children > .select2-result-label { color: #c9a6ef; }
@@ -819,7 +819,11 @@ select.type-pill, body.dark select.type-pill { color: #fff; text-shadow: 0 0 2px
 .poke-info .info-group.top { position: relative; }
 .poke-info .remix-mini { position: absolute; left: 216px; top: 16px; width: 100px; height: 75px; margin: 0; pointer-events: none; }
 /* Team boxes: compact; JS gives both the same height (see remix_layout.js) */
-#p1 .player-poks, #p2 .trainer-poks { min-height: 0; max-height: 206px; overflow-y: auto; overflow-x: hidden; }
+#p1 .player-poks, #p2 .trainer-poks { min-height: 0; max-height: none; overflow: visible; }
+/* Scroll only when the sprites don't fit (remix_layout.js adds .remix-scroll); scrollbar sits at the panel edge */
+#p1 .player-poks.remix-scroll, #p2 .trainer-poks.remix-scroll { max-height: 206px; overflow-y: auto; overflow-x: hidden;
+	box-sizing: border-box; width: calc(100% + 24px); padding-right: 24px; margin-right: -24px; }
+body.dark #p2 .trainer-poks { scrollbar-color: #4a4256 #221d2a; }
 
 /* Display option buttons next to the title */
 .ui-toggles { display: inline-flex; gap: 6px; margin-left: 8px; vertical-align: middle; }
@@ -868,6 +872,8 @@ select.type-pill, body.dark select.type-pill { color: #fff; text-shadow: 0 0 2px
 .import-export-row .export-btn { background: #f7f0bf; border: 1px solid #c9b960; }
 .import-export-row .import-btn { flex: 1; background: #cdeec6; border: 1px solid #7fb675; }
 .import-export-row .export-btn:hover { background: #fbf5d2; }
+.import-export-row .export-all-btn { background: #f8d9a8; border: 1px solid #d39a4a; }
+.import-export-row .export-all-btn:hover { background: #fbe6c4; }
 .import-export-row .import-btn:hover { background: #ddf5d7; }
 /* Drag-to-reorder for Pokemon 1's team */
 .player-poks .team-slot { cursor: grab; }
@@ -939,7 +945,7 @@ body:not(.dark) .visually-hidden:not(:checked) + label[for=mudslide] { color: #8
 .field-info .rooms-row .btn-quarter { box-sizing: border-box; width: 64px; min-width: 64px; max-width: 64px; }
 .import-export-row button { white-space: nowrap; font-size: 0.78em; padding: 4px 6px; }
 .import-export-row .import-btn { font-size: 0.95em; }
-.import-export-row .export-btn { font-size: 0.9em; }
+.import-export-row .export-btn, .import-export-row .export-all-btn { font-size: 0.9em; }
 .poke-info .status-row { margin-top: 3px; }
 /* Bigger gap between Item and Current HP; Health bar pulled up under Status */
 .poke-info .hp-group { padding-top: 10px; }
@@ -967,11 +973,11 @@ body:not(.dark) .visually-hidden:not(:checked) + label[for=mudslide] { color: #8
 .remix-hp-float.heal { color: #2f9a45; }
 .remix-hp-float.go { transform: translateY(-22px); opacity: 0; }
 .hpbar { transition: background .4s ease; }
-body.dark .remix-apply { background: #2b2435; border-color: #4a4058; color: #d9c9f0; }
+body.dark .remix-apply { background: #2b2435; border-color: #4a4058; color: #fff; }
 body.dark .remix-apply:hover, body.dark .remix-apply.active { background: #3a3048; }
 body.dark .remix-heal { background: #1f3326; border-color: #3d6b4a; color: #9fe0ad; }
 body.dark .remix-heal:hover { background: #29452f; }
-body.dark .remix-dmg-picker { background: #241e2d; color: #e6e1ec; border-color: #4a4058; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+body.dark .remix-dmg-picker { background: #241e2d; color: #fff; border-color: #4a4058; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 body.dark .rdp-btn, body.dark .rdp-custom input { background: #2e2739; border-color: #4a4058; }
 body.dark .rdp-btn:hover { background: #3c3249; }
 
@@ -996,15 +1002,18 @@ body.dark .rdp-btn:hover { background: #3c3249; }
 .poke-info .remix-item-on { margin: 0 0 0 4px; vertical-align: middle; cursor: pointer; }
 .poke-info .item.remix-item-off { opacity: .45; text-decoration: line-through; }
 .poke-info .remix-mini-status { position: absolute; display: block; width: auto; left: 3px; top: 1px; font-size: 13px; line-height: 1; pointer-events: auto; text-shadow: 0 0 2px rgba(0,0,0,.6); }
-.poke-info .remix-mini-item { position: absolute; display: block; width: 10px; height: 10px; right: 4px; bottom: 9px; border-radius: 3px;
-	background: #fff; border: 1.5px solid #4a4a5a; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #e8b14a; pointer-events: auto; }
-.poke-info .remix-mini-item.off { opacity: .35; background: #999; box-shadow: none; }
+.poke-info .remix-mini-item { position: absolute; display: block; width: 48px; height: 48px; right: -14px; bottom: -6px; margin: 0; image-rendering: pixelated; pointer-events: auto; filter: drop-shadow(0 0 1px rgba(0,0,0,.6)); }
+.poke-info .remix-mini-item.off { opacity: .35; filter: grayscale(1); }
+/* Big held-item icon right of the Ability / Item boxes (left set in remix_minisprite.js) */
+.poke-info .info-selectors { position: relative; }
+.poke-info .remix-item-big { position: absolute; top: 50%; width: 64px; height: 64px; margin-top: -32px; image-rendering: pixelated; pointer-events: auto; visibility: hidden; filter: drop-shadow(0 0 2px rgba(0,0,0,.5)); }
+.poke-info .remix-item-big.off { opacity: .35; filter: grayscale(1); }
 
 /* ---- Remix: tick boxes before the boxes, status tint on the closed box only, effective stats ---- */
 .poke-info .remix-ability-on { margin: 0 4px 0 0; vertical-align: middle; cursor: pointer; }
 .poke-info .remix-item-on { margin: 0 4px 0 0; }
 .poke-info .status option { background-color: #fff; color: #222; }
-body.dark .poke-info .status option { background-color: #2b2533; color: #e6e1ec; }
+body.dark .poke-info .status option { background-color: #2b2533; color: #fff; }
 .poke-info .totalMod.remix-stat-up { font-weight: bold; background: rgba(60, 180, 90, 0.18); border-radius: 4px; padding: 0 3px; }
 .poke-info .totalMod.remix-stat-down { font-weight: bold; background: rgba(220, 70, 60, 0.18); border-radius: 4px; padding: 0 3px; }
 
@@ -1021,10 +1030,6 @@ table.field div[role="radiogroup"][title^="Are there Spikes"] label.btn-spikes {
 .remix-reset-team:hover { background: #d9f0de; transform: scale(1.04); }
 body.dark .remix-reset-team { background: #1f3326; border-color: #3d6b4a; color: #9fe0ad; }
 body.dark .remix-reset-team:hover { background: #29452f; }
-.poke-info .remix-item-status { margin-left: 6px; border: 1px solid #c9a24a; background: #fbf3df; color: #7a5a10; border-radius: 5px; padding: 0 6px; font-size: 11px; line-height: 16px; cursor: pointer; white-space: nowrap; }
-.poke-info .remix-item-status.off { border-color: #a9a2b3; background: transparent; color: #8a8294; }
-body.dark .poke-info .remix-item-status { background: #3a3020; border-color: #7a6430; color: #f0d58f; }
-body.dark .poke-info .remix-item-status.off { background: transparent; border-color: #4a4058; color: #9a90a8; }
 
 /* ---- Remix: residual toggles row + Imposter "Transformed" ---- */
 table.field .remix-residual { display: inline-flex; width: 121.6px; vertical-align: middle; }
@@ -1036,11 +1041,11 @@ table.field .remix-residual label.btn { width: auto !important; flex: 1 1 auto; 
 .poke-info .move1, .poke-info .move2, .poke-info .move3, .poke-info .move4 { position: relative; }
 .poke-info .remix-eff { position: absolute; pointer-events: none; font-style: italic; box-sizing: border-box; margin: 0; z-index: 2; }
 .poke-info input.remix-eff { text-align: center; background: #fff; color: #222; border: 1px solid #b9b0c6; border-radius: 3px; padding: 0; font-weight: bold; }
-body.dark .poke-info input.remix-eff { background: #2b2533; color: #f0e6ff; border-color: #6a5a86; }
+body.dark .poke-info input.remix-eff { background: #2b2533; color: #fff; border-color: #6a5a86; }
 .poke-info select.remix-eff { font-weight: bold; }
 .poke-info .remix-pp { display: inline-flex; width: auto; align-items: center; gap: 1px; margin-left: 4px; font-size: 11px; white-space: nowrap; vertical-align: middle; }
 .poke-info .remix-pp button { width: 14px; height: 16px; padding: 0; border: 1px solid #b9b0c6; background: #f4f0f8; color: #5b4a73; border-radius: 3px; line-height: 13px; font-size: 11px; cursor: pointer; }
-body.dark .poke-info .remix-pp button { background: #2b2435; border-color: #4a4058; color: #d9c9f0; }
+body.dark .poke-info .remix-pp button { background: #2b2435; border-color: #4a4058; color: #fff; }
 .poke-info .remix-pp .pp-val { display: inline-block; width: auto; min-width: 34px; text-align: center; cursor: pointer; border-radius: 3px; }
 .poke-info .remix-pp.used .pp-val { font-weight: bold; background: rgba(235, 160, 40, 0.18); }
 .poke-info .remix-pp.empty .pp-val { font-weight: bold; background: rgba(220, 70, 60, 0.25); }
@@ -1059,7 +1064,7 @@ body.dark .poke-info .remix-pp button { background: #2b2435; border-color: #4a40
 /* changed category: same dropdown look (arrow kept), bold italic in a slightly smaller font so it fits */
 .poke-info select.remix-eff-cat { font-size: 11px; padding-left: 3px; padding-right: 0; opacity: 1; }
 .poke-info select.remix-eff-cat { color: #222; -webkit-text-fill-color: #222; background-color: #fff; }
-body.dark .poke-info select.remix-eff-cat { color: #f0e6ff; -webkit-text-fill-color: #f0e6ff; background-color: #2b2533; border: 1px solid #6a5a86; }
+body.dark .poke-info select.remix-eff-cat { color: #fff; -webkit-text-fill-color: #f0e6ff; background-color: #2b2533; border: 1px solid #6a5a86; }
 
 /* changed move type: crisp pill text (not greyed like a disabled box), slightly smaller so italic fits */
 .poke-info select.remix-eff-type { opacity: 1; color: #fff; -webkit-text-fill-color: #fff; font-size: 11px; padding-left: 2px; padding-right: 0; }
@@ -1072,10 +1077,102 @@ label.result-changed { font-style: italic; font-weight: bold; }
 /* ---- Remix: nature box = name + smaller "+Atk/-SpA" ---- */
 .poke-info select.remix-nature-select { color: transparent; }
 .poke-info select.remix-nature-select option { color: #222; }
-body.dark .poke-info select.remix-nature-select option { color: #e6e1ec; }
+body.dark .poke-info select.remix-nature-select option { color: #fff; }
 .poke-info .remix-nature-label { position: absolute; display: flex; align-items: center; width: auto; box-sizing: border-box; padding: 0 18px 0 4px; pointer-events: none; overflow: hidden; white-space: nowrap; }
 .poke-info .remix-nature-label .n-name { display: inline; width: auto; }
 .poke-info .remix-nature-label .n-stats { display: inline; width: auto; font-size: 10px; opacity: .85; margin-left: 2px; }
 
 /* base power boxes: centered text (matches the changed-power overlay) */
 .poke-info [class^="move"] > .move-bp { text-align: center; padding-left: 0; padding-right: 0; }
+
+/* Item status: small tick box + "item" after the status emoji */
+.poke-info .remix-item-status { display: inline-flex; align-items: center; gap: 3px; margin: 0 6px 0 2px; font-size: 12px; line-height: 1; vertical-align: middle; cursor: pointer; color: #7a5a10; white-space: nowrap; }
+.poke-info .remix-item-status input { margin: 0; width: 13px; height: 13px; cursor: pointer; }
+.poke-info .status-row select.toxic-counter { box-sizing: border-box; min-width: 0; padding: 0 2px; }
+.poke-info .remix-item-status.off { color: #8a8294; }
+body.dark .poke-info .remix-item-status { color: #f0d58f; }
+body.dark .poke-info .remix-item-status.off { color: #9a90a8; }
+
+/* ---- Type chart values: greens = weak (2x/4x/8x), reds get darker as resists stack, 0 = immune ---- */
+.tc-val { font-weight: bold; color: inherit; }
+.tc-val.tc-w1 { background: #2fae7a !important; color: #fff; }
+.tc-val.tc-w2 { background: #17845a !important; color: #fff; }
+.tc-val.tc-w3 { background: #0a5236 !important; color: #fff; }
+.tc-val.tc-r1 { background: #c45b5b !important; color: #fff; }
+.tc-val.tc-r2 { background: #9a2e2e !important; color: #fff; }
+.tc-val.tc-r3 { background: #6b1717 !important; color: #fff; }
+.tc-val.tc-r4 { background: #3a0606 !important; color: #f3c9c9; }
+.tc-val.tc-immune { background: #1b1820 !important; color: #a9a2b3; }
+/* changed by the ability or item: italics + a small mark */
+.tc-val.tc-from { font-style: italic; }
+.tc-val.tc-from::after { content: "*"; font-size: 0.85em; margin-left: 1px; opacity: 0.85; }
+.tc-cell[title] { cursor: help; }
+.tc-toggle { display: block; margin: 4px auto 0; font-size: 0.68em; padding: 1px 6px; border-radius: 5px; cursor: pointer;
+	background: transparent; border: 1px solid rgba(128,128,128,0.6); color: inherit; opacity: 0.8; white-space: nowrap; }
+.tc-toggle:hover { opacity: 1; }
+body.tc-hidden .type-chart .tc-title, body.tc-hidden .type-chart .tc-grid { display: none; }
+/* Third type from an item (Rusty Anchor) */
+.poke-info select.remix-type3 { opacity: 1; cursor: default; }
+/* three type pills: narrower so they stay left of the sprite */
+.poke-info.has-type3 select.type1, .poke-info.has-type3 select.type2, .poke-info.has-type3 select.remix-type3 {
+	min-width: 0; padding: 0 1px; font-size: 0.8em; } /* widths set in remix_typechart.js */
+/* white outline around each type cell (tile + value), 0x text white */
+.tc-cell { border: 1px solid #fff !important; }
+.tc-val.tc-immune { color: #fff; }
+.tc-toggle { font-size: 0.8em; padding: 3px 10px; margin-top: 6px; border-radius: 6px; }
+
+/* ---- type chart v3: value part taller (~60%), divider line, crisp white text, borders black in dark mode ---- */
+.tc-tile { font-size: 0.7em; line-height: 11px; padding: 1px 0; text-shadow: 0 1px 1px rgba(0,0,0,0.75); }
+.tc-val { font-size: 0.8em; min-height: 16px; line-height: 16px; border-top: 1px solid #fff; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.45); }
+/* borders: black in both modes */
+.tc-cell { border-color: #000 !important; }
+.tc-val { border-top-color: #000; }
+
+body:not(.dark) .tc-val:not([class*="tc-w"]):not([class*="tc-r"]):not(.tc-immune) { color: inherit; text-shadow: none; }
+.tc-title { opacity: 1; }
+/* greens: true greens (a bit off Grass's yellow-green); reds: clear red getting darker */
+.tc-val.tc-w1 { background: #3daa4c !important; color: #fff; }
+.tc-val.tc-w2 { background: #22873a !important; color: #fff; }
+.tc-val.tc-w3 { background: #0f5a24 !important; color: #fff; }
+.tc-val.tc-r1 { background: #d83434 !important; color: #fff; }
+.tc-val.tc-r2 { background: #a51f1f !important; color: #fff; }
+.tc-val.tc-r3 { background: #6c1010 !important; color: #fff; }
+.tc-val.tc-r4 { background: #380505 !important; color: #fff; }
+.tc-val.tc-immune { color: #fff; }
+body.dark .select2-container .select2-choice, body.dark .select2-chosen { color: #fff; }
+/* ---- type chart values tinted (like the HP % box) instead of solid; immune stays solid black ---- */
+.tc-val.tc-w1 { background: rgba(61, 170, 76, 0.32) !important; }
+.tc-val.tc-w2 { background: rgba(34, 135, 58, 0.5) !important; }
+.tc-val.tc-w3 { background: rgba(15, 110, 40, 0.7) !important; }
+.tc-val.tc-r1 { background: rgba(216, 52, 52, 0.28) !important; }
+.tc-val.tc-r2 { background: rgba(190, 35, 35, 0.42) !important; }
+.tc-val.tc-r3 { background: rgba(150, 20, 20, 0.58) !important; }
+.tc-val.tc-r4 { background: rgba(100, 8, 8, 0.75) !important; }
+/* light mode: tints are pale, so dark text reads better there */
+body:not(.dark) .tc-val[class*="tc-w"], body:not(.dark) .tc-val[class*="tc-r"] { color: #1d1a22; text-shadow: none; }
+/* Type / Forme / Nature / Level: boxes closer to their labels (more room for the sprite) */
+.poke-info .info-group.top label { width: 4.3em; }
+/* Singles / Doubles: as wide as the Reflect / Light Screen columns, bigger text */
+div[aria-labelledby="selectBattleFormatInstruction"] { width: auto !important; display: flex; margin: 0 -2px 6px !important; }
+div[aria-labelledby="selectBattleFormatInstruction"] label { flex: 1; text-align: center; font-size: 1.15em !important; padding: 4px 0 !important; }
+/* toxic counter: smaller */
+.poke-info .status-row select.toxic-counter { font-size: 0.85em; padding: 0 1px; }
+body.item-sprites-hidden .poke-info .remix-item-big, body.main-sprites-hidden .poke-info .remix-mini { display: none !important; }
+.poke-info select.remix-type3 { margin-left: 4px; }
+/* Status row: label hugs its text, emoji and status box follow straight after */
+.poke-info .status-row > label { width: auto; margin-right: 6px; }
+.poke-info .status-row .remix-status-emoji { display: inline-block; width: auto; margin-right: 4px; }
+.poke-info .status-row select.toxic-counter { font-size: 1em; padding: 0 2px; }
+
+/* Title hint */
+.title-hint { font-size: 12px; font-weight: normal; font-style: italic; margin-left: 10px; opacity: 0.9; vertical-align: baseline; }
+/* ---- type chart: clearer steps. Reds deepen with each halving, greens get more vivid with each doubling ---- */
+.tc-val.tc-w1 { background: rgba(61, 170, 76, 0.30) !important; }
+.tc-val.tc-w2 { background: rgba(0, 200, 110, 0.62) !important; }
+.tc-val.tc-w3 { background: rgba(0, 235, 150, 0.85) !important; }
+.tc-val.tc-r1 { background: rgba(220, 60, 60, 0.28) !important; }
+.tc-val.tc-r2 { background: rgba(170, 20, 20, 0.62) !important; }
+.tc-val.tc-r3 { background: rgba(115, 5, 5, 0.85) !important; }
+.tc-val.tc-r4 { background: rgba(60, 0, 0, 0.97) !important; }
+body:not(.dark) .tc-val.tc-w2, body:not(.dark) .tc-val.tc-w3, body:not(.dark) .tc-val.tc-r2,
+body:not(.dark) .tc-val.tc-r3, body:not(.dark) .tc-val.tc-r4 { color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.45); }

@@ -53,7 +53,7 @@ function toggleTheme() {
 
     
     <div aria-label="Settings" role="region">
-        <span class="title-text main-title-text">Pok&eacute;mon Sweltering Sun Remix Damage Calculator</span>
+        <span class="title-text main-title-text">Pok&eacute;mon Sweltering Sun Remix Damage Calculator</span><span class="title-hint">(Click buttons below to toggle features on and off!)</span>
         <span class="genSelection" aria-labelledby="selectGenInstruction" role="radiogroup" title="Select the generation." style="display: none;">
             <span class="visually-hidden" id="selectGenInstruction">Select the generation.</span>
             <input class="gen visually-hidden" type="radio" name="gen" value="1" id="gen1" />
@@ -79,6 +79,7 @@ function toggleTheme() {
         <button type="button" class="btn" id="move-colors-toggle" onclick="remixToggleResultColors()">&#127912; Move colors: On</button>
         <button type="button" class="btn" id="ko-text-toggle" onclick="remixToggleKOText()" title="Show or hide the KO chance text (e.g. &quot;guaranteed 2HKO&quot;) at the end of the result">&#127919; KO text: Shown</button>
         <button type="button" class="btn" id="hp-memory-toggle" onclick="remixToggleHPMemory()" title="On: each Pok&eacute;mon keeps the HP you set when you switch away and back. Off: every Pok&eacute;mon you switch to starts at full HP">&#10084;&#65039; Dynamic HP: On</button>
+        <button type="button" class="btn" id="sprites-toggle" onclick="remixToggleMainSprites()" title="Show or hide the big Pok&eacute;mon and item sprites in the panels (team sprites always stay)">&#128444;&#65039; Sprites: Shown</button>
         </span>
         </span>
         <script>if (!document.body.classList.contains('dark')) document.getElementById('theme-toggle').innerHTML = '&#127769; Dark mode';</script>
@@ -498,6 +499,7 @@ function toggleTheme() {
                     <label for="itemL1">Item</label>
                     <input type="checkbox" class="remix-item-on calc-trigger" checked title="Item active. Untick if it was knocked off or used up." aria-label="Item active" />
                     <select class="item terrain-trigger calc-trigger" id="itemL1"></select>
+                    <img class="remix-item-big" alt="" src="" />
                 </div>
             </div>
             <div class="info-group gen-specific g9">
@@ -1426,6 +1428,7 @@ function toggleTheme() {
                     <label for="itemR1">Item</label>
                     <input type="checkbox" class="remix-item-on calc-trigger" checked title="Item active. Untick if it was knocked off or used up." aria-label="Item active" />
                     <select class="item terrain-trigger calc-trigger" id="itemR1"></select>
+                    <img class="remix-item-big" alt="" src="" />
                 </div>
             </div>
             <div class="info-group gen-specific g9">
@@ -1627,6 +1630,7 @@ function toggleTheme() {
     </script>
     <script type="text/javascript" src="./calc/util.js?"></script>
     <script type="text/javascript" src="./calc/stats.js?"></script>
+    <script type="text/javascript" src="./calc/data/remix_personal.js?"></script>
     <script type="text/javascript" src="./calc/data/remix_species_renames.js?"></script>
     <script type="text/javascript" src="./js/remix_species_renames.js?"></script>
     <script type="text/javascript" src="./js/remix_item_effects.js?"></script>
@@ -1672,6 +1676,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/showdown_hooks.js?"></script>
     <script type="text/javascript" src="./js/sprite_version.js?"></script>
     <script type="text/javascript" src="./js/sprite_colors.js?"></script>
+    <script type="text/javascript" src="./js/remix_item_icons.js?"></script>
     <script type="text/javascript" src="./js/remix_minisprite.js?"></script>
     <script type="text/javascript" src="./js/remix_forms.js?"></script>
     <script type="text/javascript" src="./js/remix_teamzoom.js?"></script>
@@ -1681,6 +1686,7 @@ function toggleTheme() {
     <script type="text/javascript" src="./js/remix_applydamage.js?"></script>
     <script type="text/javascript" src="./js/remix_faint.js?"></script>
     <script type="text/javascript" src="./js/remix_hpmemory.js?"></script>
+    <script type="text/javascript" src="./js/remix_setsave.js?"></script>
     <script type="text/javascript" src="./js/remix_transform.js?"></script>
     <script type="text/javascript" src="./js/remix_moverows.js?"></script>
     <script type="text/javascript" src="./js/remix_typechart.js?"></script>

@@ -11,7 +11,8 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
    ],
    "items": [
     "Big Root"
-   ]
+   ],
+   "appetiteDoubles": true
   }
  ],
  "Petrified Wood": [
@@ -1037,9 +1038,10 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
     "Muk"
    ],
    "items": [
-    "Leftovers",
     "Covert Cloak"
-   ]
+   ],
+   "healPct": 6,
+   "appetiteDoubles": true
   }
  ],
  "Scaly Hood": [
@@ -1528,7 +1530,10 @@ export const REMIX_ITEM_EFFECTS: {[item: string]: any[]} = {
    ],
    "weatherHeal": {
     "Hail": 6
-   }
+   },
+   "drainPct": 50,
+   "drainType": "Ice",
+   "appetiteDoubles": true
   }
  ],
  "Spare Key": [

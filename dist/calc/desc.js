@@ -56,6 +56,14 @@ function displayMove(gen, attacker, defender, move, damage, notation) {
         " (".concat(recoveryText, ")")).concat(recoilText && " (".concat(recoilText, ")"));
 }
 exports.displayMove = displayMove;
+function remixAppetite(gen, p) {
+    return gen.num === 7 && p.remixItemFx().appetiteDoubles && p.hasAbility('Appetite');
+}
+function remixBigRoot(gen, p) {
+    if (gen.num !== 7)
+        return 8192;
+    return remixAppetite(gen, p) ? 8192 : 6144;
+}
 function getRecovery(gen, attacker, defender, move, damage, notation) {
     if (notation === void 0) { notation = '%'; }
     var _a = __read((0, result_1.damageRange)(damage), 2), minDamage = _a[0], maxDamage = _a[1];
@@ -83,16 +91,18 @@ function getRecovery(gen, attacker, defender, move, damage, notation) {
             for (var j in recovery) {
                 var drained = Math.round(range[j] * percentHealed);
                 if (attacker.hasItem('Big Root'))
-                    drained = Math.trunc(drained * (gen.num === 7 ? 6144 : 8192) / 4096);
+                    drained = Math.trunc(drained * remixBigRoot(gen, attacker) / 4096);
                 recovery[j] += Math.min(drained * move.hits, max);
             }
         }
     }
     var fx = attacker.remixItemFx();
-    if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose'))) {
+    if (fx.drainPct && (!fx.drainIfAsleep || defender.hasStatus('slp') || defender.hasAbility('Comatose')) &&
+        (!fx.drainType || move.hasType(fx.drainType))) {
+        var pct = fx.drainPct * (remixAppetite(gen, attacker) ? 2 : 1);
         for (var i = 0; i < minD.length; i++) {
-            recovery[0] += Math.min(Math.round(minD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
-            recovery[1] += Math.min(Math.round(maxD[i] * move.hits * fx.drainPct / 100), defender.maxHP());
+            recovery[0] += Math.min(Math.round(minD[i] * move.hits * pct / 100), defender.maxHP());
+            recovery[1] += Math.min(Math.round(maxD[i] * move.hits * pct / 100), defender.maxHP());
         }
     }
     if (recovery[1] === 0)
@@ -419,6 +429,10 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
         texts.push(defender.item + ' recovery');
     }
     var loseItem = move.named('Knock Off') && !defender.hasAbility('Sticky Hold');
+    if (gen.num === 7 && defender.remixItemFx().healPct && !loseItem) {
+        damage += Math.floor(defender.maxHP() * defender.remixItemFx().healPct * (remixAppetite(gen, defender) ? 2 : 1) / 100);
+        texts.push(defender.item + ' recovery');
+    }
     if (defender.hasItem('Leftovers') && !loseItem) {
         damage += Math.floor(defender.maxHP() / (gen.num === 7 && defender.hasAbility('Appetite') ? 8 : 16));
         texts.push('Leftovers recovery');
@@ -439,7 +453,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     }
     if (gen.num === 7) {
         var side = field.defenderSide;
-        var root = defender.hasItem('Big Root') ? 1.5 : 1;
+        var root = defender.hasItem('Big Root') ? remixBigRoot(gen, defender) / 4096 : 1;
         if (side.isIngrain) {
             damage += Math.floor(Math.floor(defender.maxHP() / 16) * root);
             texts.push('Ingrain recovery');
@@ -462,7 +476,7 @@ function getEndOfTurn(gen, attacker, defender, move, field) {
     if (field.attackerSide.isSeeded && !attacker.hasAbility('Magic Guard')) {
         var recovery = Math.floor(attacker.maxHP() / (gen.num >= 2 ? 8 : 16));
         if (defender.hasItem('Big Root'))
-            recovery = Math.trunc(recovery * (gen.num === 7 ? 6144 : 8192) / 4096);
+            recovery = Math.trunc(recovery * remixBigRoot(gen, defender) / 4096);
         if (attacker.hasAbility('Liquid Ooze')) {
             damage -= recovery;
             texts.push('Liquid Ooze damage');

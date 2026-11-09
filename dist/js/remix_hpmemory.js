@@ -68,23 +68,25 @@ function remixItemAutoStatus(pokeInfo) {
 // Small toggle next to Status, shown only when the item statuses its holder:
 // calc the turn before the orb triggers (off) or after (on).
 function remixShowItemStatusToggle(pokeInfo) {
-	var btn = pokeInfo.find(".remix-item-status").first();
-	if (!btn.length) {
-		btn = $("<button type='button' class='remix-item-status'></button>").insertAfter(pokeInfo.find(".status").first());
-		btn.on("click", function (e) {
-			e.preventDefault();
-			var auto = remixItemAutoStatus(pokeInfo);
-			var sel = pokeInfo.find(".status").first();
-			sel.val(sel.val() === auto ? "Healthy" : auto).change();
-		});
-	}
-	var auto = remixItemAutoStatus(pokeInfo);
-	if (!auto) { btn.hide(); return; }
-	var on = pokeInfo.find(".status").first().val() === auto;
-	btn.show().toggleClass("off", !on)
-		.text(on ? "Item status: on" : "Item status: off")
-		.attr("title", on ? "The item's " + auto + " status is applied. Click for the turn before it triggers."
-			: "The item hasn't triggered yet. Click to apply its " + auto + " status.");
+	// The old "Item" tick box is gone: unticking the held item already turns its auto-status off.
+	pokeInfo.find(".remix-item-status").remove();
+	setTimeout(function () { remixLayoutStatusRow(pokeInfo); }, 0);
+}
+
+// Status row ends exactly where the Reset HP button ends: the status box (and the toxic
+// 1/16 counter when shown) share the space; the rest of the line is kept for the type chart.
+function remixLayoutStatusRow(pokeInfo) {
+	var sel = pokeInfo.find(".status").first();
+	var reset = pokeInfo.find(".remix-heal").first();
+	if (!sel.length || !reset.length || !reset.is(":visible")) return;
+	var right = reset.offset().left + reset.outerWidth();
+	var tox = sel.siblings(".toxic-counter");
+	var toxOn = tox.length && tox.css("display") !== "none" && !tox.hasClass("hide-forced");
+	sel.css("width", "");
+	var toxW = 56; // wide enough for "1/16" etc.
+	if (toxOn) tox.css({ width: toxW + "px", "margin-left": "0" });
+	var w = right - sel.offset().left - (toxOn ? toxW + 5 : 0); // +5: the space between the boxes
+	if (w > 60) sel.css("width", Math.floor(w) + "px");
 }
 
 // Reset a whole team box (0 = your team, 1 = enemy): full HP, Healthy, items back on, nothing fainted.
@@ -180,13 +182,15 @@ function remixMarkTeamHP() {
 			if (st.text() !== look.emoji) st.text(look.emoji);
 			st.attr("title", saved.status);
 		}
-		// held-item badge (placeholder icon until real item sprites are in)
+		// held-item badge: the item's own icon at its real size
 		var item = remixSetItem(id);
 		var off = saved && saved.itemOff;
+		var icon = typeof remixItemIcon === "function" ? remixItemIcon(item) : "";
 		var badge = slot.children(".remix-mini-item");
-		if (!item) { if (badge.length) badge.remove(); } else {
-			if (!badge.length) badge = $("<span class='remix-mini-item'></span>").appendTo(slot);
-			badge.toggleClass("off", !!off).attr("title", item + (off ? " (knocked off / used)" : ""));
+		if (!item || !icon) { if (badge.length) badge.remove(); } else {
+			if (!badge.length) badge = $("<img class='remix-mini-item' alt='' />").appendTo(slot);
+			if (badge.attr("src") !== icon) badge.attr("src", icon);
+			badge.toggleClass("off", !!off).attr({ alt: item, title: item + (off ? " (knocked off / used)" : "") });
 		}
 	});
 }
@@ -283,8 +287,11 @@ function remixShowEffectiveStats(pokeInfo, pokemon) {
 			});
 		}
 		var base = Number(tr.find(".total").text()) || pokemon.rawStats[stat];
+		// Only shown when something (stage, item, status, field, ability...) changes the stat;
+		// hidden otherwise, keeping its space so the rows don't shift.
 		cell.text(value)
 			.toggleClass("remix-stat-up", value > base)
-			.toggleClass("remix-stat-down", value < base);
+			.toggleClass("remix-stat-down", value < base)
+			.css("visibility", value === base ? "hidden" : "visible");
 	}
 }

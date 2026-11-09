@@ -13,7 +13,8 @@ exports.REMIX_ITEM_EFFECTS = {
             ],
             "items": [
                 "Big Root"
-            ]
+            ],
+            "appetiteDoubles": true
         }
     ],
     "Petrified Wood": [
@@ -1039,9 +1040,10 @@ exports.REMIX_ITEM_EFFECTS = {
                 "Muk"
             ],
             "items": [
-                "Leftovers",
                 "Covert Cloak"
-            ]
+            ],
+            "healPct": 6,
+            "appetiteDoubles": true
         }
     ],
     "Scaly Hood": [
@@ -1530,7 +1532,10 @@ exports.REMIX_ITEM_EFFECTS = {
             ],
             "weatherHeal": {
                 "Hail": 6
-            }
+            },
+            "drainPct": 50,
+            "drainType": "Ice",
+            "appetiteDoubles": true
         }
     ],
     "Spare Key": [

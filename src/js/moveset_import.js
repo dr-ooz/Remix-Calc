@@ -19,12 +19,13 @@ function ExportPokemon(pokeInfo) {
 	var EV_counter = 0;
 	var finalText = "";
 	finalText = pokemon.name + (pokemon.item ? " @ " + pokemon.item : "") + "\n";
+	// Ability must be the line right after the name: the importer reads it from there.
+	finalText += pokemon.ability ? "Ability: " + pokemon.ability + "\n" : "";
 	finalText += "Level: " + pokemon.level + "\n";
 	finalText +=
 		pokemon.nature && gen > 2 ? pokemon.nature + " Nature" + "\n" : "";
 	finalText +=
-		pokemon.teraType && gen > 8 ? "Tera Type: " + pokemon.teraType : "";
-	finalText += pokemon.ability ? "Ability: " + pokemon.ability + "\n" : "";
+		pokemon.teraType && gen > 8 ? "Tera Type: " + pokemon.teraType + "\n" : "";
 	if (gen > 2) {
 		var EVs_Array = [];
 		for (var stat in pokemon.evs) {
@@ -63,6 +64,51 @@ function ExportPokemon(pokeInfo) {
 	}
 	finalText = finalText.trim();
 	$("textarea.import-team-text").val(finalText);
+	return finalText;
+}
+
+// One saved set as Showdown text (same layout as ExportPokemon).
+var REMIX_STAT_LABEL = {hp: "HP", at: "Atk", df: "Def", sa: "SpA", sd: "SpD", sp: "Spe"};
+function remixSetText(species, set) {
+	var t = species + (set.item ? " @ " + set.item : "") + "\n";
+	if (set.ability) t += "Ability: " + set.ability + "\n";
+	t += "Level: " + (set.level || 100) + "\n";
+	if (set.nature) t += set.nature + " Nature\n";
+	var evs = [], ivs = [];
+	for (var s in REMIX_STAT_LABEL) {
+		if (set.evs && set.evs[s] > 0) evs.push(set.evs[s] + " " + REMIX_STAT_LABEL[s]);
+		if (set.ivs && set.ivs[s] !== undefined && set.ivs[s] < 31) ivs.push(set.ivs[s] + " " + REMIX_STAT_LABEL[s]);
+	}
+	if (evs.length) t += "EVs: " + evs.join(" / ") + "\n";
+	if (ivs.length) t += "IVs: " + ivs.join(" / ") + "\n";
+	(set.moves || []).forEach(function (m) { if (m && m !== "(No Move)") t += "- " + m + "\n"; });
+	return t.trim();
+}
+
+// Every imported set, in the order shown in your team box, then any others.
+function remixExportAllSets() {
+	var customsets = {};
+	try { customsets = JSON.parse(localStorage.customsets || "{}"); } catch (e) {}
+	var done = {}, out = [];
+	var add = function (species, setName) {
+		var key = species + "|" + setName;
+		if (done[key] || !customsets[species] || !customsets[species][setName]) return;
+		done[key] = true;
+		out.push(remixSetText(species, customsets[species][setName]));
+	};
+	$("#p1 img.trainer-pok").each(function () {
+		var id = this.getAttribute("data-id") || "";
+		var open = id.indexOf(" (");
+		if (open > 0) add(id.substring(0, open), id.substring(open + 2, id.lastIndexOf(")")));
+	});
+	for (var species in customsets) {
+		if (species === "Aegislash-Shield") continue; // stored twice with Aegislash-Blade
+		for (var setName in customsets[species]) add(species, setName);
+	}
+	var text = out.join("\n\n");
+	$("textarea.import-team-text").val(text);
+	if (!out.length) alert("No saved sets to export yet.");
+	return text;
 }
 
 $("#exportL").click(function () {
@@ -170,7 +216,9 @@ function getStats(currentPoke, rows, offset) {
 function getItem(currentRow, j) {
 	for (; j < currentRow.length; j++) {
 		var item = currentRow[j].trim();
-		if (calc.ITEMS[9].indexOf(item) != -1) {
+		// Current gen's list first: Remix items (e.g. Petrified Wood) are only in the Gen 7 list.
+		var genItems = calc.ITEMS[typeof gen !== "undefined" ? gen : 9] || calc.ITEMS[9];
+		if (genItems.indexOf(item) != -1 || calc.ITEMS[9].indexOf(item) != -1) {
 			return item;
 		}
 	}
@@ -415,7 +463,7 @@ $(allPokemon("#clearSets")).click(function () {
 });
 
 $(allPokemon("#importedSets")).click(function () {
-	var pokeID = $(this).parent().parent().prop("id");
+	var pokeID = $(this).closest(".poke-info").prop("id"); // the panel (p1 / p2)
 	var showCustomSets = $(this).prop("checked");
 	if (showCustomSets) {
 		loadCustomList(pokeID);
@@ -431,6 +479,13 @@ $(document).ready(function () {
 		customSets = JSON.parse(localStorage.customsets);
 		updateDex(customSets);
 		$(allPokemon("#importedSetsOptions")).css("display", "inline");
+		// Remix: a remembered imported set that opened before these were loaded: load it again properly.
+		$(".poke-info input.set-selector").each(function () {
+			var id = $(this).val() || "", open = id.indexOf(" (");
+			if (open < 0) return;
+			var species = id.substring(0, open), setName = id.substring(open + 2, id.lastIndexOf(")"));
+			if (customSets[species] && customSets[species][setName]) $(this).change();
+		});
 	} else {
 		loadDefaultLists();
 	}

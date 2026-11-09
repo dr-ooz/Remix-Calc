@@ -37,6 +37,9 @@ export interface RemixItemFx {
     drainPct: number;
     drainIfAsleep: boolean;
     selfDamagePct: number;
+    drainType: string;
+    healPct: number;
+    appetiteDoubles: boolean;
 }
 export declare class Pokemon implements State.Pokemon {
     gen: I.Generation;

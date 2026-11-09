@@ -690,6 +690,12 @@ export function calculateSMSSSV(
     attacker.remixItemFx().addType === move.type;
   if (attacker.hasOriginalType(move.type) || remixItemStab) {
     stabMod += 2048;
+    // Remix: STAB granted by an item (Petrified Wood...) shows as 1.5x power in the move row,
+    // like the item type boosts, and names the item in the result text.
+    if (!attacker.hasOriginalType(move.type) && remixItemStab) {
+      if (desc.remixFinalBP) desc.remixFinalBP = pokeRound(desc.remixFinalBP * 1.5);
+      desc.attackerItem = attacker.item;
+    }
   } else if (
     attacker.hasAbility("Protean", "Libero", "Versatility") &&
     !attacker.teraType
@@ -1526,6 +1532,12 @@ export function calculateBPModsSMSSSV(
     desc.attackerAbility = attacker.ability;
   }
 
+  // Remix: Steelworker = 1.5x power on Steel and Fire moves (a power boost, so the move row shows it)
+  if (gen.num === 7 && attacker.hasAbility("Steelworker") && move.hasType("Steel", "Fire")) {
+    bpMods.push(6144);
+    desc.attackerAbility = attacker.ability;
+  }
+
   // Remix item power boosts (type boosts, move boosts)
   {
     const fx = attacker.remixItemFx();
@@ -1710,10 +1722,6 @@ export function calculateAtModsSMSSSV(
         desc.attackerItem = attacker.item;
       }
     }
-    if (attacker.hasAbility("Steelworker") && move.hasType("Fire")) {
-      atMods.push(6144);
-      desc.attackerAbility = attacker.ability;
-    }
     if (attacker.hasAbility("Infected") && attacker.curHP() <= attacker.maxHP() / 2) {
       atMods.push(2048);
       desc.attackerAbility = attacker.ability;
@@ -1784,7 +1792,7 @@ export function calculateAtModsSMSSSV(
     atMods.push(6144);
     desc.attackerAbility = "Flash Fire";
   } else if (
-    (attacker.hasAbility("Steelworker") && move.hasType("Steel")) ||
+    (gen.num !== 7 && attacker.hasAbility("Steelworker") && move.hasType("Steel")) ||
     (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon")) ||
     (attacker.hasAbility("Transistor") && move.hasType("Electric")) ||
     (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))
@@ -2216,11 +2224,13 @@ export function calculateFinalModsSMSSSV(
   }
 
   if (attacker.hasItem("Expert Belt") && typeEffectiveness > 1 && !move.isZ) {
-    finalMods.push(5120);
+    finalMods.push(4915);
     desc.attackerItem = attacker.item;
+    if (desc.remixFinalBP) desc.remixFinalBP = pokeRound(desc.remixFinalBP * 4915 / 4096); // Remix: show in move row
   } else if (attacker.hasItem("Life Orb")) {
     finalMods.push(5324);
     desc.attackerItem = attacker.item;
+    if (desc.remixFinalBP) desc.remixFinalBP = pokeRound(desc.remixFinalBP * 5324 / 4096); // Remix: show in move row
   } else if (
     attacker.hasItem("Metronome") &&
     move.timesUsedWithMetronome! >= 1 &&

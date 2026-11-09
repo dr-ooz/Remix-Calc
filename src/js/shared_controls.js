@@ -1161,12 +1161,41 @@ $(".gen").change(function () {
 	var itemOptions = getSelectOptions(items, true);
 	$("select.item").find("option").remove().end().append("<option value=\"\">(none)</option>" + itemOptions);
 
-	$(".set-selector").val(getFirstValidSetOption().id);
+	// Remix: reopen what was showing last time (remembered in this browser); otherwise Seviper vs Zangoose.
+	$("#p1 .set-selector").val(remixStartSet("p1"));
+	$("#p2 .set-selector").val(remixStartSet("p2"));
 	$(".set-selector").change();
 });
 
-function getFirstValidSetOption() {
-	return {text: 'Giratina-Origin (Blank Set)', id: 'Giratina-Origin (Blank Set)'};
+var REMIX_DEFAULT_SETS = {p1: "Seviper (Blank Set)", p2: "Zangoose (Blank Set)"};
+function remixSetExists(id) {
+	var open = id ? id.indexOf(" (") : -1;
+	if (open < 0) return false;
+	var species = id.substring(0, open), setName = id.substring(open + 2, id.lastIndexOf(")"));
+	if (setName === "Blank Set") return !!pokedex[species];
+	if (setdex[species] && setdex[species][setName]) return true;
+	// imported sets may not be loaded into setdex yet when the page starts
+	try { var cs = JSON.parse(localStorage.customsets || "{}"); return !!(cs[species] && cs[species][setName]); } catch (e) { return false; }
+}
+function remixStartSet(side) {
+	var saved = {};
+	try { saved = JSON.parse(localStorage.getItem("remixLastSets") || "{}"); } catch (e) {}
+	return remixSetExists(saved[side]) ? saved[side] : REMIX_DEFAULT_SETS[side];
+}
+$(document).on("change", ".poke-info input.set-selector", function () {
+	var side = $(this).closest(".poke-info").attr("id"), id = $(this).val();
+	if (!remixSetExists(id)) return;
+	var saved = {};
+	try { saved = JSON.parse(localStorage.getItem("remixLastSets") || "{}"); } catch (e) {}
+	saved[side] = id;
+	try { localStorage.setItem("remixLastSets", JSON.stringify(saved)); } catch (e) {}
+});
+
+function getFirstValidSetOption(element) {
+	// Show the set the box actually holds (it used to always say Giratina-Origin).
+	var id = element && $(element).val();
+	if (!id) id = remixStartSet(element ? $(element).closest(".poke-info").attr("id") || "p1" : "p1");
+	return {text: id, id: id};
 }
 
 $(".notation").change(function () {
@@ -1414,7 +1443,7 @@ function loadDefaultLists() {
 			});
 		},
 		initSelection: function (element, callback) {
-			callback(getFirstValidSetOption());
+			callback(getFirstValidSetOption(element));
 		}
 	});
 }
@@ -1479,7 +1508,9 @@ $(document).ready(function () {
 			return text.toUpperCase().indexOf(term.toUpperCase()) === 0 || text.toUpperCase().indexOf(" " + term.toUpperCase()) >= 0;
 		}
 	});
-	$(".set-selector").val(getFirstValidSetOption().id);
+	// Remix: each side opens its remembered set (or Seviper / Zangoose).
+	$("#p1 .set-selector").val(remixStartSet("p1"));
+	$("#p2 .set-selector").val(remixStartSet("p2"));
 	$(".set-selector").change();
 	$(".terrain-trigger").bind("change keyup", getTerrainEffects);
 });
