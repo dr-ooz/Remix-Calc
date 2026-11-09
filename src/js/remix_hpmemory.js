@@ -263,7 +263,24 @@ $(function () {
 // ---- Remix: effective stat next to every stat (boosts, burn, paralysis...) ----
 // Bold + faint green when higher than the plain stat, bold + faint red when lower.
 var REMIX_STAT_ROWS = { at: "atk", df: "def", sa: "spa", sd: "spd", sp: "spe" };
-function remixShowEffectiveStats(pokeInfo, pokemon) {
+// Stat after the engine's own attack/defense multipliers. Plain Normal moves (physical Rock Tomb
+// as Normal, special Swift) so move-specific boosts (Flash Fire, Steelworker...) don't count here.
+function remixEngineStat(pokemon, stat, opponent, atkField, defField, value) {
+	if (!opponent || typeof calculateAtModsSMSSSV !== "function") return value;
+	try {
+		var g = calc.Generations.get(gen);
+		var phys = stat === "atk" || stat === "def";
+		// (Tackle isn't in Remix; Rock Tomb as a Normal move is a plain physical hit)
+		var move = phys ? new calc.Move(gen, "Rock Tomb", {overrides: {type: "Normal"}}) : new calc.Move(gen, "Swift");
+		var mods = (stat === "atk" || stat === "spa")
+			? calculateAtModsSMSSSV(g, pokemon, opponent, move, atkField, {})
+			: calculateDfModsSMSSSV(g, opponent, pokemon, move, defField, {}, false, phys);
+		var m = chainMods(mods, 410, 131072);
+		return m === 4096 ? value : Math.max(1, Math.round(value * m / 4096));
+	} catch (e) { return value; }
+}
+
+function remixShowEffectiveStats(pokeInfo, pokemon, opponent, atkField, defField) {
 	if (!pokemon || !pokemon.stats) return;
 	for (var row in REMIX_STAT_ROWS) {
 		var stat = REMIX_STAT_ROWS[row];
@@ -275,17 +292,9 @@ function remixShowEffectiveStats(pokeInfo, pokemon) {
 		// burn halves physical damage (shown on Attack), unless the ability ignores it
 		if (stat === "atk" && pokemon.status === "brn" &&
 			!pokemon.hasAbility("Guts", "Marvel Scale", "Quick Feet", "Flare Heal")) value = Math.floor(value / 2);
-		// Remix item stat boosts (Ultra Space Dust Ditto, Light Ball Pikachu, weather/terrain items...)
-		if (stat !== "spe" && pokemon.remixItemFx) {
-			var weather = $("input:radio[name='weather']:checked").val() || "";
-			var terrain = $("input:checkbox[name='terrain']:checked").val() || "";
-			pokemon.remixItemFx().stats.forEach(function (st) {
-				if (REMIX_STAT_ROWS[st.stat] !== stat) return;
-				var ok = (!st.weather && !st.terrain) ||
-					(st.weather && st.weather.indexOf(weather) !== -1) || (st.terrain && st.terrain.indexOf(terrain) !== -1);
-				if (ok) value = Math.floor(value * st.mult);
-			});
-		}
+		// Ability / item / field multipliers, straight from the damage engine (so the column matches
+		// the damage: Huge Power, Guts, Fur Coat, Choice Band, Assault Vest, Remix items...).
+		if (stat !== "spe") value = remixEngineStat(pokemon, stat, opponent, atkField, defField, value);
 		var base = Number(tr.find(".total").text()) || pokemon.rawStats[stat];
 		// Only shown when something (stage, item, status, field, ability...) changes the stat;
 		// hidden otherwise, keeping its space so the rows don't shift.

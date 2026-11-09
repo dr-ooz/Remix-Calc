@@ -15,6 +15,31 @@ function remixDamageRolls(result) {
 	return totals.filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; });
 }
 
+// HP the attacker heals for dealing `dealt` total damage with this result's move (0 if none).
+function remixDrainHeal(result, dealt) {
+	if (typeof getRecovery !== "function" || !result || !result.move || !(dealt > 0)) return 0;
+	try {
+		var hits = result.move.hits || 1;
+		var r = getRecovery(calc.Generations.get(gen), result.attacker, result.defender, result.move, Math.round(dealt / hits));
+		return Math.max(0, r.recovery[1] || 0);
+	} catch (e) { return 0; }
+}
+
+// The move's button says "Apply damage + heal" when the hit would heal its user.
+function remixUpdateApplyLabels() {
+	if (typeof damageResults === "undefined" || !damageResults) return;
+	["L", "R"].forEach(function (s, side) {
+		for (var i = 0; i < 4; i++) {
+			var btn = $("#resultDamage" + s + (i + 1)).siblings(".remix-apply").first();
+			var res = damageResults[side] && damageResults[side][i];
+			var rolls = res ? remixDamageRolls(res) : [];
+			var heals = rolls.length && remixDrainHeal(res, rolls[rolls.length - 1]) > 0;
+			btn.text(heals ? "Apply damage + heal" : "Apply damage").toggleClass("heals", !!heals)
+				.attr("title", heals ? "Apply this damage to the target and heal the user by what the move drains" : "Apply this damage to the target");
+		}
+	});
+}
+
 function remixHpBox(side) { return $(side === 0 ? "#p1" : "#p2").find(".hp-group").first(); }
 
 function remixSetHP(side, hp, delta) {
@@ -61,9 +86,11 @@ function remixOpenPicker(btn, side, moveIndex) {
 	var quick = $("<div class='rdp-row'></div>");
 	var min = rolls[0], maxRoll = rolls[rolls.length - 1];
 	var mid = rolls[Math.floor((rolls.length - 1) / 2)];
+	var healFor = function (dmg) { return remixDrainHeal(result, Math.min(dmg, cur)); };
 	[["Min", min], ["Mid", mid], ["Max", maxRoll]].forEach(function (q) {
+		var h = healFor(q[1]);
 		quick.append($("<button type='button' class='rdp-btn rdp-main'></button>")
-			.html(q[0] + "<small>" + q[1] + " · " + pct(q[1]) + "</small>").data("dmg", q[1]));
+			.html(q[0] + "<small>" + q[1] + " · " + pct(q[1]) + (h ? " · heals " + h : "") + "</small>").data("dmg", q[1]));
 	});
 	picker.append(quick);
 	if (rolls.length > 3) {
@@ -82,6 +109,12 @@ function remixOpenPicker(btn, side, moveIndex) {
 		if (dmg === undefined) dmg = Number(custom.find("input").val());
 		if (!(dmg >= 0)) return;
 		remixSetHP(target, cur - dmg, -Math.min(dmg, cur));
+		// draining hit: heal the user by what the damage actually dealt drains (if it's missing HP)
+		var heal = healFor(dmg);
+		if (heal > 0) {
+			var own = remixHpBox(side), ownMax = Number(own.find(".max-hp").text()), ownCur = Number(own.find(".current-hp").val());
+			if (ownCur < ownMax) remixSetHP(side, ownCur + heal, Math.min(heal, ownMax - ownCur));
+		}
 		if (typeof remixUsePP === "function") remixUsePP(side, moveIndex);
 		remixClosePicker();
 	});

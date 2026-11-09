@@ -1074,3 +1074,85 @@ function appendIfSet(str: string, toAppend?: string) {
 function toDisplay(notation: string, a: number, b: number, f = 1) {
   return notation === '%' ? Math.floor((a * (1000 / f)) / b) / 10 : Math.floor((a * (48 / f)) / b);
 }
+
+// Remix: end-of-turn HP changes for one Pokemon, listed separately in Gen 7 end-of-turn order
+// (weather -> Grassy Terrain -> held item -> Aqua Ring -> Ingrain -> Leech Seed -> poison -> burn ->
+// binding -> Salt Cure -> Bad Dreams). `pokemon` is the one taking the effects; `foe` is the other side
+// (Leech Seed healing, Bad Dreams); field.defenderSide must be `pokemon`'s side.
+// Same rules as getEndOfTurn above, but not tied to a move. Each entry: {name, hp} (+ heal, - damage).
+export function getRemixResidual(gen: Generation, pokemon: Pokemon, foe: Pokemon, field: Field) {
+  const out: Array<{name: string; hp: number}> = [];
+  const max = pokemon.maxHP();
+  const guard = pokemon.hasAbility('Magic Guard');
+  const add = (name: string, hp: number) => { if (hp) out.push({name, hp}); };
+  // weather
+  if (field.hasWeather('Sun', 'Harsh Sunshine')) {
+    if (pokemon.hasAbility('Dry Skin') || (gen.num !== 7 && pokemon.hasAbility('Solar Power'))) {
+      add(pokemon.ability as string, -Math.floor(max / 8));
+    }
+  } else if (field.hasWeather('Rain', 'Heavy Rain')) {
+    if (gen.num === 7 && pokemon.hasAbility('Hydration')) add('Hydration', Math.floor(max / 6));
+    else if (pokemon.hasAbility('Dry Skin')) add('Dry Skin', Math.floor(max / 8));
+    else if (pokemon.hasAbility('Rain Dish')) add('Rain Dish', Math.floor(max / (gen.num === 7 ? 10 : 16)));
+  } else if (field.hasWeather('Sand')) {
+    if (!pokemon.hasType('Rock', 'Ground', 'Steel') &&
+      !pokemon.hasAbility('Magic Guard', 'Overcoat', 'Sand Force', 'Sand Rush', 'Sand Veil') &&
+      !pokemon.hasItem('Safety Goggles')) add('Sandstorm', -Math.floor(max / 16));
+  } else if (field.hasWeather('Hail', 'Snow')) {
+    if (pokemon.hasAbility('Ice Body', 'Hibernation')) add(pokemon.ability as string, Math.floor(max / (gen.num === 7 ? 6 : 16)));
+    else if (!pokemon.hasType('Ice') && !pokemon.hasAbility('Magic Guard', 'Overcoat', 'Snow Cloak') &&
+      !pokemon.hasItem('Safety Goggles') && field.hasWeather('Hail') && gen.num !== 7) add('Hail', -Math.floor(max / 16));
+  }
+  if (gen.num === 7 && field.weather && pokemon.remixItemFx().weatherHeal[field.weather]) {
+    add(pokemon.item as string, Math.floor(max / pokemon.remixItemFx().weatherHeal[field.weather]));
+  }
+  // Grassy Terrain
+  if (field.hasTerrain('Grassy') && isGrounded(pokemon, field)) {
+    add('Grassy Terrain', Math.floor(max / (gen.num === 7 ? 10 : 16)));
+  }
+  // held item
+  if (gen.num === 7 && pokemon.remixItemFx().healPct) {
+    add(pokemon.item as string, Math.floor(max * pokemon.remixItemFx().healPct * (remixAppetite(gen, pokemon) ? 2 : 1) / 100));
+  }
+  if (pokemon.hasItem('Leftovers')) {
+    add('Leftovers', Math.floor(max / (gen.num === 7 && pokemon.hasAbility('Appetite') ? 8 : 16)));
+  } else if (pokemon.hasItem('Black Sludge')) {
+    if (pokemon.hasType('Poison')) add('Black Sludge', Math.floor(max / 8));
+    else if (!pokemon.hasAbility('Magic Guard', 'Klutz')) add('Black Sludge', -Math.floor(max / 8));
+  } else if (pokemon.hasItem('Sticky Barb') && !guard) {
+    add('Sticky Barb', -Math.floor(max / 4));
+  }
+  // Aqua Ring, Ingrain (field panel toggles)
+  const side = field.defenderSide as any;
+  if (gen.num === 7) {
+    const root = pokemon.hasItem('Big Root') ? remixBigRoot(gen, pokemon) / 4096 : 1;
+    if (side.isAquaRing) add('Aqua Ring', Math.floor(Math.floor(max / 16) * root));
+    if (side.isIngrain) add('Ingrain', Math.floor(Math.floor(max / 16) * root));
+  }
+  // Leech Seed: this side seeded loses HP; the other side seeded heals this side
+  if (field.defenderSide.isSeeded && !guard) add('Leech Seed', -Math.floor(max / (gen.num >= 2 ? 8 : 16)));
+  if (field.attackerSide.isSeeded && !foe.hasAbility('Magic Guard')) {
+    let rec = Math.floor(foe.maxHP() / (gen.num >= 2 ? 8 : 16));
+    if (pokemon.hasItem('Big Root')) rec = Math.trunc(rec * remixBigRoot(gen, pokemon) / 4096);
+    add(foe.hasAbility('Liquid Ooze') ? 'Liquid Ooze' : 'Leech Seed (drain)', foe.hasAbility('Liquid Ooze') ? -rec : rec);
+  }
+  // status
+  if (pokemon.hasStatus('psn', 'tox')) {
+    if (pokemon.hasAbility('Poison Heal')) add('Poison Heal', Math.floor(max / 8));
+    else if (!guard) {
+      const n = pokemon.hasStatus('tox') ? Math.max(1, pokemon.toxicCounter || 1) : 0;
+      add(n ? 'Toxic (' + n + '/16)' : 'Poison', -Math.floor(n ? max * n / 16 : max / (gen.num === 1 ? 16 : 8)));
+    }
+  } else if (pokemon.hasStatus('brn')) {
+    if (gen.num === 7 && pokemon.hasAbility('Flare Heal')) add('Flare Heal', Math.floor(max / 8));
+    else if (pokemon.hasAbility('Heatproof')) add('Burn (Heatproof)', -Math.floor(max / (gen.num > 6 ? 32 : 16)));
+    else if (!guard) add('Burn', -Math.floor(max / (gen.num === 1 || gen.num > 6 ? 16 : 8)));
+  }
+  // binding (field panel "Bound" toggle), Salt Cure, Bad Dreams
+  if (gen.num === 7 && side.isBound && !guard) add('Binding', -Math.floor(max / 8));
+  if (pokemon.isSaltCure && !guard) add('Salt Cure', -Math.floor(max / (pokemon.hasType('Water', 'Steel') ? 4 : 8)));
+  if ((pokemon.hasStatus('slp') || pokemon.hasAbility('Comatose')) && foe.hasAbility('Bad Dreams') && !guard) {
+    add('Bad Dreams', -Math.floor(max / 8));
+  }
+  return out;
+}

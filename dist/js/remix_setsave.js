@@ -45,6 +45,7 @@ function remixSaveSet(pokeObj) {
 	if (typeof updateDex === "function") updateDex(customsets);
 	else localStorage.customsets = JSON.stringify(customsets);
 	if (typeof remixMarkTeamHP === "function") remixMarkTeamHP();
+	if (typeof remixUpdateDoublesAI === "function") remixUpdateDoublesAI(); // saved set changed
 }
 
 function remixIdKey(pokeObj) {

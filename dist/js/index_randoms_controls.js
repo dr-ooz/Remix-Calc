@@ -51,10 +51,16 @@ function performCalculations() {
 	p2info.find(".sp .totalMod").text(p2.stats.spe);
 	if (typeof remixUpdateMoveRows === "function") remixUpdateMoveRows(damageResults);
 	if (typeof remixShowEffectiveStats === "function") {
-		remixShowEffectiveStats(p1info, p1);
-		remixShowEffectiveStats(p2info, p2);
+		remixShowEffectiveStats(p1info, p1, p2, p1field, p2field);
+		remixShowEffectiveStats(p2info, p2, p1, p2field, p1field);
 	}
 	if (typeof remixUpdateTypeCharts === "function") remixUpdateTypeCharts(p1, p2, p1field, p2field);
+	if (typeof remixUpdateDoublesAI === "function") remixUpdateDoublesAI();
+	if (typeof remixUpdateApplyLabels === "function") remixUpdateApplyLabels();
+	if (typeof remixShowResidual === "function") {
+		remixShowResidual(p1info, p1, p2, p2field); // p2field: p1's side is the defender side
+		remixShowResidual(p2info, p2, p1, p1field);
+	}
 	var fastestSide = p1.stats.spe > p2.stats.spe ? 0 : p1.stats.spe === p2.stats.spe ? "tie" : 1;
 
 	var result, maxDamage;
@@ -120,6 +126,7 @@ $(".result-move").change(function () {
 			var desc = result.fullDesc(notation, false);
 			if (desc.indexOf('--') === -1) desc += ' -- possibly the worst move ever';
 			// Remix: optional toggle hides the " -- guaranteed 2HKO"-style ending.
+			// KO text hidden: drop the whole ending (end-of-turn HP is in each panel's "End of turn" row instead).
 			if (typeof remixKOTextHidden === "function" && remixKOTextHidden()) desc = desc.split(' -- ')[0];
 			$("#mainResult").text(desc);
 			$("#damageValues").text("Possible damage amounts: (" + displayDamageHits(result.damage) + ")");

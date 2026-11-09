@@ -68,3 +68,7 @@ export declare function getKOChance(gen: Generation, attacker: Pokemon, defender
     text: string;
     chance?: undefined;
 };
+export declare function getRemixResidual(gen: Generation, pokemon: Pokemon, foe: Pokemon, field: Field): {
+    name: string;
+    hp: number;
+}[];

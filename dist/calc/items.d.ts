@@ -2,12 +2,12 @@ import { Generation, TypeName, StatID } from './data/interface';
 export declare const SEED_BOOSTED_STAT: {
     [item: string]: StatID;
 };
-export declare function getItemBoostType(item: string | undefined): "Grass" | "Poison" | "Fire" | "Flying" | "Dragon" | "Water" | "Steel" | "Ice" | "Psychic" | "Bug" | "Fairy" | "Normal" | "Dark" | "Ghost" | "Electric" | "Ground" | "Fighting" | "Rock" | undefined;
-export declare function getBerryResistType(berry: string | undefined): "Grass" | "Poison" | "Fire" | "Flying" | "Dragon" | "Water" | "Steel" | "Ice" | "Psychic" | "Bug" | "Fairy" | "Normal" | "Dark" | "Ghost" | "Electric" | "Ground" | "Fighting" | "Rock" | undefined;
-export declare function getFlingPower(item?: string): 60 | 80 | 100 | 50 | 85 | 30 | 20 | 90 | 70 | 40 | 150 | 95 | 110 | 10 | 0;
+export declare function getItemBoostType(item: string | undefined): "Normal" | "Fighting" | "Flying" | "Poison" | "Ground" | "Rock" | "Bug" | "Ghost" | "Steel" | "Fire" | "Water" | "Grass" | "Electric" | "Psychic" | "Ice" | "Dragon" | "Dark" | "Fairy" | undefined;
+export declare function getBerryResistType(berry: string | undefined): "Normal" | "Fighting" | "Flying" | "Poison" | "Ground" | "Rock" | "Bug" | "Ghost" | "Steel" | "Fire" | "Water" | "Grass" | "Electric" | "Psychic" | "Ice" | "Dragon" | "Dark" | "Fairy" | undefined;
+export declare function getFlingPower(item?: string): 0 | 10 | 150 | 100 | 50 | 20 | 80 | 60 | 40 | 85 | 110 | 95 | 90 | 70 | 30;
 export declare function getNaturalGift(gen: Generation, item: string): {
     t: TypeName;
     p: number;
 };
-export declare function getTechnoBlast(item: string): "Fire" | "Water" | "Ice" | "Electric" | undefined;
+export declare function getTechnoBlast(item: string): "Fire" | "Water" | "Electric" | "Ice" | undefined;
 export declare function getMultiAttack(item: string): TypeName | undefined;

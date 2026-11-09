@@ -232,12 +232,14 @@ $(".ability").bind("keyup change", function () {
 
 	var ability = $(this).closest(".poke-info").find(".ability").val();
 
-	var TOGGLE_ABILITIES = ['Flash Fire', 'Intimidate', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout'];
+	// Remix: no Intimidate tick box (it overlapped the sprites); apply the -1 Attack by hand instead.
+	var TOGGLE_ABILITIES = ['Flash Fire', 'Minus', 'Plus', 'Slow Start', 'Unburden', 'Stakeout'];
 
 	if (TOGGLE_ABILITIES.indexOf(ability) >= 0) {
 		$(this).closest(".poke-info").find(".abilityToggle").show();
 	} else {
-		$(this).closest(".poke-info").find(".abilityToggle").hide();
+		// hidden = off, so a tick left over from another ability can't apply anything
+		$(this).closest(".poke-info").find(".abilityToggle").prop("checked", false).hide();
 	}
 
 	if (ability === "Supreme Overlord") {

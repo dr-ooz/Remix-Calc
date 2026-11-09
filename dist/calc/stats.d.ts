@@ -3,7 +3,7 @@ export declare const STATS: Array<Array<StatID | 'spc'> | StatID[]>;
 type HPTypeName = Exclude<TypeName, 'Normal' | 'Fairy' | '???'>;
 export declare const Stats: {
     displayStat(stat: StatID | 'spc'): "HP" | "Atk" | "Def" | "SpA" | "SpD" | "Spe" | "Spc";
-    shortForm(stat: StatID | 'spc'): "hp" | "at" | "df" | "sa" | "sd" | "sp" | "sl";
+    shortForm(stat: StatID | 'spc'): "hp" | "at" | "sa" | "df" | "sd" | "sp" | "sl";
     getHPDV(ivs: {
         atk: number;
         def: number;

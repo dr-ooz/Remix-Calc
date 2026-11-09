@@ -85,7 +85,8 @@ function remixTCDamage(attacker, defender, type, field) {
 
 function remixTCVariant(defender, opts) {
 	var d = defender.clone();
-	if (opts.noAbility) d.ability = undefined;
+	// not undefined: the engine refills a blank ability with the species default (e.g. Thick Fat)
+	if (opts.noAbility) d.ability = "(No Ability)";
 	if (opts.noItem) d.item = undefined;
 	if (opts.typeless) {
 		// The engine clones the Pokemon and takes the types from .species, so change them there too.
@@ -130,10 +131,28 @@ function remixUpdateTypeChart(info, defender, field) {
 	var plain = remixTCVariant(defender, {noAbility: true, noItem: true});
 	var noItem = defender.item ? remixTCVariant(defender, {noItem: true}) : null;
 	var noAbility = defender.ability ? remixTCVariant(defender, {noAbility: true}) : null;
+	// Across-the-board damage changes (Fur Coat, Energy Shield, Multiscale...) aren't type matchups: they
+	// belong in the stats. Each variant's "generic" factor = the factor most types share on a typeless copy
+	// with the same ability/item; it's divided out. Type-specific ones (Thick Fat, Levitate, resist items) stay.
+	var bases = REMIX_TC_TYPES.map(function (t) { return remixTCDamage(atk, ref, t[0], field); });
+	var generic = function (d) {
+		if (!d || (!d.ability && !d.item)) return 1;
+		var tl = remixTCVariant(d, {typeless: true}), count = {}, bestK = "1", bestN = 0;
+		REMIX_TC_TYPES.forEach(function (t, i) {
+			if (!(bases[i] > 0)) return;
+			var k = (remixTCDamage(atk, tl, t[0], field) / bases[i]).toFixed(3);
+			count[k] = (count[k] || 0) + 1;
+			if (count[k] > bestN) { bestN = count[k]; bestK = k; }
+		});
+		var g = parseFloat(bestK);
+		return g > 0 ? g : 1; // e.g. Wonder Guard on a typeless copy blocks everything: nothing to divide out
+	};
+	var G = new Map();
+	[full, noItem, noAbility].forEach(function (d) { if (d) G.set(d, generic(d)); });
 	var order = [];
 	REMIX_TC_TYPES.forEach(function (t, i) {
-		var base = remixTCDamage(atk, ref, t[0], field);
-		var val = function (d) { return d ? remixTCSnap(remixTCDamage(atk, d, t[0], field) / base) : null; };
+		var base = bases[i];
+		var val = function (d) { return d ? remixTCSnap(remixTCDamage(atk, d, t[0], field) / base / (G.get(d) || 1)) : null; };
 		var x = val(full), p = val(plain);
 		var cell = chart.find('.tc-cell[data-type="' + t[0] + '"]');
 		var v = cell.find(".tc-val");

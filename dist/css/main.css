@@ -1176,3 +1176,123 @@ body.item-sprites-hidden .poke-info .remix-item-big, body.main-sprites-hidden .p
 .tc-val.tc-r4 { background: rgba(60, 0, 0, 0.97) !important; }
 body:not(.dark) .tc-val.tc-w2, body:not(.dark) .tc-val.tc-w3, body:not(.dark) .tc-val.tc-r2,
 body:not(.dark) .tc-val.tc-r3, body:not(.dark) .tc-val.tc-r4 { color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.45); }
+
+/* ---- Doubles AI panel ---- */
+.dai-panel { display: block; clear: both; box-sizing: border-box; width: min(900px, 100%); margin: 14px auto 10px; border-radius: 10px; padding: 8px 14px 12px; }
+.dai-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.85em; margin-bottom: 6px; }
+.dai-hint { font-style: italic; opacity: 0.85; }
+.dai-rules label { margin-left: 10px; cursor: pointer; }
+.dai-arena { position: relative; display: flex; justify-content: space-between; align-items: stretch; min-height: 230px; padding: 4px 0; }
+.dai-col { display: flex; flex-direction: column; justify-content: space-around; gap: 10px; width: 230px; z-index: 1; }
+.dai-ai { align-items: flex-end; }
+.dai-slot { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.dai-slot select { width: 220px; }
+.dai-slot img { width: 120px; height: 90px; image-rendering: pixelated; visibility: hidden; }
+.dai-you .dai-slot img { transform: scaleX(-1); }
+.dai-hp { font-size: 0.8em; opacity: 0.85; min-height: 1.1em; }
+.dai-arrows { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+.dai-arrow { fill: none; stroke-width: 3; stroke: #e05a5a; opacity: 0.9; }
+.dai-arrow-spread { stroke-dasharray: 7 5; stroke: #e09a3a; }
+.dai-arrow-status { stroke-dasharray: 3 5; stroke: #9a7ae0; }
+.dai-arrowhead { fill: #e05a5a; }
+.dai-label { font-size: 12px; font-weight: bold; fill: #fff; paint-order: stroke; stroke: #17141c; stroke-width: 3px; }
+body:not(.dark) .dai-label { fill: #1d1a22; stroke: #fff; }
+.dai-result { margin-top: 8px; font-size: 0.95em; }
+.dai-line { padding: 3px 0; }
+.dai-note { font-size: 0.8em; opacity: 0.75; margin-left: 12px; }
+.dai-ko { color: #ff6b6b; font-weight: bold; }
+.dai-maybe { font-size: 0.85em; font-style: italic; opacity: 0.8; }
+.dai-empty { font-style: italic; opacity: 0.8; }
+.dai-details { margin-top: 8px; font-size: 0.85em; }
+.dai-details summary { cursor: pointer; }
+.dai-table { border-collapse: collapse; margin-top: 4px; }
+.dai-table th, .dai-table td { border: 1px solid rgba(128,128,128,0.4); padding: 2px 8px; text-align: left; }
+#dai-panel.dai-panel { float: none !important; margin-top: 14px !important; margin-bottom: 10px !important; max-width: none; }
+/* Doubles AI: compact */
+.dai-arena { min-height: 170px; }
+.dai-col { width: 200px; gap: 4px; }
+.dai-slot select { width: 195px; }
+.dai-slot img { width: 80px; height: 60px; }
+.dai-arrow-maybe { stroke-dasharray: 8 6; opacity: 0.75; }
+.dai-result { font-size: 0.9em; }
+/* Show / Hide Doubles AI Calc button (above Singles / Doubles) */
+.dai-open { display: block; width: calc(100% + 4px); margin: 0 -2px 6px; padding: 4px 0; border-radius: 6px; cursor: pointer; font-weight: bold;
+	font-size: 1.05em; background: #2b2435; color: #fff; border: 1px solid #6e5a88; }
+.dai-open:hover { background: #3a3046; }
+.dai-open.on { background: #4a3a66; border-color: #c9a6ef; }
+body:not(.dark) .dai-open { background: #efe6fb; color: #2b2533; border-color: #b9a2d8; }
+body:not(.dark) .dai-open.on { background: #dccbf5; }
+.dai-sure { font-size: 0.8em; font-weight: bold; color: #5fd07a; margin-left: 4px; }
+/* Doubles AI: "Show the AI's math" dropdown */
+.dai-details summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px;
+	border: 1px solid rgba(160,140,200,0.6); background: rgba(160,140,200,0.12); }
+.dai-details summary::-webkit-details-marker { display: none; }
+.dai-details summary::before { content: "▸"; display: inline-block; transition: transform .15s ease; }
+.dai-details[open] summary::before { transform: rotate(90deg); }
+.dai-details summary:hover { background: rgba(160,140,200,0.22); }
+.dai-sum-title { font-weight: bold; }
+.dai-sum-hint { font-style: italic; opacity: 0.8; font-size: 0.9em; }
+.dai-sub { margin: 8px 0 2px; font-size: 0.9em; opacity: 0.85; }
+.dai-table tr.dai-pick td { background: rgba(95, 208, 122, 0.15); font-weight: bold; }
+.dai-open .dai-open-hint { font-weight: normal; font-style: italic; }
+/* End-of-turn residual row (above Current HP) */
+.poke-info .remix-residual { font-size: 0.82em; line-height: 1.35; margin: 2px 0 4px; padding: 3px 6px; border-radius: 6px;
+	background: rgba(128,128,128,0.1); box-sizing: border-box; cursor: help; } /* width set in remix_residual.js */
+.poke-info .remix-residual span { display: inline; width: auto; }
+.remix-residual .rr-label { opacity: 0.8; }
+.remix-residual .rr-heal { color: #5fd07a; }
+.remix-residual .rr-chip { color: #ff7b7b; }
+body:not(.dark) .remix-residual .rr-heal { color: #1e8a3a; }
+body:not(.dark) .remix-residual .rr-chip { color: #c02a2a; }
+.remix-residual .rr-steps { opacity: 0.9; }
+.remix-residual .rr-end { opacity: 0.8; }
+.remix-residual .rr-faint { color: #ff5a5a; font-weight: bold; }
+.dai-reveal { font-size: 0.78em; cursor: pointer; opacity: 0.9; }
+.dai-reveal input { vertical-align: middle; }
+/* Fixed sizes so switching Pokemon never changes the panel height */
+.poke-info .remix-residual { line-height: 1.3; }
+.remix-residual .rr-none { opacity: 0.5; font-style: italic; }
+.poke-info .info-group.top { min-height: 80px; } /* room for the Forme row even when there's none */
+.poke-info .status-row { height: 20px; overflow: visible; } /* same height with or without the toxic 1/16 box */
+
+/* Doubles AI arrows: colour = kind of move, dotted = not guaranteed (spread/status are no longer dashed by default) */
+.dai-arrow { stroke-dasharray: none !important; }
+.dai-arrow.dai-arrow-maybe { stroke-dasharray: 2 6 !important; stroke-linecap: round; opacity: 0.85; }
+.dai-c-red { stroke: #e05a5a; } .dai-head-red { fill: #e05a5a; }
+.dai-c-orange { stroke: #ee8f2a; } .dai-head-orange { fill: #ee8f2a; }
+.dai-c-yellow { stroke: #f2d13a; } .dai-head-yellow { fill: #f2d13a; }
+.dai-c-purple { stroke: #a98ae6; } .dai-head-purple { fill: #a98ae6; }
+.dai-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.75em; opacity: 0.85; margin: 2px 0 4px; justify-content: center; }
+.dai-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.dai-sw { display: inline-block; width: 22px; height: 0; border-top: 3px solid; }
+.dai-sw.dai-c-red { border-color: #e05a5a; } .dai-sw.dai-c-orange { border-color: #ee8f2a; }
+.dai-sw.dai-c-yellow { border-color: #f2d13a; } .dai-sw.dai-c-purple { border-color: #a98ae6; }
+.dai-sw.dai-solid { border-color: currentColor; } .dai-sw.dai-dotted { border-top-style: dotted; border-color: currentColor; }
+/* Doubles AI: results left, legend right (same rows), math table full width below */
+.dai-bottom { display: flex; gap: 16px; align-items: stretch; margin-top: 4px; }
+.dai-left { flex: 1; min-width: 0; }
+.dai-panel .dai-legend { display: grid; grid-template-columns: repeat(3, auto); gap: 4px 14px; align-content: center;
+	font-size: 0.8em; opacity: 0.95; margin: 0; padding: 6px 10px; border-radius: 6px; background: rgba(128,128,128,0.1); white-space: nowrap; }
+.dai-panel .dai-legend span { display: inline; }
+.dai-t-red { color: #e05a5a; } .dai-t-orange { color: #ee8f2a; } .dai-t-yellow { color: #f2d13a; } .dai-t-purple { color: #a98ae6; }
+body:not(.dark) .dai-t-yellow { color: #b8960a; }
+.dai-result { margin-top: 0; }
+.dai-sure, .dai-unsure { font-size: 0.8em; margin-left: 12px; }
+.dai-sure { color: #5fd07a; font-weight: bold; }
+.dai-unsure { color: #e0b05a; }
+.dai-table-wrap { margin-top: 6px; font-size: 0.85em; }
+.dai-panel .dai-legend { flex: 0 0 auto; font-size: 0.72em; gap: 3px 10px; padding: 5px 8px; align-self: center; }
+.dai-left { min-width: 380px; }
+.dai-details summary { white-space: nowrap; } .dai-sum-hint { font-size: 0.82em; }
+/* Doubles AI legend: fills the space beside the results (same height), text + a sample line under each */
+.dai-bottom { align-items: stretch; }
+.dai-panel .dai-legend { flex: 1 1 auto; align-self: stretch; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr;
+	gap: 6px 14px; font-size: 0.9em; padding: 8px 14px; white-space: nowrap; }
+.dai-lg { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+.dai-ln { display: block; width: 70%; height: 0; border-top: 4px solid; }
+.dai-ln-red { border-color: #e05a5a; } .dai-ln-orange { border-color: #ee8f2a; } .dai-ln-yellow { border-color: #f2d13a; }
+.dai-ln-purple { border-color: #a98ae6; } .dai-ln-solid { border-color: currentColor; }
+.dai-ln-dotted { border-top-style: dotted; border-color: currentColor; }
+.dai-left { flex: 0 0 auto; min-width: 0; }
+.remix-apply.heals { border-color: #3f9a5a; }
+body.dark .remix-apply.heals { border-color: #4fb56b; color: #c9f3d4; }
